@@ -95,7 +95,6 @@ public class LoginController {
     @FXML
     void openStudents(ActionEvent event) throws IOException {
         try {
-            facultyController facultycontroller = new facultyController();
             FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("StdDashboard.fxml"));
 
             Parent root = fxmlLoader.load();
@@ -112,7 +111,6 @@ public class LoginController {
     @FXML
     void openCourses(ActionEvent event) throws IOException {
         try {
-            facultyController facultycontroller = new facultyController();
             FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("AdminView.fxml"));
 
             Parent root = fxmlLoader.load();
@@ -133,7 +131,19 @@ public class LoginController {
 
     @FXML
     void openSubjects(ActionEvent event) throws IOException {
+        try {
+            facultyController facultycontroller = new facultyController();
+            FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("admin-view.fxml"));
 
+            Parent root = fxmlLoader.load();
+
+            Stage newStage = new Stage();
+            newStage.setScene(new Scene(root, 600, 400));
+            newStage.setTitle("Student Dashboard");
+            newStage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     //@FXML
