@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="engg1420_project.universitymanagementsystem.StdDashCtrl">
+
+   <children>
+      <ListView fx:id="studentList" layoutX="124.0" layoutY="80.0" prefHeight="320.0" prefWidth="476.0" />
+      <Label fx:id="title_studentList" layoutX="120.0" layoutY="60.0" text=" Student List" />
+      <Button fx:id="button_testSwitchScene" layoutX="290.0" layoutY="50.0" mnemonicParsing="false" onAction="#viewStudent" text="View Profile" />
+      <Label layoutX="11.0" layoutY="14.0" text="Student Management System">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Button fx:id="button_addStd" layoutX="490.0" layoutY="50.0" mnemonicParsing="false" onAction="#addOrEdit" text="Add/Edit Student" />
+      <Button fx:id="button_deleteStd" layoutX="380.0" layoutY="50.0" mnemonicParsing="false" onAction="#buttom_delete" text="Delete Student" />
+   </children>
+</Pane>

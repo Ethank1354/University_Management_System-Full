@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane fx:id="anchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1">
+   <VBox alignment="CENTER" spacing="10.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="30.0">
+      <CheckBox fx:id="accessCheck" mnemonicParsing="false" selected="true" text="Admin/Faculty?" />
+      <!-- Label in the center top -->
+      <Label style="-fx-font-size: 24px; -fx-font-weight: bold;" text="Faculty Members" />
+
+      <!-- ListView below the label -->
+      <ListView fx:id="facultyList" prefHeight="200.0" prefWidth="500.0" />
+   </VBox>
+
+   <!-- Button in the top right corner -->
+   <HBox alignment="CENTER_RIGHT" spacing="10.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="30.0">
+      <Button fx:id="addFacultyButton" onAction="#addFaculty" text="Add Faculty Member" />
+   </HBox>
+</AnchorPane>

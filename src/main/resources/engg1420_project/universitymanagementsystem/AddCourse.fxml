@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="engg1420_project.universitymanagementsystem.AddCourseController"
+            prefHeight="400.0" prefWidth="600.0">
+
+    <VBox spacing="10" alignment="CENTER">
+        <Label text="Add a Course"/>
+
+
+        <Label text="Course Name"/>
+        <TextField fx:id="courseNameField"/>
+
+        <Label text="Course Code"/>
+        <TextField fx:id="courseCodeField"/>
+
+        <Label text="Subject Name"/>
+        <TextField fx:id="subjectNameField"/>
+
+        <Label text="Section Number"/>
+        <TextField fx:id="sectionNumberField"/>
+
+        <Label text="Teacher Name"/>
+        <TextField fx:id="teacherNameField"/>
+
+        <Label text="Capacity"/>
+        <TextField fx:id="capacityField"/>
+
+        <Label text="Lecture Time"/>
+        <TextField fx:id="lectureTimeField"/>
+
+        <Label text="Location"/>
+        <TextField fx:id="locationField"/>
+
+        <Label text="Final Exam Date/Time"/>
+        <TextField fx:id="finalExamDateTimeField"/>
+
+        <Button text="Add Course" onAction="#handleAddCourse"/>
+        <Label fx:id="statusLabel"/>
+
+
+
+    </VBox>
+</AnchorPane>
+

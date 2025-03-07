@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="engg1420_project.universitymanagementsystem.AdminViewController">
+
+    <VBox spacing="20" alignment="CENTER">
+
+        <Button fx:id="viewCoursesButton" text="View Courses" onAction="#viewCourses"/>
+        <Button fx:id="editCourseButton" text="Edit Course" onAction="#editCourse"/>
+        <Button fx:id="addCourseButton" text="Add Course" onAction="#addCourse"/>
+        <Button fx:id="deleteCourseButton" text="Delete Course" onAction="#deleteCourse"/>
+        <Button fx:id="assignFacultyButton" text="Assign Faculty" onAction="#assignFaculty"/>
+        <Button fx:id="manageEnrollmentsButton" text="Manage Enrollments" onAction="#manageEnrollments"/>
+
+    </VBox>
+
+</AnchorPane>
