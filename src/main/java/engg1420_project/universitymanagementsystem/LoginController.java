@@ -126,13 +126,24 @@ public class LoginController {
 
     @FXML
     void openEvents(ActionEvent event) throws IOException {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("admin-view.fxml"));
 
+            Parent root = fxmlLoader.load();
+
+            Stage newStage = new Stage();
+            newStage.setScene(new Scene(root, 600, 400));
+            newStage.setTitle("Student Dashboard");
+            newStage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
     void openSubjects(ActionEvent event) throws IOException {
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("admin-view.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("hello-view-events.fxml"));
 
             Parent root = fxmlLoader.load();
 

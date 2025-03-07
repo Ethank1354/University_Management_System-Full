@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.ParallelCamera?>
+<?import javafx.scene.canvas.Canvas?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+
+<HBox prefHeight="384.0" prefWidth="600.0" spacing="10.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="engg1420_project.universitymanagementsystem.MainController">
+
+    <!-- Sidebar (Dashboard) -->
+    <VBox alignment="CENTER_LEFT" prefHeight="572.0" prefWidth="327.0" spacing="15.0" style="-fx-background-color: #2C3E50;">
+        <padding>
+            <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+        </padding>
+      <Canvas height="92.0" width="132.0" />
+        <Button prefWidth="140.0" text="Subject Management" />
+        <Button prefWidth="140.0" text="Event Management" />
+        <Button prefWidth="140.0" text="Course Management" />
+        <Button prefWidth="140.0" text="Student Management" />
+        <Button prefWidth="140.0" text="Faculty Management" />
+
+        <Button onAction="#onHelloButtonClick" prefWidth="140.0" text="Dashboard" />
+      <Canvas height="103.0" width="93.0" />
+    </VBox>
+
+    <!-- Main Content Area -->
+    <Pane fx:id="mainContent" prefWidth="400.0" style="-fx-background-color: #ECF0F1;">
+        <Label layoutX="50.0" layoutY="50.0" prefHeight="59.0" prefWidth="202.0" text="UNIVERSITY MANAGEMENT SYSTEM" />
+    </Pane>
+   <ParallelCamera />
+
+</HBox>
