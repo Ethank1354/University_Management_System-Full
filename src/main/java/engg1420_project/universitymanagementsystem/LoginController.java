@@ -132,7 +132,6 @@ public class LoginController {
     @FXML
     void openSubjects(ActionEvent event) throws IOException {
         try {
-            facultyController facultycontroller = new facultyController();
             FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("admin-view.fxml"));
 
             Parent root = fxmlLoader.load();
