@@ -1,21 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="engg1420_project.universitymanagementsystem.AdminViewController">
+<AnchorPane fx:id="subject_management" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="engg1420_project.universitymanagementsystem.AdminViewController">
 
-    <VBox spacing="20" alignment="CENTER">
+    <VBox alignment="CENTER" spacing="20">
 
-        <Button fx:id="viewCoursesButton" text="View Courses" onAction="#viewCourses"/>
-        <Button fx:id="editCourseButton" text="Edit Course" onAction="#editCourse"/>
-        <Button fx:id="addCourseButton" text="Add Course" onAction="#addCourse"/>
-        <Button fx:id="deleteCourseButton" text="Delete Course" onAction="#deleteCourse"/>
-        <Button fx:id="assignFacultyButton" text="Assign Faculty" onAction="#assignFaculty"/>
-        <Button fx:id="manageEnrollmentsButton" text="Manage Enrollments" onAction="#manageEnrollments"/>
+        <Button fx:id="viewCoursesButton" onAction="#viewCourses" text="View Courses" />
+        <Button fx:id="editCourseButton" onAction="#editCourse" text="Edit Course" />
+        <Button fx:id="addCourseButton" onAction="#addCourse" text="Add Course" />
+        <Button fx:id="deleteCourseButton" onAction="#deleteCourse" text="Delete Course" />
+        <Button fx:id="assignFacultyButton" onAction="#assignFaculty" text="Assign Faculty" />
+        <Button fx:id="manageEnrollmentsButton" onAction="#manageEnrollments" text="Manage Enrollments" />
 
     </VBox>
 
