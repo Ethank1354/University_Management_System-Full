@@ -1,4 +1,11 @@
+//package com.example.project;
 package engg1420_project.universitymanagementsystem;
+
+import engg1420_project.universitymanagementsystem.StudentCM;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class Course {
     private String courseName;
     private int courseCode;
@@ -9,9 +16,8 @@ public class Course {
     private String lectureTime;
     private String location;
     private String finalExamDateTime;
+    private List<StudentCM> enrolledStudents = new ArrayList<>();
 
-    //Course Calc = new Course();
-//"Calculus I", "MATH001", 1, "Mrs. " 300, "30 Mon/Wed 9-11 AM", "Place", "April 01/7:00-9:00pm"
     public Course(String courseName, int courseCode, String subjectName, int sectionNumber, String teacherName, int capacity, String lectureTime, String location, String finalExamDateTime) {
         this.courseName = courseName;
         this.courseCode = courseCode;
@@ -24,48 +30,46 @@ public class Course {
         this.finalExamDateTime = finalExamDateTime;
     }
 
-    public String getCourseName() {
-        return courseName;
+    // Getters
+    public String getCourseName() { return courseName; }
+    public int getCourseCode() { return courseCode; }
+    public String getSubjectName() { return subjectName; }
+    public int getSectionNumber() { return sectionNumber; }
+    public String getTeacherName() { return teacherName; }
+    public int getCapacity() { return capacity; }
+    public String getLectureTime() { return lectureTime; }
+    public String getLocation() { return location; }
+    public String getFinalExamDateTime() { return finalExamDateTime; }
+    public List<StudentCM> getEnrolledStudents() { return enrolledStudents; }
+
+    // Setters
+    public void setCourseName(String courseName) { this.courseName = courseName; }
+    public void setCourseCode(int courseCode) { this.courseCode = courseCode; }
+    public void setSubjectName(String subjectName) { this.subjectName = subjectName; }
+    public void setSectionNumber(int sectionNumber) { this.sectionNumber = sectionNumber; }
+    public void setTeacherName(String teacherName) { this.teacherName = teacherName; }
+    public void setCapacity(int capacity) { this.capacity = capacity; }
+    public void setLectureTime(String lectureTime) { this.lectureTime = lectureTime; }
+    public void setLocation(String location) { this.location = location; }
+    public void setFinalExamDateTime(String finalExamDateTime) { this.finalExamDateTime = finalExamDateTime; }
+
+    // Enroll a student
+    public boolean enrollStudent(StudentCM student) {
+        if (enrolledStudents.size() < capacity) {
+            enrolledStudents.add(student);
+            return true;  // Enrollment successful
+        } else {
+            return false; // Course is full
+        }
     }
 
-    public int getCourseCode() {
-        return courseCode;
+    // Remove a student
+    public boolean removeStudent(StudentCM student) {
+        return enrolledStudents.remove(student);
     }
-
-    public String getSubjectName() {
-        return subjectName;
-    }
-
-    public int getSectionNumber() {
-        return sectionNumber;
-    }
-
-    public String getTeacherName() {
-        return teacherName;
-    }
-
-    public int getCapacity() {
-        return capacity;
-    }
-
-    public String getLectureTime() {
-        return lectureTime;
-    }
-
-    public String getLocation() {
-        return location;
-    }
-
-    public String getFinalExamDateTime() {
-        return finalExamDateTime;
-    }
-
 
     @Override
-    public String toString(){
-        return subjectName + courseCode;
+    public String toString() {
+        return subjectName + " " + courseCode;
     }
-
 }
-
-

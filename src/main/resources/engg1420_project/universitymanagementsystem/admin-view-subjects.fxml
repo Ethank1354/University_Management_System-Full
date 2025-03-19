@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.cell.*?>
+<?import javafx.util.Callback?>
+<?import engg1420_project.universitymanagementsystem.ButtonTableCell?>
+
+<!--<?import com.example.project1.ButtonTableCell?>-->
+<?import javafx.scene.layout.HBox?>
+<AnchorPane xmlns="http://javafx.com/javafx/17.0.6"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="engg1420_project.universitymanagementsystem.AdminViewSubjectsController">
+<VBox spacing="10">
+    <children>
+        <Label text="Subject Information">
+            <font>
+                <Font size="24.0" />
+            </font>
+        </Label>
+        <Button text="Create New Subject" onAction="#openCreateDialog" />
+        <TableView fx:id="subjectsTable" fixedCellSize="30.0" prefHeight="365.0" prefWidth="600.0">
+            <columns>
+                <TableColumn fx:id="nameColumn" prefWidth="40" text="Subject Name" />
+                <TableColumn fx:id="codeColumn" prefWidth="30" text="Subject Code" />
+                <TableColumn prefWidth="30" text="Actions">
+                    <cellFactory>
+                        <!-- Directly reference the static factory method -->
+                        <ButtonTableCell fx:factory="forTableColumn" />
+                    </cellFactory>
+                </TableColumn>
+            </columns>
+        </TableView>
+    </children>
+</VBox>
+</AnchorPane>

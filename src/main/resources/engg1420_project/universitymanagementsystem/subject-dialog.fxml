@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<DialogPane xmlns="http://javafx.com/javafx/17.0.6"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="engg1420_project.universitymanagementsystem.SubjectDialogController">
+    <content>
+        <GridPane hgap="10" vgap="10">
+            <Label text="Subject Name:" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+            <TextField fx:id="nameField" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+            <Label text="Subject Code:" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+            <TextField fx:id="codeField" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+        </GridPane>
+    </content>
+    <buttonTypes>
+        <ButtonType text="Cancel" buttonData="CANCEL_CLOSE" />
+        <ButtonType text="Save" buttonData="OK_DONE" />
+    </buttonTypes>
+</DialogPane>

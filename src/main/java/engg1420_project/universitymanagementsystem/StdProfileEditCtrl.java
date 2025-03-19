@@ -1,3 +1,4 @@
+//package engg1420group2.universitymanagementsystem.studentmanagement;
 package engg1420_project.universitymanagementsystem;
 
 import javafx.beans.Observable;
@@ -7,121 +8,142 @@ import javafx.event.ActionEvent;
 import javafx.fxml.*;
 import javafx.scene.control.*;
 import javafx.scene.*;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.*;
 
 import java.io.IOException;
-import java.util.Objects;
-import java.util.ResourceBundle;
+import java.util.*;
 import java.net.URL;
-import java.util.HashMap;
+import java.sql.*;
+import java.sql.SQLException;
 
 public class StdProfileEditCtrl  {
 
-    @FXML
-    private TextField tfName, tfAddress, tfPhone, tfEmail;
+    private DatabaseManager db;
+    private String studentInfo;
+    private Scene previousScene;
+    private String username;
+    private Student student;
+
+
+    public StdProfileEditCtrl(DatabaseManager db, String studentInfo, String username) throws SQLException {
+        this.db = db;
+        this.studentInfo = studentInfo;
+        String[] parts = studentInfo.split(":");
+        this.student = new Student(parts[0], db);
+        this.username = username;
+
+    }
 
     @FXML
-    private Label label_ID;
+    private TextField tfName, tfAddress, tfPhone, tfEmail, tfPassword, tfThesis, tfProgress;
 
-   sharedModel sm = new sharedModel();
-    //private sharedModel sm;
-    String target = sharedModel.getSelectedName();
-    //private String target;
+    @FXML
+    private ChoiceBox cBoxAcmLvl;
 
+    @FXML
+    private Label labelStdID;
+
+    @FXML
+    private Button btnSave, btnExit, btnUpload;
+
+    @FXML
+    private AnchorPane contentPane;
 
     //Save changes button
     @FXML
     void saveChanges(ActionEvent event) throws IOException {
+        /*
+        String[] newValues = {student.getStudentID(), tfName.getText(), tfAddress.getText(), tfPhone.getText(), tfEmail.getText(), cBoxAcmLvl.getValue().toString(), "default", "Fall 2025", "ENG101", tfThesis.getText(), tfProgress.getText(),tfPassword.getText()};
+        List<String> convert = new ArrayList<>();
 
-        //changing all the data to the values in the text field
-        sm.getValueForKey(target).setName(tfName.getText());
-        sm.getValueForKey(target).setAddress(tfAddress.getText());
-        sm.getValueForKey(target).setPhone(tfPhone.getText());
-        sm.getValueForKey(target).setEmail(tfEmail.getText());
-
-        //Going back to the student dashboard
+        for (int i = 0; i < newValues.length; i++) {
+            convert.add(newValues[i]);
+        }
         try {
-          //  Student updatedStd = new Student(tfName.getText(),tfAddress.getText(), tfPhone.getText(), tfEmail.getText(),"Research", "Undergrad");
-         //   sm.updatePerson(target, updatedStd);
+            db.updateRowInTable("UMS_Data_Students ", "StudentID", student.getStudentID(), convert);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
 
-            // Load the FXML for the Faculty-Profile.fxml file
-            FXMLLoader fxmlLoader = new FXMLLoader(StdDashApp.class.getResource("StdDashboard.fxml"));
 
-            // Load the scene from the FXML file
-            Parent root = fxmlLoader.load();
+         */
 
-            // Create a new stage (window)
-            Stage newStage = new Stage();
 
-            // Create a new scene and set it for the new stage
-            Scene scene = new Scene(root, 600, 400); // Adjust width and height as needed
-            newStage.setTitle("Student Management");
+        try {
+            StdDashCtrl stdDashCtrl = new StdDashCtrl(db,username);
+            FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("StdDashboard.fxml"));
+            fxmlLoader.setController(stdDashCtrl);
 
-            // Set the scene to the new stage and show it
-            newStage.setScene(scene);
-            newStage.show();
+            AnchorPane pane = fxmlLoader.load();
+            contentPane.getChildren().setAll(pane);
+//            Parent root = fxmlLoader.load();
+//
+//            // Get current stage and store previous scene
+//            Stage currentStage = (Stage) btnSave.getScene().getWindow();
+//            Scene previousScene = currentStage.getScene(); // Save current scene
+
+
+
+//            currentStage.setScene(new Scene(root, 600, 400));
+//            currentStage.setTitle("Student Management System");
 
         } catch (IOException e) {
             e.printStackTrace();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
     }
 
-    //Exit Button
-    //Goes back to the student dashboard without changing anything
+
     @FXML
     void exit(ActionEvent event) throws IOException {
         try {
-            // Load the FXML for the Faculty-Profile.fxml file
-            FXMLLoader fxmlLoader = new FXMLLoader(StdDashApp.class.getResource("StdDashboard.fxml"));
+            StdDashCtrl stdDashCtrl = new StdDashCtrl(db,username);
+            FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("StdDashboard.fxml"));
+            fxmlLoader.setController(stdDashCtrl);
+            AnchorPane pane = fxmlLoader.load();
+            contentPane.getChildren().setAll(pane);
+//            Parent root = fxmlLoader.load();
+//
+//            // Get current stage and store previous scene
+//            Stage currentStage = (Stage) btnExit.getScene().getWindow();
+//            Scene previousScene = currentStage.getScene(); // Save current scene
 
-            // Load the scene from the FXML file
-            Parent root = fxmlLoader.load();
 
-            // Create a new stage (window)
-            Stage newStage = new Stage();
 
-            // Create a new scene and set it for the new stage
-            Scene scene = new Scene(root, 600, 400); // Adjust width and height as needed
-            newStage.setTitle("Student Information");
-
-            // Set the scene to the new stage and show it
-            newStage.setScene(scene);
-            newStage.show();
+//            currentStage.setScene(new Scene(root, 600, 400));
+//            currentStage.setTitle("Student Management System");
 
         } catch (IOException e) {
             e.printStackTrace();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
     }
 
+    @FXML
     public void initialize() {
+        cBoxAcmLvl.getItems().addAll("Undergraduate", "Graduate");
 
-    //Filling the text fields with whats in the student object
-        tfName.setText(sm.getValueForKey(target).getName());
-        tfAddress.setText(sm.getValueForKey(target).getAddress());
-        tfPhone.setText(sm.getValueForKey(target).getPhone());
-        tfEmail.setText(sm.getValueForKey(target).getEmail());
-
-
-
-
+        tfName.setText(student.getName());
+        //labelStdID.setText(student.getStudentID());
+        tfEmail.setText(student.getEmail());
+        tfPhone.setText(student.getPhoneNumber());
+        tfAddress.setText(student.getAddress());
+        tfThesis.setText(student.getThesis());
+        tfPassword.setText(student.getPassword());
+        tfProgress.setText(Double.toString(student.getAcademicProgress()));
+        //labelSemester.setText(student.getSemster());
+        if (student.getAcademicLvl().equals("Undergraduate")) {
+            cBoxAcmLvl.setValue("Undergraduate");
+        } else if (student.getAcademicLvl().equals("Graduate")) {
+            cBoxAcmLvl.setValue("Graduate");
+        } else {
+            cBoxAcmLvl.setValue("Undergraduate");
+        }
     }
 
-    /*
-    public void initData(sharedModel dataStorage, String studentKey) {
-        dataStorage = sm;
-        studentKey = target;
-
-        // Initialize the fields with the current values
-        Student std = dataStorage.getValueForKey(studentKey);
-
-        tfName.setText(std.getName());
-        tfAddress.setText(std.getAddress());
-        tfPhone.setText(std.getPhone());
-        tfEmail.setText(std.getEmail());
-
-    }
-
-     */
 
 
 }

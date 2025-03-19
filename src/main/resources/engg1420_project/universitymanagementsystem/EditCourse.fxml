@@ -1,15 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="com.example.project.EditCourseController">
-    <VBox spacing="20" alignment="CENTER">
-        <Label text="View Courses (Placeholder)" />
-        <Button fx:id="editCourseButton" text="Go Back" onAction="#goBack"/>
-    </VBox>
+<AnchorPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="engg1420_project.universitymanagementsystem.EditCourseController">
+    <VBox spacing="10" alignment="CENTER">
+        <Label text="Edit Course" />
 
+        <Label text="Course Name" />
+        <TextField fx:id="nameField" promptText="Course Name" />
+
+        <Label text="Course Code" />
+        <TextField fx:id="codeField" promptText="Course Code" />
+
+        <Label text="Subject" />
+        <TextField fx:id="subjectField" promptText="Subject" />
+
+        <Label text="Section" />
+        <TextField fx:id="sectionField" promptText="Section" />
+
+        <Label text="Instructor" />
+        <TextField fx:id="teacherField" promptText="Instructor" />
+
+        <Label text="Capacity" />
+        <TextField fx:id="capacityField" promptText="Capacity" />
+
+        <Label text="Lecture Time" />
+        <TextField fx:id="timeField" promptText="Lecture Time" />
+
+        <Label text="Location" />
+        <TextField fx:id="locationField" promptText="Location" />
+
+        <Label text="Final Exam Date" />
+        <TextField fx:id="examField" promptText="Final Exam Date" />
+
+        <HBox spacing="10">
+            <Button fx:id="saveButton" text="Save" onAction="#saveChanges" />
+            <Button fx:id="cancelButton" text="Cancel" onAction="#cancelEdit" />
+        </HBox>
+    </VBox>
 </AnchorPane>

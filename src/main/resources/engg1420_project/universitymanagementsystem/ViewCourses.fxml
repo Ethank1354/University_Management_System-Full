@@ -20,7 +20,7 @@
             </columns>
         </TableView>
 
+        <Button fx:id="viewEnrollmentsButton" text="View Enrollments" onAction="#viewEnrollments" disable="true"/>
         <Button fx:id="goBackButton" text="Go Back" onAction="#goBack"/>
     </VBox>
 </AnchorPane>
-

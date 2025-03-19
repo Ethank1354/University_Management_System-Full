@@ -1,11 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
 <AnchorPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="com.example.project.ViewEnrollmentsController">
-    <VBox spacing="20" alignment="CENTER">
-        <Label text="View Courses (Placeholder)" />
-        <Button fx:id="viewEnrollmentssButton" text="Go Back" onAction="#goBack"/>
+    <VBox spacing="10" alignment="CENTER">
+        <Label text="View Enrollments" />
+
+        <TableView fx:id="enrollmentsTable">
+            <columns>
+                <TableColumn fx:id="nameColumn" text="Course Name"/>
+                <TableColumn fx:id="codeColumn" text="Course Code"/>
+                <TableColumn fx:id="subjectColumn" text="Subject"/>
+                <TableColumn fx:id="sectionColumn" text="Section"/>
+                <TableColumn fx:id="teacherColumn" text="Instructor"/>
+                <TableColumn fx:id="capacityColumn" text="Capacity"/>
+                <TableColumn fx:id="timeColumn" text="Lecture Time"/>
+                <TableColumn fx:id="locationColumn" text="Location"/>
+                <TableColumn fx:id="examColumn" text="Final Exam"/>
+            </columns>
+        </TableView>
+
+        <Button fx:id="goBackButton" text="Go Back" onAction="#goBack"/>
     </VBox>
 </AnchorPane>

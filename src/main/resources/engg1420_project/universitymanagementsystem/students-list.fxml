@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import javafx.collections.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
+<AnchorPane fx:id="anchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1">
+
 <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Label text="Course" />
-      <Label text="Students" />
-      <ListView fx:id="studentsList" prefHeight="200.0" prefWidth="350.0">
-         <!-- Example courses -->
-         <items>
-            <FXCollections fx:factory="observableArrayList">
-               <String fx:value="one" />
-               <String fx:value="two" />
-               <String fx:value="three" />
-            </FXCollections>
-         </items>
-      </ListView>
+      <!-- Back Button in the top left -->
+      <HBox alignment="CENTER_LEFT" spacing="10">
+         <Button fx:id="backButton" onAction="#goBack" text="Back" />
+      </HBox>
+
+      <!-- Labels centered in the VBox -->
+      <Label alignment="CENTER" text="Course" VBox.vgrow="ALWAYS" />
+      <Label alignment="CENTER" text="Students" VBox.vgrow="ALWAYS" />
+
+      <!-- ListView for students -->
+      <ListView fx:id="studentsList" prefHeight="200.0" prefWidth="350.0" />
    </children>
 </VBox>
+</AnchorPane>

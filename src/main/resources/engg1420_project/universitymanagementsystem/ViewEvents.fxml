@@ -8,7 +8,7 @@
 
 <AnchorPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
-            fx:controller="engg1420_project.universitymanagementsystem.ViewEventsController"
+            fx:controller="engg1420_project.universitymanagementsystem.ViewEvents"
             prefHeight="400.0" prefWidth="600.0">
 
 </AnchorPane>

@@ -1,12 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.geometry.Pos?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1">
-   <children>
-      <Label text="Course : Code : Name" />
-      <TextField />
-      <Button mnemonicParsing="false" text="Save" />
-   </children>
+<?import javafx.collections.FXCollections?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.AnchorPane?>
+<AnchorPane fx:id="anchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1">
+
+<VBox xmlns:fx="http://javafx.com/fxml" alignment="TOP_CENTER" spacing="10">
+
+   <!-- ListView to display the list of courses with checkboxes -->
+   <ListView fx:id="courseListView" prefHeight="200" prefWidth="300">
+      <items>
+         <FXCollections fx:factory="observableArrayList"/>
+      </items>
+   </ListView>
+
+   <!-- Save and Cancel buttons at the bottom -->
+   <HBox alignment="CENTER" spacing="10">
+      <Button text="Save" fx:id="saveButton" onAction="#save"/>
+      <Button text="Cancel" fx:id="cancelButton" onAction="#cancel"/>
+   </HBox>
 </VBox>
+</AnchorPane>

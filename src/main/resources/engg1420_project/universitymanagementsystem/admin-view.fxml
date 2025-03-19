@@ -3,11 +3,8 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="375.0" prefWidth="250.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="engg1420_project.universitymanagementsystem.AdminViewControllerSubjects">
-   <children>
-      <Button fx:id="editSubjects" layoutX="91.0" layoutY="138.0" mnemonicParsing="false" onAction="#editSubjects" text="Edit Subjects" />
-      <Button fx:id="createSubjects" layoutX="84.0" layoutY="215.0" mnemonicParsing="false" onAction="#createSubjects" text="Create Subjects" />
-      <Button fx:id="deleteSubjects" layoutX="84.0" layoutY="288.0" mnemonicParsing="false" onAction="#deleteSubjects" text="Delete Subjects" />
-      <Button fx:id="viewSubjects" layoutX="87.0" layoutY="59.0" mnemonicParsing="false" onAction="#viewSubjects" text="View Subjects" />
-   </children>
+<AnchorPane prefHeight="375.0" prefWidth="250.0" xmlns="http://javafx.com/javafx/17.0.6" xmlns:fx="http://javafx.com/fxml/1" fx:controller="engg1420_project.universitymanagementsystem.AdminViewController">
+    <children>
+        <Button fx:id="viewSubjects" layoutX="81.0" layoutY="179.0" mnemonicParsing="false" onAction="#viewSubjects" text="View Subjects" />
+    </children>
 </AnchorPane>
