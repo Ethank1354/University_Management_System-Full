@@ -16,5 +16,10 @@ module engg1420_project.universitymanagementsystem {
     requires org.apache.commons.io;
 
     opens engg1420_project.universitymanagementsystem to javafx.fxml;
+    opens engg1420_project.universitymanagementsystem.faculty to javafx.fxml;
+    //opens engg1420_project.universitymanagementsystem.student to javafx.fxml;
+    //opens engg1420_project.universitymanagementsystem.subject to javafx.fxml;
+    //opens engg1420_project.universitymanagementsystem.course to javafx.fxml;
+    //opens engg1420_project.universitymanagementsystem.event to javafx.fxml;
     exports engg1420_project.universitymanagementsystem;
 }

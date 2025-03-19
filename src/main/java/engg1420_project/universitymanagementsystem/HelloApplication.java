@@ -1,6 +1,7 @@
 //package com.example.engg1420facultymanagement;
 package engg1420_project.universitymanagementsystem;
 
+import engg1420_project.universitymanagementsystem.faculty.mainTestController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;

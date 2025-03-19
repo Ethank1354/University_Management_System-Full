@@ -1,4 +1,4 @@
-package com.example.project;
+package engg1420_project.universitymanagementsystem;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;

@@ -1,5 +1,6 @@
 package engg1420_project.universitymanagementsystem;
 
+import engg1420_project.universitymanagementsystem.faculty.facultyController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -37,12 +38,21 @@ public class LoginController {
     private Scene scene;
     private Parent root;
     public static String loginUser;
-    private DatabaseManager db = new DatabaseManager("C:/Users/hyman/Downloads/UMdatabase.sqlite");
+    private DatabaseManager db = new DatabaseManager(HelloApplication.class.getResource("test.db").toString());
 
     //User Info
 
 
     private String[] studentID = {"S20250001", "S20250002", "S20250003", "S20250004", "S20250005", "S20250006", "S20250007", "S20250008", "S20250009", "S20250010"};
+
+    {
+       // try {
+            //studentID = (String[]) db.getColumnValues("Students", "Student ID").toArray();
+       // } catch (SQLException e) {
+        //    throw new RuntimeException(e);
+        //}
+    }
+
     private String[] studentEmail = {"alice@example.edu", "bob.@example.edu", "carol@example.edu", "lucka@example.edu", "lee@example.edu", "brown@example.edu", "smith@example.edu", "jones@example.edu", "clarka@example.edu", "davis@example.edu"};
 
     private String[] facultyID = {"F0001", "F0002", "F0003", "F0004", "F0005"};
@@ -163,14 +173,28 @@ public class LoginController {
     @FXML
     void openFaculty() throws IOException {
         try {
-            // Load the FXML and set the controller
-            FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("faculty-overview.fxml"));
-            facultyController facultycontroller = new facultyController(new DatabaseManager(HelloApplication.class.getResource("test.db").toString()), "admin", contentPane);
-            fxmlLoader.setController(facultycontroller);
-            AnchorPane pane = fxmlLoader.load();
+            if(loginUser.equals("Admin")) {
+                //Load the FXML and set the controller
+                FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("faculty-overview.fxml"));
+                facultyController facultycontroller = new facultyController(db, "admin", contentPane);
+                fxmlLoader.setController(facultycontroller);
+                AnchorPane pane = fxmlLoader.load();
 
-            // Set the right-side content to the new pane
-            contentPane.getChildren().setAll(pane);
+                // Set the right-side content to the new pane
+                contentPane.getChildren().setAll(pane);
+            }else{
+                if(loginUser.equals("Faculty")) {
+                    FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("faculty-profile.fxml"));
+                    facultyController facultycontroller = new facultyController(db, "admin", contentPane);
+                    fxmlLoader.setController(facultycontroller);
+                    AnchorPane pane = fxmlLoader.load();
+                }else if(loginUser.equals("Student")) {
+
+                }else{
+
+                }
+            }
+
 
         } catch (IOException e) {
             e.printStackTrace();
