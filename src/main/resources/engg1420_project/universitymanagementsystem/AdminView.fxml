@@ -3,16 +3,11 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane fx:id="subject_management" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="engg1420_project.universitymanagementsystem.AdminViewController">
+<AnchorPane prefHeight="248.0" prefWidth="284.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.project.AdminViewController">
 
-    <VBox alignment="CENTER" spacing="20">
+    <VBox alignment="CENTER" layoutX="96.0" layoutY="66.0" spacing="20">
 
         <Button fx:id="viewCoursesButton" onAction="#viewCourses" text="View Courses" />
-        <Button fx:id="editCourseButton" onAction="#editCourse" text="Edit Course" />
-        <Button fx:id="addCourseButton" onAction="#addCourse" text="Add Course" />
-        <Button fx:id="deleteCourseButton" onAction="#deleteCourse" text="Delete Course" />
-        <Button fx:id="assignFacultyButton" onAction="#assignFaculty" text="Assign Faculty" />
-        <Button fx:id="manageEnrollmentsButton" onAction="#manageEnrollments" text="Manage Enrollments" />
 
     </VBox>
 

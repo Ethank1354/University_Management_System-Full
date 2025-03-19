@@ -1,5 +1,6 @@
 
-package engg1420_project.universitymanagementsystem;//package engg1420_project.universitymanagementsystem;
+package engg1420_project.universitymanagementsystem;
+//package engg1420_project.universitymanagementsystem;
 
 import javafx.application.Application;
 import javafx.geometry.Insets;

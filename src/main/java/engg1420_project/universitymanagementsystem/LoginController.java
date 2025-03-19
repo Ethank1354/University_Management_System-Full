@@ -242,15 +242,43 @@ public class LoginController {
     void openCourses(ActionEvent event) throws IOException {
         try {
             // Load the AdminView.fxml into the right side of the screen
-            FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("AdminView.fxml"));
-            AnchorPane pane = fxmlLoader.load();
+            if(loginUser.equals("Admin")) {
+                FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("ViewCoursesAdmin.fxml"));
+                AnchorPane pane = fxmlLoader.load();
+                // Replace the content of contentPane (the right side)
+                contentPane.getChildren().setAll(pane);
 
-            // Replace the content of contentPane (the right side)
-            contentPane.getChildren().setAll(pane);
+            }
+            else if(loginUser.equals("Faculty")) {
+                FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("ViewFaculty.fxml"));
+                AnchorPane pane = fxmlLoader.load();
+                // Replace the content of contentPane (the right side)
+                contentPane.getChildren().setAll(pane);
 
+            }
+            else {
+                FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("ViewStudent.fxml"));
+                AnchorPane pane = fxmlLoader.load();
+                // Replace the content of contentPane (the right side)
+                contentPane.getChildren().setAll(pane);
+
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        //
+//        try {
+//            // Load the AdminView.fxml into the right side of the screen
+//            FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("AdminView.fxml"));
+//            AnchorPane pane = fxmlLoader.load();
+//
+//            // Replace the content of contentPane (the right side)
+//            contentPane.getChildren().setAll(pane);
+//
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
     }
 
 

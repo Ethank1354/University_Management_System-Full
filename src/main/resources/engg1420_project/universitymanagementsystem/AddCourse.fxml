@@ -42,7 +42,7 @@
         <Button text="Add Course" onAction="#handleAddCourse"/>
         <Label fx:id="statusLabel"/>
 
-
+        <Button fx:id="goBackButton" text="Go Back" onAction="#goBack"/>
 
     </VBox>
 </AnchorPane>
