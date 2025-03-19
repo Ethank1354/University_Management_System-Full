@@ -32,10 +32,12 @@ public class LoginController {
     public Pane pane;
     @FXML
     public Button profile_management;
+
     private Stage stage;
     private Scene scene;
     private Parent root;
     public static String loginUser;
+    private DatabaseManager db = new DatabaseManager("C:/Users/hyman/Downloads/UMdatabase.sqlite");
 
     //User Info
 
@@ -199,7 +201,8 @@ public class LoginController {
         try {
             // Load the FXML and set the controller
             FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("StdDashboard.fxml"));
-            StdDashCtrl controller = new StdDashCtrl();
+
+            StdDashCtrl controller = new StdDashCtrl(db, loginUser);
             fxmlLoader.setController(controller);
             AnchorPane pane = fxmlLoader.load();
 
@@ -208,6 +211,8 @@ public class LoginController {
 
         } catch (IOException e) {
             e.printStackTrace();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
 
 //        try {
@@ -315,19 +320,18 @@ public class LoginController {
 
     @FXML
     void openSubjects(ActionEvent event) throws IOException {
-//    try {
-//        // Load the FXML and set the controller
-////         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("faculty-profile.fxml"));
-////        facultyController facultycontroller = new facultyController();
-////        fxmlLoader.setController(facultycontroller);
-////        AnchorPane pane = fxmlLoader.load();
-////
-////        // Set the right-side content to the new pane
-////        contentPane.getChildren().setAll(pane);
-//
-//    } catch (IOException e) {
-//        e.printStackTrace();
-//    }
+        try {
+            // Load the AdminView.fxml into the right side of the screen
+            FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("StdDashboard.fxml"));
+            AnchorPane pane = fxmlLoader.load();
+
+            // Replace the content of contentPane (the right side)
+            contentPane.getChildren().setAll(pane);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 
     public void openProfile(ActionEvent actionEvent) {

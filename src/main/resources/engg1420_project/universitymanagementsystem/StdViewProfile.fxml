@@ -5,24 +5,45 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="engg1420_project.universitymanagementsystem.StdProfileViewCtrl">
+<AnchorPane fx:id="contentPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Button fx:id="exit_button" layoutX="565.0" mnemonicParsing="false" onAction="#management" text="Exit" />
-      <Label layoutX="17.0" layoutY="1.0" text="Student Information">
+      <Button fx:id="btnExit" layoutX="565.0" mnemonicParsing="false" onAction="#exit" text="Exit" />
+      <ImageView fx:id="profilePhoto" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" x="5.0" y="5.0">
+         <image>
+            <Image url="@images/BlankProfile.png" />
+         </image>
+      </ImageView>
+      <Label fx:id="labelStdName" layoutX="175.0" layoutY="25.0" text="Student Name">
          <font>
-            <Font size="18.0" />
+            <Font size="24.0" />
          </font>
       </Label>
-      <Label fx:id="label_studentId" layoutX="17.0" layoutY="210.0" text="ID" />
-      <Label fx:id="label_studentName" layoutX="17.0" layoutY="190.0" text="Name">
+      <Label fx:id="labelStdID" layoutX="175.0" layoutY="55.0" text="Student ID">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <Label fx:id="label_email" layoutX="13.0" layoutY="227.0" text="Email " />
-      <Label fx:id="label_address" layoutX="14.0" layoutY="261.0" text="Address" />
-      <Label fx:id="label_number" layoutX="13.0" layoutY="244.0" text="Number" />
-      <ImageView fitHeight="150.0" fitWidth="160.0" layoutX="17.0" layoutY="28.0" pickOnBounds="true" preserveRatio="true" />
-      <ListView fx:id="courseListView" layoutX="351.0" layoutY="124.0" prefHeight="276.0" prefWidth="250.0" />
+      <ListView fx:id="subjectListView" layoutX="-1.0" layoutY="220.0" prefHeight="180.0" prefWidth="320.0" />
+      <Label fx:id="TutitionInfo" layoutX="358.0" layoutY="220.0" text="Tutition Information">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label fx:id="TotalAmount" layoutX="358.0" layoutY="248.0" text="Total Amount:" />
+      <Label fx:id="AmountLeft" layoutX="358.0" layoutY="310.0" text="Amount Left:" />
+      <Label fx:id="AmountPaid" layoutX="358.0" layoutY="278.0" text="Amount Paid:" />
+      <Label fx:id="labelTotalAmt" layoutX="446.0" layoutY="248.0" text="12345" />
+      <Label fx:id="labelAmtPaid" layoutX="446.0" layoutY="278.0" text="12345" />
+      <Label fx:id="labelAmtLeft" layoutX="446.0" layoutY="310.0" text="12345" />
+      <Separator layoutX="358.0" layoutY="309.0" prefWidth="200.0" />
+      <Separator layoutX="440.0" layoutY="245.0" orientation="VERTICAL" prefHeight="85.0" />
+      <ProgressBar fx:id="barProgramProgress" layoutX="115.0" layoutY="193.0" prefWidth="200.0" progress="0.0" />
+      <Label fx:id="ProgramProgress" layoutX="10.0" layoutY="192.0" text="Program Progress:" />
+      <Label fx:id="labelStdEmail" layoutX="175.0" layoutY="80.0" text="email@email.com" />
+      <Label fx:id="labelStdPhone" layoutX="175.0" layoutY="97.0" text="555-5555" />
+      <Label fx:id="labelStdAddress" layoutX="175.0" layoutY="114.0" text="123 Main St." />
+      <Label fx:id="labelSemester" layoutX="344.0" layoutY="55.0" text="Current Semester" />
+      <Label fx:id="labelAcmLvl" layoutX="344.0" layoutY="75.0" text="Academic Level" />
+      <Label fx:id="labelThesis" layoutX="344.0" layoutY="95.0" text="Thesis Title" />
    </children>
-</Pane>
+</AnchorPane>
