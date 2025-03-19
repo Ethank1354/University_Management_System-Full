@@ -322,7 +322,7 @@ public class LoginController {
     void openSubjects(ActionEvent event) throws IOException {
         try {
             // Load the AdminView.fxml into the right side of the screen
-            FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("StdDashboard.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("admin-view-subjects.fxml"));
             AnchorPane pane = fxmlLoader.load();
 
             // Replace the content of contentPane (the right side)
