@@ -12,9 +12,11 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.stage.*;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.Objects;
 
 public class LoginController {
@@ -30,7 +32,6 @@ public class LoginController {
     public Pane pane;
     @FXML
     public Button profile_management;
-
     private Stage stage;
     private Scene scene;
     private Parent root;
@@ -162,7 +163,7 @@ public class LoginController {
         try {
             // Load the FXML and set the controller
             FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("faculty-overview.fxml"));
-            facultyController facultycontroller = new facultyController();
+            facultyController facultycontroller = new facultyController(new DatabaseManager(HelloApplication.class.getResource("test.db").toString()), "admin", contentPane);
             fxmlLoader.setController(facultycontroller);
             AnchorPane pane = fxmlLoader.load();
 
@@ -171,6 +172,8 @@ public class LoginController {
 
         } catch (IOException e) {
             e.printStackTrace();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -270,7 +273,8 @@ public class LoginController {
     void openEvents(ActionEvent event) throws IOException {
         try {
             // Load the AdminView.fxml into the right side of the screen
-            FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("admin-view.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("EventManagement.fxml"));
+
             AnchorPane pane = fxmlLoader.load();
 
             // Replace the content of contentPane (the right side)
@@ -281,22 +285,22 @@ public class LoginController {
         }
     }
 
-@FXML
-void openSubjects(ActionEvent event) throws IOException {
-    try {
-        // Load the FXML and set the controller
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("faculty-profile.fxml"));
-        facultyController facultycontroller = new facultyController();
-        fxmlLoader.setController(facultycontroller);
-        AnchorPane pane = fxmlLoader.load();
-
-        // Set the right-side content to the new pane
-        contentPane.getChildren().setAll(pane);
-
-    } catch (IOException e) {
-        e.printStackTrace();
+    @FXML
+    void openSubjects(ActionEvent event) throws IOException {
+//    try {
+//        // Load the FXML and set the controller
+////         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("faculty-profile.fxml"));
+////        facultyController facultycontroller = new facultyController();
+////        fxmlLoader.setController(facultycontroller);
+////        AnchorPane pane = fxmlLoader.load();
+////
+////        // Set the right-side content to the new pane
+////        contentPane.getChildren().setAll(pane);
+//
+//    } catch (IOException e) {
+//        e.printStackTrace();
+//    }
     }
-}
 
     public void openProfile(ActionEvent actionEvent) {
         try {

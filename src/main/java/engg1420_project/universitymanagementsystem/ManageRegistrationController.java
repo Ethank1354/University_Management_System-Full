@@ -10,6 +10,6 @@ public class ManageRegistrationController {
     @FXML
     public void initialize() {
         // Load registered students (dummy data for now)
-        registeredStudentsListView.getItems().addAll("Student A", "Student B");
+        registeredStudentsListView.getItems().addAll("Student A: ", "Student B: ");
     }
 }
