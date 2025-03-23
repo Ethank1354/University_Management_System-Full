@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 
-<HBox prefHeight="384.0" prefWidth="600.0" spacing="10.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="engg1420_project.universitymanagementsystem.MainController">
+<HBox prefHeight="384.0" prefWidth="600.0" spacing="10.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="engg1420_project.universitymanagementsystem.events.MainController">
 
     <!-- Sidebar (Dashboard) -->
     <VBox alignment="CENTER_LEFT" prefHeight="572.0" prefWidth="327.0" spacing="15.0" style="-fx-background-color: #2C3E50;">

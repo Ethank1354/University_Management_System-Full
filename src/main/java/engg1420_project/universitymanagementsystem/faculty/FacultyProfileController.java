@@ -1,13 +1,11 @@
 package engg1420_project.universitymanagementsystem.faculty;
 
-import engg1420_project.universitymanagementsystem.DatabaseManager;
+import engg1420_project.universitymanagementsystem.projectClasses.DatabaseManager;
 import engg1420_project.universitymanagementsystem.HelloApplication;
 import javafx.beans.binding.Bindings;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
@@ -20,7 +18,6 @@ import org.apache.commons.io.FileUtils;
 import java.io.*;
 import java.net.URISyntaxException;
 import java.net.URL;
-import java.nio.file.Files;
 import java.sql.SQLException;
 
 public class FacultyProfileController {

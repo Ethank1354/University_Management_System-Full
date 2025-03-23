@@ -1,7 +1,7 @@
 package engg1420_project.universitymanagementsystem.faculty;
 
-import engg1420_project.universitymanagementsystem.DatabaseManager;
-import engg1420_project.universitymanagementsystem.User;
+import engg1420_project.universitymanagementsystem.projectClasses.DatabaseManager;
+import engg1420_project.universitymanagementsystem.projectClasses.User;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
