@@ -1,11 +1,10 @@
 package engg1420_project.universitymanagementsystem.faculty;
 
 
-import engg1420_project.universitymanagementsystem.DatabaseManager;
+import engg1420_project.universitymanagementsystem.projectClasses.DatabaseManager;
 import engg1420_project.universitymanagementsystem.HelloApplication;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 

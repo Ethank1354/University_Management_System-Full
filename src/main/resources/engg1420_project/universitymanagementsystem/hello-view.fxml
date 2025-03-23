@@ -6,7 +6,7 @@
 
 <AnchorPane prefHeight="384.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1"
             xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="engg1420_project.universitymanagementsystem.MainController"
+            fx:controller="engg1420_project.universitymanagementsystem.events.MainController"
             style="-fx-background-color: #ECF0F1;">
 
     <Button text="Event Management" onAction="#openEventManagement"

@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<!-- Anthony -->
+
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
 <DialogPane xmlns="http://javafx.com/javafx/17.0.6"
             xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="engg1420_project.universitymanagementsystem.SubjectDialogController">
+            fx:controller="engg1420_project.universitymanagementsystem.subject.SubjectDialogController">
     <content>
         <GridPane hgap="10" vgap="10">
             <Label text="Subject Name:" GridPane.columnIndex="0" GridPane.rowIndex="0"/>

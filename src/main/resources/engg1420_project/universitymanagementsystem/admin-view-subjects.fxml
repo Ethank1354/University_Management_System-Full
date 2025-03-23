@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<!-- Anthony -->
+
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.control.cell.*?>
 <?import javafx.util.Callback?>
-<?import engg1420_project.universitymanagementsystem.ButtonTableCell?>
-
-<!--<?import com.example.project1.ButtonTableCell?>-->
+<?import engg1420_project.universitymanagementsystem.subject.ButtonTableCell?>
 <?import javafx.scene.layout.HBox?>
-<AnchorPane xmlns="http://javafx.com/javafx/17.0.6"
-            xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="engg1420_project.universitymanagementsystem.AdminViewSubjectsController">
-<VBox spacing="10">
+
+<VBox spacing="10" xmlns="http://javafx.com/javafx/17.0.6"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="engg1420_project.universitymanagementsystem.subject.AdminViewSubjectsController">
     <children>
         <Label text="Subject Information">
             <font>
@@ -34,4 +34,3 @@
         </TableView>
     </children>
 </VBox>
-</AnchorPane>
