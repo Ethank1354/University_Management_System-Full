@@ -30,7 +30,7 @@ public class Student extends User {
 
     public Student(String studentID, DatabaseManager dbm) throws SQLException {
         this.dbm = dbm;
-        this.studentMember = dbm.getRow("UMS_Data_Students ", "Student ID", studentID);
+        this.studentMember = dbm.getRow("Students", "Student ID", studentID);
         this.studentID = studentMember.get(0);
         super.name = studentMember.get(1);
         this.address = studentMember.get(2);
@@ -39,11 +39,11 @@ public class Student extends User {
         this.academicLvl = studentMember.get(5);
         this.semster = studentMember.get(6);
         //Handle Subjects Registerd
-        String[] subjectCol = {"Subject Registered"};
 
-        subjects =  dbm.getFilteredValues("UMS_Data_Students ", subjectCol, "Student ID", studentID).get(0).split(", ");
 
-        this.thesis = studentMember.get(8);
+        subjects =  studentMember.get(8).split(", ");
+
+        this.thesis = studentMember.get(9);
         this.academicProgress = Double.parseDouble(studentMember.get(10));
         super.password = studentMember.get(10);
         //Handle Profile Photo
@@ -78,8 +78,17 @@ public class Student extends User {
     public double getAcademicProgress() {
         return academicProgress;
     }
+
     public String[] getSubjects() {
         return subjects;
+    }
+
+    public String getSubjectString() {
+        String subjectsStr = "";
+        for (int i = 0; i < subjects.length; i++) {
+            subjectsStr += subjects[i] + ", ";
+        }
+        return subjectsStr;
     }
 
     //Setter Methods
@@ -125,12 +134,36 @@ public class Student extends User {
         this.studentMember.set(9, this.academicProgress.toString());
 
         try {
-            this.dbm.updateRowInTable("UMS_Data_Students", "Student ID", this.studentID, this.studentMember);
+            this.dbm.updateRowInTable("Students", "Student ID", this.studentID, this.studentMember);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
 
     }
+
+
+    public List<String> studentToList() {
+        List<String> studentAsList = new ArrayList<>(){{
+            add(studentID);
+            add(Student.super.name);
+            add(address);
+            add(phoneNumber);
+            add(studentID);
+            add(Student.super.email);
+            add(academicLvl);
+            add(semster);
+            add("default");
+            add(getSubjectString());
+            add(thesis);
+            add(academicProgress.toString());
+            add(Student.super.password);
+
+        }};
+
+        return studentAsList;
+    }
+
+
 
     //Update Profile Picture
 

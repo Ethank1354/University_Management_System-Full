@@ -77,16 +77,6 @@ public class StdProfileViewCtrl  {
 
             AnchorPane pane = fxmlLoader.load();
             contentPane.getChildren().setAll(pane);
-//            Parent root = fxmlLoader.load();
-
-            // Get current stage and store previous scene
-//            Stage currentStage = (Stage) btnExit.getScene().getWindow();
-//            Scene previousScene = currentStage.getScene(); // Save current scene
-//
-//
-//
-//            currentStage.setScene(new Scene(root, 600, 400));
-//            currentStage.setTitle("Studet Management System");
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -156,6 +146,8 @@ public class StdProfileViewCtrl  {
         labelSemester.setText(student.getSemster());
         labelAcmLvl.setText(student.getAcademicLvl());
         labelThesis.setText(student.getThesis());
+
+        barProgramProgress.setProgress(student.getAcademicProgress());
 
         String[] subjects = student.getSubjects();
 

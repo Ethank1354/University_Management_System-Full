@@ -15,13 +15,13 @@ import javafx.scene.layout.AnchorPane;
 import javafx.event.ActionEvent;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.List;
 
 public class StdCreateCtrl {
 
     private DatabaseManager db;
     private Scene previousScene;
     private String username;
-    private static int idValue = 20250010;
 
     public StdCreateCtrl( DatabaseManager db, String username) {
         this.db = db;
@@ -45,15 +45,29 @@ public class StdCreateCtrl {
     @FXML
     private AnchorPane contentPane;
 
+    @FXML
+    private int getLargestID() throws SQLException {
+        int largestID = 0;
+        List<String> id = db.getColumnValues("Students", "Student ID");
+
+        for (int i = 0; i < id.size(); i++) {
+            if (Integer.parseInt(id.get(i).substring(1)) > largestID) {
+                largestID = Integer.parseInt(id.get(i));
+            }
+        }
+
+        return largestID;
+    }
+
 
     //Save Changes Button
     @FXML
-    public void addStudent(ActionEvent event) throws IOException {
+    public void addStudent(ActionEvent event) throws IOException, SQLException {
         //Still need to figure out the subject/courses, student ID & photo
         String[] student = new String[12];
 
-        idValue++;
-        student[0] = "S" + idValue;
+
+        student[0] = "S" + (getLargestID() + 1);
         student[1] = tfName.getText();
         student[2] = tfAddress.getText();
         student[3] = tfPhone.getText();
@@ -67,7 +81,7 @@ public class StdCreateCtrl {
         //Photo
 
         try {
-            db.addRowToTable("UMS_Data_Students ", student);
+            db.addRowToTable("Students", student);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -128,10 +142,6 @@ public class StdCreateCtrl {
         cBoxAcmLvl.getItems().addAll("Undergraduate", "Graduate");
 
     }
-
-
-
-
 
 
 }

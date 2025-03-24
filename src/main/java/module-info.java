@@ -33,6 +33,5 @@ module engg1420_project.universitymanagementsystem {
     opens engg1420_project.universitymanagementsystem.subject to javafx.fxml;
     exports engg1420_project.universitymanagementsystem.login;
     opens engg1420_project.universitymanagementsystem.login to javafx.fxml;
-    exports engg1420_project.universitymanagementsystem.empty;
-    opens engg1420_project.universitymanagementsystem.empty to javafx.fxml;
+
 }

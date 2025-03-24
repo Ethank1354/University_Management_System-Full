@@ -67,7 +67,7 @@ public class StdDashCtrl {
         String[] parts = sharedDatabase.getSelectedName().split(":");
         System.out.println(parts[0]);
         try {
-            db.deleteRowFromTable("UMS_Data_Students ", "Student ID", parts[0]);
+            db.deleteRowFromTable("Students", "Student ID", parts[0]);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -159,8 +159,8 @@ public class StdDashCtrl {
     public void initialize() throws SQLException {
         //Populating the List view with the student names and student IDs
         List<String> viewableInfo = new ArrayList<>();
-        List<String> StudentNames = db.getColumnValues("UMS_Data_Students ", "Name");
-        List<String> StudentIDs = db.getColumnValues("UMS_Data_Students ", "Student ID");
+        List<String> StudentNames = db.getColumnValues("Students", "Name");
+        List<String> StudentIDs = db.getColumnValues("Students", "Student ID");
 
         for(int i = 0; i < StudentIDs.size(); i++){
             viewableInfo.add(StudentIDs.get(i) + ":" + StudentNames.get(i));
@@ -249,7 +249,7 @@ public class StdDashCtrl {
                 String[] parts = item.split(":");
                 System.out.println(parts[0]);
                 try {
-                    db.deleteRowFromTable("UMS_Data_Students ", "Student ID", parts[0]);
+                    db.deleteRowFromTable("Students", "Student ID", parts[0]);
                 } catch (SQLException e) {
                     throw new RuntimeException(e);
                 }

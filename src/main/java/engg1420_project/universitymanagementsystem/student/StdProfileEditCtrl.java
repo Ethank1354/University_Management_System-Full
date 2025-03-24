@@ -11,6 +11,7 @@ import javafx.scene.layout.AnchorPane;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.List;
 
 public class StdProfileEditCtrl  {
 
@@ -47,23 +48,9 @@ public class StdProfileEditCtrl  {
 
     //Save changes button
     @FXML
-    void saveChanges(ActionEvent event) throws IOException {
-        /*
-        String[] newValues = {student.getStudentID(), tfName.getText(), tfAddress.getText(), tfPhone.getText(), tfEmail.getText(), cBoxAcmLvl.getValue().toString(), "default", "Fall 2025", "ENG101", tfThesis.getText(), tfProgress.getText(),tfPassword.getText()};
-        List<String> convert = new ArrayList<>();
+    void saveChanges(ActionEvent event) throws IOException, SQLException {
 
-        for (int i = 0; i < newValues.length; i++) {
-            convert.add(newValues[i]);
-        }
-        try {
-            db.updateRowInTable("UMS_Data_Students ", "StudentID", student.getStudentID(), convert);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-
-
-         */
-
+       db.updateRowInTable("Students", "Student ID" , student.getStudentID(), student.studentToList());
 
         try {
             StdDashCtrl stdDashCtrl = new StdDashCtrl(db,username);
@@ -72,16 +59,6 @@ public class StdProfileEditCtrl  {
 
             AnchorPane pane = fxmlLoader.load();
             contentPane.getChildren().setAll(pane);
-//            Parent root = fxmlLoader.load();
-//
-//            // Get current stage and store previous scene
-//            Stage currentStage = (Stage) btnSave.getScene().getWindow();
-//            Scene previousScene = currentStage.getScene(); // Save current scene
-
-
-
-//            currentStage.setScene(new Scene(root, 600, 400));
-//            currentStage.setTitle("Student Management System");
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -99,16 +76,7 @@ public class StdProfileEditCtrl  {
             fxmlLoader.setController(stdDashCtrl);
             AnchorPane pane = fxmlLoader.load();
             contentPane.getChildren().setAll(pane);
-//            Parent root = fxmlLoader.load();
-//
-//            // Get current stage and store previous scene
-//            Stage currentStage = (Stage) btnExit.getScene().getWindow();
-//            Scene previousScene = currentStage.getScene(); // Save current scene
 
-
-
-//            currentStage.setScene(new Scene(root, 600, 400));
-//            currentStage.setTitle("Student Management System");
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -139,9 +107,8 @@ public class StdProfileEditCtrl  {
         }
     }
 
-
-
 }
+
 
 
 
