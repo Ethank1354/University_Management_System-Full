@@ -39,7 +39,7 @@ public class UserViewController {
 
     @FXML
     public void viewSubjects(ActionEvent event) throws IOException {
-        Parent root = (Parent)FXMLLoader.load(this.getClass().getResource("/com/example/project1/user-view-subjects.fxml"));
+        Parent root = (Parent)FXMLLoader.load(this.getClass().getResource("/engg1420_project/universitymanagementsystem/events/user-view-subjects.fxml"));
         Stage newStage = new Stage();
         newStage.setTitle("View Subjects");
         newStage.setScene(new Scene(root));

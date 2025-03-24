@@ -7,8 +7,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-//import com.example.engg1420facultymanagement.DatabaseManager;
-
 public class Faculty extends User {
 
     private DatabaseManager dbm;

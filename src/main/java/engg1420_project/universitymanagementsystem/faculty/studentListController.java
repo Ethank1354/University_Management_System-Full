@@ -70,7 +70,7 @@ public class studentListController {
 
             FacultyProfileController profileController = new FacultyProfileController(this.previousFacultyID, access, db, superAnchorPane);
 
-            FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("faculty-profile.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("faculty/faculty-profile.fxml"));
             fxmlLoader.setController(profileController);
 
             AnchorPane pane = fxmlLoader.load();

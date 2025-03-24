@@ -28,9 +28,9 @@ public void setStage(Stage stage) {
     String role = scanner.nextLine();
 
     if (role.equalsIgnoreCase("Admin")) {
-        switchToView("admin-view.fxml");
+        switchToView("subject/admin-view.fxml");
     } else if (role.equalsIgnoreCase("Student") || role.equalsIgnoreCase("faculty")) {
-        switchToView("user-view.fxml");
+        switchToView("subject/user-view.fxml");
         } else {
         System.exit(0);
     }

@@ -77,7 +77,7 @@ public class StdDashCtrl {
     public void viewStd(ActionEvent event) throws IOException {
         try {
             // Load the FXML and set the controller
-            FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("StdViewProfile.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("student/StdViewProfile.fxml"));
             StdProfileViewCtrl profileController = new StdProfileViewCtrl(sharedDatabase.getSelectedName(), access, db, username);
             fxmlLoader.setController(profileController);
             AnchorPane pane = fxmlLoader.load();
@@ -120,7 +120,7 @@ public class StdDashCtrl {
         try {
             // Load the FXML and set the controller
             StdCreateCtrl profileController = new StdCreateCtrl(db, username);
-            FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("StdProfileAdd.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("student/StdProfileAdd.fxml"));
             fxmlLoader.setController(profileController);
             AnchorPane pane = fxmlLoader.load();
 
@@ -192,7 +192,7 @@ public class StdDashCtrl {
                 try {
                     StdProfileViewCtrl profileController = new StdProfileViewCtrl(item, access, db, username);
 
-                    FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("StdViewProfile.fxml"));
+                    FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("student/StdViewProfile.fxml"));
                     fxmlLoader.setController(profileController);
 
                     AnchorPane pane = fxmlLoader.load();
@@ -224,7 +224,7 @@ public class StdDashCtrl {
                     Scene previousScene = currentStage.getScene(); // Save current scene
 
                     StdProfileEditCtrl stdProfileEditCtrl = new StdProfileEditCtrl(db, item, username);
-                    FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("StdProfileEditing.fxml"));
+                    FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("student/StdProfileEditing.fxml"));
                     fxmlLoader.setController(stdProfileEditCtrl);
 
                     AnchorPane pane = fxmlLoader.load();

@@ -17,7 +17,7 @@ public class ViewSubjectsController {
     @FXML
     void viewSubjects(ActionEvent event)  throws IOException {
     try {
-        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("view-subjects.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("subject/view-subjects.fxml"));
 
         // Load the new FXML file
         Parent newRoot = fxmlLoader.load();

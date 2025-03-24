@@ -31,7 +31,7 @@ public class AdminViewSubjectsController {
 
     @FXML
     public void handleEditSubject(Subjects subject) {
-        FXMLLoader loader = new FXMLLoader(this.getClass().getResource("subject-dialog.fxml"));
+        FXMLLoader loader = new FXMLLoader(this.getClass().getResource("subject/subject-dialog.fxml"));
         Parent root = null;
 
         try {
@@ -77,7 +77,7 @@ public class AdminViewSubjectsController {
 
     @FXML
     private void openCreateDialog(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(this.getClass().getResource("subject-dialog.fxml"));
+        FXMLLoader loader = new FXMLLoader(this.getClass().getResource("subject/subject-dialog.fxml"));
         Parent root = (Parent)loader.load();
         SubjectDialogController dialogController = (SubjectDialogController)loader.getController();
         Stage dialogStage = new Stage();
@@ -93,7 +93,7 @@ public class AdminViewSubjectsController {
 
     @FXML
     private void openSubjectDialog(Subjects subject) throws IOException {
-        FXMLLoader loader = new FXMLLoader(this.getClass().getResource("subject-dialog.fxml"));
+        FXMLLoader loader = new FXMLLoader(this.getClass().getResource("subject/subject-dialog.fxml"));
         Parent root = (Parent)loader.load();
         SubjectDialogController dialogController = (SubjectDialogController)loader.getController();
         dialogController.setSubject(subject);

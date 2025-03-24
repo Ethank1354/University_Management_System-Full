@@ -15,7 +15,7 @@ public class DeleteSubjectsController {
     @FXML
     void viewSubjects(ActionEvent event) throws IOException {
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("delete-subjects.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("subject/delete-subjects.fxml"));
 
             // Load the new FXML file
             Parent newRoot = fxmlLoader.load();
