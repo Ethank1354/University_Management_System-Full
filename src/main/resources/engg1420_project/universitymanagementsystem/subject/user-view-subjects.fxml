@@ -5,18 +5,28 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
+<?import javafx.scene.control.cell.PropertyValueFactory?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.6" xmlns:fx="http://javafx.com/fxml/1" fx:controller="engg1420_project.universitymanagementsystem.subject.SubjectDialogController">
+<VBox spacing="10" xmlns="http://javafx.com/javafx/17.0.6"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="engg1420_project.universitymanagementsystem.subject.SubjectDialogController">
     <children>
-        <Label text="Subject Information">
-            <font>
-                <Font size="24.0" />
-            </font>
+        <Label text="Available Subjects (Read-Only)">
+            <font><Font size="24.0" /></font>
         </Label>
-        <TableView fx:id="subjectsTable" fixedCellSize="10.0" prefHeight="365.0" prefWidth="600.0">
+        <TableView fx:id="subjectsTable" fixedCellSize="30.0" prefHeight="365.0" prefWidth="600.0">
             <columns>
-                <TableColumn fx:id="nameColumn" prefWidth="301.19999998807907" text="Subject Name" />
-                <TableColumn fx:id="codeColumn" minWidth="0.0" prefWidth="298.0" text="Subject Code" />
+                <TableColumn fx:id="nameColumn" prefWidth="40" text="Subject Name">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="name" />
+                    </cellValueFactory>
+                </TableColumn>
+                <TableColumn fx:id="codeColumn" prefWidth="30" text="Subject Code">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="code" />
+                    </cellValueFactory>
+                </TableColumn>
+                <!-- No "Actions" column -->
             </columns>
         </TableView>
     </children>
