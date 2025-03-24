@@ -1,4 +1,3 @@
-//package com.example.engg1420facultymanagement;
 package engg1420_project.universitymanagementsystem.faculty;
 
 import engg1420_project.universitymanagementsystem.projectClasses.DatabaseManager;
@@ -92,7 +91,7 @@ public class addFacultyController {
                 }
 
                 try {
-                    FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("faculty-overview.fxml"));
+                    FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("faculty/faculty-overview.fxml"));
                     fxmlLoader.setController(new facultyController(db, "admin", superAnchorPane));
                     AnchorPane pane = fxmlLoader.load();
                     superAnchorPane.getChildren().clear();
@@ -112,7 +111,7 @@ public class addFacultyController {
     @FXML
     private void cancel(ActionEvent event) {
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("faculty-overview.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("faculty/faculty-overview.fxml"));
             fxmlLoader.setController(new facultyController(db, "admin", superAnchorPane));
             AnchorPane pane = fxmlLoader.load();
             superAnchorPane.getChildren().clear();
