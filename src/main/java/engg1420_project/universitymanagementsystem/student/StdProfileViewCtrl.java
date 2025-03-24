@@ -72,7 +72,7 @@ public class StdProfileViewCtrl  {
     public void exit (ActionEvent event) throws IOException {
         try {
             StdDashCtrl stdDashCtrl = new StdDashCtrl(db,username);
-            FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("StdDashboard.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("student/StdDashboard.fxml"));
             fxmlLoader.setController(stdDashCtrl);
 
             AnchorPane pane = fxmlLoader.load();

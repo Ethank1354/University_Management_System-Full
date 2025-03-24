@@ -3,6 +3,8 @@
 package engg1420_project.universitymanagementsystem.subject;
 
 
+import engg1420_project.universitymanagementsystem.subject.AdminViewSubjectsController;
+import engg1420_project.universitymanagementsystem.subject.Subjects;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;

@@ -67,7 +67,7 @@ public class StdProfileEditCtrl  {
 
         try {
             StdDashCtrl stdDashCtrl = new StdDashCtrl(db,username);
-            FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("StdDashboard.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("student/StdDashboard.fxml"));
             fxmlLoader.setController(stdDashCtrl);
 
             AnchorPane pane = fxmlLoader.load();
@@ -95,7 +95,7 @@ public class StdProfileEditCtrl  {
     void exit(ActionEvent event) throws IOException {
         try {
             StdDashCtrl stdDashCtrl = new StdDashCtrl(db,username);
-            FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("StdDashboard.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("student/StdDashboard.fxml"));
             fxmlLoader.setController(stdDashCtrl);
             AnchorPane pane = fxmlLoader.load();
             contentPane.getChildren().setAll(pane);

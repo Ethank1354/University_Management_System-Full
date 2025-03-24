@@ -74,7 +74,7 @@ public class ViewCoursesController {
 
         // Open Manage Enrollments window (empty list for now)
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("ManageEnrollments.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("course/ManageEnrollments.fxml"));
             Parent root = loader.load();
             Stage enrollmentsStage = new Stage();
             enrollmentsStage.setScene(new Scene(root));

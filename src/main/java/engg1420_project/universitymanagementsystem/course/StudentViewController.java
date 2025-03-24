@@ -17,7 +17,7 @@ public class StudentViewController {
 
     @FXML
     private void viewCourses() {
-        openViewCourses("ViewCourses.fxml", "View Courses");
+        openViewCourses("course/ViewCourses.fxml", "View Courses");
     }
 
     private void openViewCourses(String fxmlFile, String title) {
@@ -35,7 +35,7 @@ public class StudentViewController {
 
     @FXML
     private void viewEnrollments() {
-        openViewEnrollments("ViewEnrollments.fxml", "View Enrollment");
+        openViewEnrollments("course/ViewEnrollments.fxml", "View Enrollment");
     }
 
     private void openViewEnrollments(String fxmlFile, String title) {

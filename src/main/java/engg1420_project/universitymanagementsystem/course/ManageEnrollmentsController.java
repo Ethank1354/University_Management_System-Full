@@ -72,7 +72,7 @@ public class ManageEnrollmentsController {
 
     @FXML
     private void openAddStudentWindow() throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/project/AddStudent.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/project/course/AddStudent.fxml"));
         Parent root = loader.load();
 
         // Correct the controller reference passing

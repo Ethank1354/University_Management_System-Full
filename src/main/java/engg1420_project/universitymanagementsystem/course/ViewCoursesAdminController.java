@@ -75,7 +75,7 @@ public class ViewCoursesAdminController {
     @FXML
     private void openAddCourse() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("AddCourse.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("course/AddCourse.fxml"));
             Parent root = loader.load();
 //            courseList.setAll(CourseManager.getCourses());
 //            coursesTable.refresh();
@@ -102,7 +102,7 @@ public class ViewCoursesAdminController {
         if (selectedCourse == null) return;
 
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("EditCourse.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("course/EditCourse.fxml"));
             Parent root = loader.load();
 
             EditCourseController controller = loader.getController();
@@ -146,7 +146,7 @@ public class ViewCoursesAdminController {
         if (selectedCourse == null) return;
 
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/project/ManageEnrollments.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/project/course/ManageEnrollments.fxml"));
 
             Parent root = loader.load();
 
@@ -169,7 +169,7 @@ public class ViewCoursesAdminController {
         if (selectedCourse == null) return;
 
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("AssignFaculty.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("course/AssignFaculty.fxml"));
             Parent root = loader.load();
 
             AssignFacultyController controller = loader.getController();

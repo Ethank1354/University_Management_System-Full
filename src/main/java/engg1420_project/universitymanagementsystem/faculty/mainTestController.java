@@ -27,13 +27,13 @@ public class mainTestController {
 
         String username = "admin";  //"F0001" ""S20250001";
         if(username.equals("admin")) {
-            FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("faculty-overview.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("faculty/faculty-overview.fxml"));
             fxmlLoader.setController(new facultyController(db, "admin", mainAnchorPane));
             AnchorPane pane = fxmlLoader.load();
             mainAnchorPane.getChildren().clear();
             mainAnchorPane.getChildren().add(pane);
         }else{
-            FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("faculty-profile.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("faculty/faculty-profile.fxml"));
             if(db.belongsToTable("Faculties", username)){
                 access = "faculty";
             }else if(db.belongsToTable("Students", username)){
