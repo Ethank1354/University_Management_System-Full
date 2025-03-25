@@ -24,6 +24,7 @@ public class Student extends User {
     private String semster;
     private String thesis;
     private Double academicProgress;
+    private String photoName;
 
     private String[] subjects;
 
@@ -38,8 +39,6 @@ public class Student extends User {
         super.email = studentMember.get(4);
         this.academicLvl = studentMember.get(5);
         this.semster = studentMember.get(6);
-        //Handle Subjects Registerd
-
 
         subjects =  studentMember.get(8).split(", ");
 
@@ -47,6 +46,21 @@ public class Student extends User {
         this.academicProgress = Double.parseDouble(studentMember.get(10));
         super.password = studentMember.get(10);
         //Handle Profile Photo
+        this.photoName = studentMember.get(7);
+
+    }
+
+    public Student(String name, String address, String phone, String email, String academicLvl, String semster, String photoName, String thesis, String progress, String password) throws SQLException {
+        this.name = name;
+        this.address = address;
+        this.phoneNumber = phone;
+        this.email = email;
+        this.academicLvl = academicLvl;
+        this.semster = semster;
+        this.thesis = thesis;
+        this.academicProgress = Double.parseDouble(progress.toString());
+        this.photoName = photoName;
+        super.password = password;
 
     }
 
@@ -129,9 +143,11 @@ public class Student extends User {
         this.studentMember.set(4, super.email);
         this.studentMember.set(5, this.academicLvl);
         this.studentMember.set(6, this.semster);
-        //Update Subjects Registered
-        this.studentMember.set(8, this.thesis);
-        this.studentMember.set(9, this.academicProgress.toString());
+        this.studentMember.set(7, this.photoName);
+        this.studentMember.set(8, this.getSubjectString());
+        this.studentMember.set(9, this.thesis);
+        this.studentMember.set(10, this.academicProgress.toString());
+        this.studentMember.set(11, super.password);
 
         try {
             this.dbm.updateRowInTable("Students", "Student ID", this.studentID, this.studentMember);
@@ -141,18 +157,16 @@ public class Student extends User {
 
     }
 
-
     public List<String> studentToList() {
         List<String> studentAsList = new ArrayList<>(){{
             add(studentID);
             add(Student.super.name);
             add(address);
             add(phoneNumber);
-            add(studentID);
             add(Student.super.email);
             add(academicLvl);
             add(semster);
-            add("default");
+            add(photoName);
             add(getSubjectString());
             add(thesis);
             add(academicProgress.toString());
@@ -163,7 +177,18 @@ public class Student extends User {
         return studentAsList;
     }
 
+    public String generateID() throws SQLException {
+        int largestID = 0;
+        List<String> id = dbm.getColumnValues("Students", "Student ID");
 
+        for (int i = 0; i < id.size(); i++) {
+            if (Integer.parseInt(id.get(i).substring(1)) > largestID) {
+                largestID = Integer.parseInt(id.get(i));
+            }
+        }
+
+        return "S" + largestID++;
+    }
 
     //Update Profile Picture
 

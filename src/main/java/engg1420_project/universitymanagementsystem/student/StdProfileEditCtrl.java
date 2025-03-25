@@ -16,17 +16,17 @@ import java.util.List;
 public class StdProfileEditCtrl  {
 
     private DatabaseManager db;
-    private String studentInfo;
+    private String cellItem;
     private Scene previousScene;
     private String username;
     private Student student;
 
 
-    public StdProfileEditCtrl(DatabaseManager db, String studentInfo, String username) throws SQLException {
+    public StdProfileEditCtrl(DatabaseManager db, String cellItem, String username) throws SQLException {
         this.db = db;
-        this.studentInfo = studentInfo;
-        String[] parts = studentInfo.split(":");
-        this.student = new Student(parts[0], db);
+        this.cellItem = cellItem;
+        String[] id = cellItem.split(":"); //The first part of this string is the id of the student, the second part is the name
+        this.student = new Student(id[0], db);
         this.username = username;
 
     }
@@ -49,8 +49,17 @@ public class StdProfileEditCtrl  {
     //Save changes button
     @FXML
     void saveChanges(ActionEvent event) throws IOException, SQLException {
+        student.setName(tfName.getText());
+        student.setAddress(tfAddress.getText());
+        student.setPhoneNumber(tfPhone.getText());
+        student.setEmail(tfEmail.getText());
+        student.setPassword(tfPassword.getText());
+        student.setThesis(tfThesis.getText());
+        student.setAcademicProgress((double) Double.parseDouble(tfProgress.getText()));
+        student.setAcademicLvl((String) cBoxAcmLvl.getValue());
 
-       db.updateRowInTable("Students", "Student ID" , student.getStudentID(), student.studentToList());
+        student.updateStudent();
+      // db.updateRowInTable("Students", "Student ID" , student.getStudentID(), student.studentToList());
 
         try {
             StdDashCtrl stdDashCtrl = new StdDashCtrl(db,username);

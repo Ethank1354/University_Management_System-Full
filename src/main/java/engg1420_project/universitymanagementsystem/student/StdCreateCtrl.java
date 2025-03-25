@@ -45,8 +45,7 @@ public class StdCreateCtrl {
     @FXML
     private AnchorPane contentPane;
 
-    @FXML
-    private int getLargestID() throws SQLException {
+    public String generateID() throws SQLException {
         int largestID = 0;
         List<String> id = db.getColumnValues("Students", "Student ID");
 
@@ -56,18 +55,18 @@ public class StdCreateCtrl {
             }
         }
 
-        return largestID;
+        return "S" + largestID++;
     }
 
 
     //Save Changes Button
     @FXML
     public void addStudent(ActionEvent event) throws IOException, SQLException {
+
         //Still need to figure out the subject/courses, student ID & photo
         String[] student = new String[12];
 
-
-        student[0] = "S" + (getLargestID() + 1);
+        student[0] = generateID();
         student[1] = tfName.getText();
         student[2] = tfAddress.getText();
         student[3] = tfPhone.getText();
@@ -119,16 +118,6 @@ public class StdCreateCtrl {
             fxmlLoader.setController(stdDashCtrl);
             AnchorPane pane = fxmlLoader.load();
             contentPane.getChildren().setAll(pane);
-//            Parent root = fxmlLoader.load();
-//
-//            // Get current stage and store previous scene
-//            Stage currentStage = (Stage) btnExit.getScene().getWindow();
-//            Scene previousScene = currentStage.getScene(); // Save current scene
-//
-//
-//
-//            currentStage.setScene(new Scene(root, 600, 400));
-//            currentStage.setTitle("Student Management System");
 
         } catch (IOException e) {
             e.printStackTrace();
