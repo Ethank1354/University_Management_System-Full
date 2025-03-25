@@ -23,7 +23,7 @@ public class StdCreateCtrl {
     private Scene previousScene;
     private String username;
 
-    public StdCreateCtrl( DatabaseManager db, String username) {
+    public StdCreateCtrl(DatabaseManager db, String username) {
         this.db = db;
 
         this.username = username;
@@ -51,11 +51,11 @@ public class StdCreateCtrl {
 
         for (int i = 0; i < id.size(); i++) {
             if (Integer.parseInt(id.get(i).substring(1)) > largestID) {
-                largestID = Integer.parseInt(id.get(i));
+                largestID = Integer.parseInt(id.get(i).substring(1));
             }
         }
 
-        return "S" + largestID++;
+        return "S" + (largestID +1);
     }
 
 
@@ -91,16 +91,6 @@ public class StdCreateCtrl {
             fxmlLoader.setController(stdDashCtrl);
             AnchorPane pane = fxmlLoader.load();
             contentPane.getChildren().setAll(pane);
-//            Parent root = fxmlLoader.load();
-//
-//            // Get current stage and store previous scene
-//            Stage currentStage = (Stage) btnAddStd.getScene().getWindow();
-//            Scene previousScene = currentStage.getScene(); // Save current scene
-//
-//
-//
-//            currentStage.setScene(new Scene(root, 600, 400));
-//            currentStage.setTitle("Student Management System");
 
         } catch (IOException e) {
             e.printStackTrace();

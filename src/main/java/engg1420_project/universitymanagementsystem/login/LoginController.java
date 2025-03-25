@@ -4,6 +4,7 @@ import engg1420_project.universitymanagementsystem.HelloApplication;
 import engg1420_project.universitymanagementsystem.faculty.facultyController;
 import engg1420_project.universitymanagementsystem.projectClasses.DatabaseManager;
 import engg1420_project.universitymanagementsystem.student.StdDashCtrl;
+import engg1420_project.universitymanagementsystem.student.StdProfileViewCtrl;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -221,36 +222,39 @@ public class LoginController {
             e.printStackTrace();
         }
     }*/
+
+
     @FXML
-    void openStudents() throws IOException {
+    void openStudents() throws IOException, SQLException {
+
+
+
         try {
-            // Load the FXML and set the controller
-            FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("student/StdDashboard.fxml"));
+            if (loginUser.equals("Admin")) {
+                // Load the FXML and set the controller
+                FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("student/StdDashboard.fxml"));
+                StdDashCtrl controller = new StdDashCtrl(db, loginUser);
+                fxmlLoader.setController(controller);
+                AnchorPane pane = fxmlLoader.load();
 
-            StdDashCtrl controller = new StdDashCtrl(db, loginUser);
-            fxmlLoader.setController(controller);
-            AnchorPane pane = fxmlLoader.load();
+                // Set the right-side content to the new pane
+                contentPane.getChildren().setAll(pane);
+            } else if (loginUser.equals("Faculty")) {
+                FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("student/StdDashboard.fxml"));
+                StdDashCtrl controller = new StdDashCtrl(db, loginUser);
+                fxmlLoader.setController(controller);
+                AnchorPane pane = fxmlLoader.load();
 
-            // Set the right-side content to the new pane
-            contentPane.getChildren().setAll(pane);
+            }
 
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+            } catch(IOException e){
+                e.printStackTrace();
+            } catch(SQLException e){
+                throw new RuntimeException(e);
+            }
 
-//        try {
-//            // Load the FXML for the Student Dashboard
-//            FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("StdDashboard.fxml"));
-//            Pane paneLoad = fxmlLoader.load();
+
 //
-//            // Replace the content in contentPane
-//            pane.getChildren().setAll(paneLoad);
-//
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
     }
 
 //    @FXML

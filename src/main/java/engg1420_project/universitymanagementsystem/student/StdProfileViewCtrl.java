@@ -11,6 +11,7 @@ import javafx.scene.layout.AnchorPane;
 
 
 import javafx.scene.image.ImageView;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.sql.*;
@@ -26,22 +27,31 @@ public class StdProfileViewCtrl  {
     private Scene previousScene;
     private boolean previous;
     private String username;
+    private String ID;
 
     public StdProfileViewCtrl(String studentInfo, String access, DatabaseManager db, String username) throws SQLException {
         this.db = db;
+        this.studentInfo = studentInfo;
         String[] parts = studentInfo.split(":");
         this.student = new Student(parts[0], db);
-        /*
-        this.canEdit = !access.equals("student");
-        if(access.equals("admin")) {
-            previous = true;
-        }else{
-            previous = false;
-        }
-
-         */
         this.username = username;
     }
+
+    public StdProfileViewCtrl(DatabaseManager db, String access, String studentInfo) throws SQLException {
+        this.db = db;
+        this.studentInfo = studentInfo;
+        String[] parts = studentInfo.split(":");
+        this.student = new Student(parts[0], db);
+        this.access = access;
+    }
+
+    /*
+    public StdProfileViewCtrl(DatabaseManager db, String access, String ID) {
+        this.db = db;
+        this.access = access;
+        this.ID = ID;
+    }
+     */
 
     @FXML
     private ListView<String> courseListView;
@@ -61,10 +71,31 @@ public class StdProfileViewCtrl  {
     public ImageView profilePhoto;
 
     @FXML
-    private Button btnExit;
+    private Button btnExit, btnEdit;
 
     @FXML
     private AnchorPane contentPane;
+
+    @FXML
+    public void edit (ActionEvent event) throws IOException {
+        try{
+            Stage currentStage = (Stage) btnEdit.getScene().getWindow();
+            Scene previousScene = currentStage.getScene(); // Save current scene
+
+            StdProfileEditCtrl stdProfileEditCtrl = new StdProfileEditCtrl(db, studentInfo, username);
+            FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("student/StdProfileEditing.fxml"));
+            fxmlLoader.setController(stdProfileEditCtrl);
+
+            AnchorPane pane = fxmlLoader.load();
+            contentPane.getChildren().setAll(pane);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
 
 
 
@@ -137,6 +168,14 @@ public class StdProfileViewCtrl  {
 
     @FXML
     public void initialize() {
+        /*
+        if (access == "Faculty") {
+            btnEdit.setDisable(true);
+        } else {
+            btnEdit.setDisable(false);
+        }
+
+         */
 
         labelStdName.setText(student.getName());
         labelStdID.setText(student.getStudentID());
@@ -149,10 +188,15 @@ public class StdProfileViewCtrl  {
 
         barProgramProgress.setProgress(student.getAcademicProgress());
 
-        String[] subjects = student.getSubjects();
+        if (student.getSubjects() != null) {
+            String[] subjects = student.getSubjects();
 
-        for (int i = 0; i < subjects.length; i++) {
-            subjectListView.getItems().add(subjects[i]);
+
+            for (int i = 0; i < subjects.length; i++) {
+                subjectListView.getItems().add(subjects[i]);
+            }
+        } else {
+            subjectListView.getItems().add("No Registered Subjects");
         }
 
         /* Figure out Image things
@@ -161,9 +205,6 @@ public class StdProfileViewCtrl  {
             course and subject lists
             making certain things not visible
          */
-
-
-
 
     }
 }

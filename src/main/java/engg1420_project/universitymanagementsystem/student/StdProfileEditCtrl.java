@@ -32,7 +32,7 @@ public class StdProfileEditCtrl  {
     }
 
     @FXML
-    private TextField tfName, tfAddress, tfPhone, tfEmail, tfPassword, tfThesis, tfProgress;
+    private TextField tfName, tfAddress, tfPhone, tfEmail, tfPassword, tfThesis, tfProgress,tfSemester;
 
     @FXML
     private ChoiceBox cBoxAcmLvl;
@@ -57,6 +57,7 @@ public class StdProfileEditCtrl  {
         student.setThesis(tfThesis.getText());
         student.setAcademicProgress((double) Double.parseDouble(tfProgress.getText()));
         student.setAcademicLvl((String) cBoxAcmLvl.getValue());
+        student.setSemster(tfSemester.getText());
 
         student.updateStudent();
       // db.updateRowInTable("Students", "Student ID" , student.getStudentID(), student.studentToList());
@@ -106,6 +107,7 @@ public class StdProfileEditCtrl  {
         tfThesis.setText(student.getThesis());
         tfPassword.setText(student.getPassword());
         tfProgress.setText(Double.toString(student.getAcademicProgress()));
+        tfSemester.setText(student.getSemster());
         //labelSemester.setText(student.getSemster());
         if (student.getAcademicLvl().equals("Undergraduate")) {
             cBoxAcmLvl.setValue("Undergraduate");

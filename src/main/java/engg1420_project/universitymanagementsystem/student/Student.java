@@ -40,11 +40,13 @@ public class Student extends User {
         this.academicLvl = studentMember.get(5);
         this.semster = studentMember.get(6);
 
-        subjects =  studentMember.get(8).split(", ");
+        if (studentMember.get(8) != null) {
+            subjects = studentMember.get(8).split(", ");
+        }
 
         this.thesis = studentMember.get(9);
         this.academicProgress = Double.parseDouble(studentMember.get(10));
-        super.password = studentMember.get(10);
+        super.password = studentMember.get(11);
         //Handle Profile Photo
         this.photoName = studentMember.get(7);
 
@@ -94,13 +96,18 @@ public class Student extends User {
     }
 
     public String[] getSubjects() {
+        if (subjects == null) {
+            return new String[0];
+        }
         return subjects;
     }
 
     public String getSubjectString() {
         String subjectsStr = "";
-        for (int i = 0; i < subjects.length; i++) {
-            subjectsStr += subjects[i] + ", ";
+        if (subjects != null) {
+            for (int i = 0; i < subjects.length; i++) {
+                subjectsStr += subjects[i] + ", ";
+            }
         }
         return subjectsStr;
     }
