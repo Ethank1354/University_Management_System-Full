@@ -7,6 +7,7 @@ import engg1420_project.universitymanagementsystem.projectClasses.User;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 //Kyle Egan
 
@@ -27,6 +28,10 @@ public class Student extends User {
     private String photoName;
 
     private String[] subjects;
+    private String[] grades;
+
+    private double tution;
+    private double tutionPaid = 0.0;
 
 
     public Student(String studentID, DatabaseManager dbm) throws SQLException {
@@ -42,6 +47,12 @@ public class Student extends User {
 
         if (studentMember.get(8) != null) {
             subjects = studentMember.get(8).split(", ");
+            grades = new String[subjects.length];
+
+
+            for (int i = 0; i < subjects.length; i++) {
+                grades[i] = "50%";
+            }
         }
 
         this.thesis = studentMember.get(9);
@@ -49,6 +60,12 @@ public class Student extends User {
         super.password = studentMember.get(11);
         //Handle Profile Photo
         this.photoName = studentMember.get(7);
+
+        if (academicLvl.equals("Graduate")) {
+            this.tution = 40000.0;
+        } else {
+            this.tution = 50000.0;
+        }
 
     }
 
@@ -63,6 +80,12 @@ public class Student extends User {
         this.academicProgress = Double.parseDouble(progress.toString());
         this.photoName = photoName;
         super.password = password;
+
+        if (academicLvl.equals("Graduate")) {
+            this.tution = 40000.0;
+        } else {
+            this.tution = 50000.0;
+        }
 
     }
 
@@ -91,6 +114,14 @@ public class Student extends User {
         return thesis;
     }
 
+    public Double getTution() {
+        return tution;
+    }
+
+    public Double getTutionPaid() {
+        return tutionPaid;
+    }
+
     public double getAcademicProgress() {
         return academicProgress;
     }
@@ -110,6 +141,23 @@ public class Student extends User {
             }
         }
         return subjectsStr;
+    }
+
+    public String[] getGrades() {
+        if (grades == null) {
+            return new String[0];
+        }
+        return grades;
+    }
+
+    public String getGradeString() {
+        String gradesStr = "";
+        if (grades != null) {
+            for (int i = 0; i < grades.length; i++) {
+                gradesStr += grades[i] + ", ";
+            }
+        }
+        return gradesStr;
     }
 
     //Setter Methods

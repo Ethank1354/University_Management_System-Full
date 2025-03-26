@@ -15,6 +15,8 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class StdProfileViewCtrl  {
@@ -174,8 +176,12 @@ public class StdProfileViewCtrl  {
         } else {
             btnEdit.setDisable(false);
         }
-
+//Also include tution information
          */
+
+        labelTotalAmt.setText("$"+ student.getTution().toString());
+        labelAmtPaid.setText("$"+ student.getTutionPaid().toString());
+        labelAmtLeft.setText("$"+ (student.getTution() - student.getTutionPaid()));
 
         labelStdName.setText(student.getName());
         labelStdID.setText(student.getStudentID());
@@ -188,18 +194,26 @@ public class StdProfileViewCtrl  {
 
         barProgramProgress.setProgress(student.getAcademicProgress());
 
+
         if (student.getSubjects() != null) {
             String[] subjects = student.getSubjects();
+            String[] grades = student.getGrades();
 
+            List<String> subjectList = new ArrayList<>();
 
             for (int i = 0; i < subjects.length; i++) {
-                subjectListView.getItems().add(subjects[i]);
+                subjectList.add(subjects[i] + " : " + grades[i]);
+            }
+
+            for (int i = 0; i < subjects.length; i++) {
+                subjectListView.getItems().addAll(subjectList);
             }
         } else {
             subjectListView.getItems().add("No Registered Subjects");
         }
 
-        /* Figure out Image things
+        /*
+            Figure out Image things
             Get progress bar working
             tutition calculations
             course and subject lists

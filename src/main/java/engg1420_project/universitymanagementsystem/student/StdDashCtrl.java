@@ -219,8 +219,6 @@ public class StdDashCtrl {
                 }
             });
 
-
-
             return cell;
             });
     }
