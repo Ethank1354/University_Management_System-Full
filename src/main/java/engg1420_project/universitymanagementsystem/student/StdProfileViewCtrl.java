@@ -1,12 +1,14 @@
 //package engg1420group2.universitymanagementsystem.studentmanagement;
 package engg1420_project.universitymanagementsystem.student;
 
+import engg1420_project.universitymanagementsystem.HelloApplication;
 import engg1420_project.universitymanagementsystem.projectClasses.DatabaseManager;
 import engg1420_project.universitymanagementsystem.Main;
 import javafx.event.ActionEvent;
 import javafx.fxml.*;
 import javafx.scene.control.*;
 import javafx.scene.*;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 
 
@@ -98,8 +100,6 @@ public class StdProfileViewCtrl  {
         }
 
     }
-
-
 
     @FXML
     public void exit (ActionEvent event) throws IOException {
@@ -212,13 +212,14 @@ public class StdProfileViewCtrl  {
             subjectListView.getItems().add("No Registered Subjects");
         }
 
-        /*
-            Figure out Image things
-            Get progress bar working
-            tutition calculations
-            course and subject lists
-            making certain things not visible
-         */
+        Image profile = null;
+        try {
+            profile = new Image(HelloApplication.class.getResourceAsStream("images/" + student.getPhotoLocation()));
+        }catch (Exception e){
+            profilePhoto.setImage(new Image(HelloApplication.class.getResourceAsStream("images/BlankProfile.png")));
+        }
+
+        profilePhoto.setImage(profile);
 
     }
 }

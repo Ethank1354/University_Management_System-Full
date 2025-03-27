@@ -26,7 +26,7 @@ public class Student extends User {
     private String thesis;
     private Double academicProgress;
     private String photoName;
-
+    private String profilePhotoLocation;
     private String[] subjects;
     private String[] grades;
 
@@ -58,14 +58,25 @@ public class Student extends User {
         this.thesis = studentMember.get(9);
         this.academicProgress = Double.parseDouble(studentMember.get(10));
         super.password = studentMember.get(11);
-        //Handle Profile Photo
-        this.photoName = studentMember.get(7);
 
         if (academicLvl.equals("Graduate")) {
             this.tution = 40000.0;
         } else {
             this.tution = 50000.0;
         }
+
+        //Handle Profile Photo
+        this.photoName = studentMember.get(7);
+        List<String> photo = dbm.getRow("Photos", "ID", studentID);
+
+        for (String row : photo) {
+            System.out.println("Row: " + row);
+            System.out.println(row);
+        }
+
+        this.profilePhotoLocation = photo.get(1);
+
+
 
     }
 
@@ -160,6 +171,10 @@ public class Student extends User {
         return gradesStr;
     }
 
+    public String getPhotoLocation() {
+        return photoName;
+    }
+
     //Setter Methods
 
     public void setPhoneNumber(String phoneNumber) {
@@ -245,7 +260,31 @@ public class Student extends User {
         return "S" + largestID++;
     }
 
+    public void setTutionPaid(double tutionPaid) {
+        this.tutionPaid = tutionPaid;
+    }
+
+    public void setTution(double tution) {
+        this.tution = tution;
+    }
+
+    public void setProfilePhotoLocation(String profilePhotoLocation) {
+        this.profilePhotoLocation = profilePhotoLocation;
+    }
+
+
     //Update Profile Picture
+    public void updateProfilePhoto() {
+        try {
+            List<String> photoStore = new ArrayList<>();
+            photoStore.add(this.studentID);
+            photoStore.add(this.profilePhotoLocation);
+
+            this.dbm.updateRowInTable("Photos", "ID", this.studentID, photoStore);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
 
 
