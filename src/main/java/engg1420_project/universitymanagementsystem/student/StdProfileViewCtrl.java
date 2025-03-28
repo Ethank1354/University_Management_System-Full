@@ -86,9 +86,10 @@ public class StdProfileViewCtrl  {
             Stage currentStage = (Stage) btnEdit.getScene().getWindow();
             Scene previousScene = currentStage.getScene(); // Save current scene
 
-            StdProfileEditCtrl stdProfileEditCtrl = new StdProfileEditCtrl(db, studentInfo, username);
-            FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("student/StdProfileEditing.fxml"));
-            fxmlLoader.setController(stdProfileEditCtrl);
+            //StdProfileEditCtrl stdProfileEditCtrl = new StdProfileEditCtrl(db, studentInfo, username);
+            editStudentProfile editStudentProfile = new editStudentProfile(db, studentInfo, access, username);
+            FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("student/studentProfileEdit.fxml"));
+            fxmlLoader.setController(editStudentProfile);
 
             AnchorPane pane = fxmlLoader.load();
             contentPane.getChildren().setAll(pane);
@@ -211,7 +212,7 @@ public class StdProfileViewCtrl  {
         } else {
             subjectListView.getItems().add("No Registered Subjects");
         }
-
+/*
         Image profile = null;
         try {
             profile = new Image(HelloApplication.class.getResourceAsStream("images/" + student.getPhotoLocation()));
@@ -220,6 +221,8 @@ public class StdProfileViewCtrl  {
         }
 
         profilePhoto.setImage(profile);
+
+ */
 
     }
 }

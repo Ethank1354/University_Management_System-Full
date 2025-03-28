@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane fx:id="contentPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="engg1420_project.universitymanagementsystem.student.StudentProfileEdit">
+<AnchorPane fx:id="contentPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" >
    <children>
       <TabPane prefHeight="400.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE">
         <tabs>
@@ -17,13 +17,13 @@
                         <TextField fx:id="tfEmail" layoutX="208.0" layoutY="175.0" promptText="Email" />
                         <TextField fx:id="tfPassword" layoutX="396.0" layoutY="175.0" promptText="Password" />
                         <TextField fx:id="tfAddress" layoutX="32.0" layoutY="218.0" promptText="Address" />
-                        <TextField fx:id="tfNumber" layoutX="209.0" layoutY="218.0" promptText="Number" />
+                        <TextField fx:id="tfPhone" layoutX="209.0" layoutY="218.0" promptText="Number" />
                         <TextField fx:id="tfProgress" layoutX="397.0" layoutY="218.0" promptText="Program Progress" />
                         <TextField fx:id="tfThesis" layoutX="209.0" layoutY="263.0" promptText="Thesis" />
                         <TextField fx:id="tfSemester" layoutX="397.0" layoutY="263.0" promptText="Semester" />
-                        <Button fx:id="btnUpload" layoutX="257.0" layoutY="304.0" mnemonicParsing="false" text="Save" />
+                        <Button fx:id="btnSave" layoutX="257.0" layoutY="304.0" mnemonicParsing="false" onAction="#saveChanges" text="Save" />
                         <ImageView fx:id="imgViewProfile" fitHeight="140.0" fitWidth="180.0" layoutX="190.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true" />
-                        <Button fx:id="btnSave" layoutX="396.0" layoutY="137.0" mnemonicParsing="false" text="Upload" />
+                        <Button fx:id="btnUpload" layoutX="396.0" layoutY="137.0" mnemonicParsing="false" text="Upload" />
                         <ChoiceBox fx:id="chBoxLevel" layoutX="31.0" layoutY="263.0" prefWidth="150.0" />
                         <Label fx:id="labelStudentID" layoutX="209.0" layoutY="141.0" text="Student ID: ID" />
                         <Label fx:id="labelError" layoutX="269.0" layoutY="340.0" text="Error" textAlignment="CENTER" />
@@ -54,7 +54,7 @@
                            </font>
                         </Label>
                         <Separator layoutX="232.0" layoutY="13.0" orientation="VERTICAL" prefHeight="345.0" prefWidth="12.0" />
-                        <Label fx:id="labelAcadmeicLevel" layoutX="29.0" layoutY="240.0" text="Academic Level">
+                        <Label fx:id="labelAcadmeiclevel" layoutX="29.0" layoutY="240.0" text="Academic Level">
                            <font>
                               <Font size="18.0" />
                            </font>
@@ -80,9 +80,9 @@
                            </font>
                         </Label>
                         <Separator layoutX="246.0" layoutY="123.0" prefHeight="7.0" prefWidth="313.0" />
-                        <TextField layoutX="403.0" layoutY="240.0" promptText="ie. 2000" />
-                        <TextField layoutX="403.0" layoutY="282.0" promptText="ie. 2000" />
-                        <Button fx:id="btnEditTution" layoutX="247.0" layoutY="201.0" mnemonicParsing="false" text="Edit Tution Balance" />
+                        <TextField fx:id="tfTotal" layoutX="403.0" layoutY="240.0" promptText="ie. 2000" />
+                        <TextField fx:id="tfPaid" layoutX="403.0" layoutY="282.0" promptText="ie. 2000" />
+                        <Button fx:id="btnEditTution" layoutX="247.0" layoutY="201.0" mnemonicParsing="false" onAction="#editTution" text="Edit Tution Balance" />
                         <Label layoutX="247.0" layoutY="243.0" text="Add to Amount Owed:">
                            <font>
                               <Font size="14.0" />
@@ -108,7 +108,7 @@
                               <Font size="14.0" />
                            </font>
                         </Label>
-                        <Button fx:id="btnUpdate" layoutX="246.0" layoutY="316.0" mnemonicParsing="false" text="Update" />
+                        <Button fx:id="btnUpdate" layoutX="246.0" layoutY="316.0" mnemonicParsing="false" onAction="#updateTution" text="Update" />
                      </children></AnchorPane>
               </content>
             </Tab>

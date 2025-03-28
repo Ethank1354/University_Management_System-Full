@@ -177,9 +177,10 @@ public class StdDashCtrl {
                     Stage currentStage = (Stage) listViewStudent.getScene().getWindow();
                     Scene previousScene = currentStage.getScene(); // Save current scene
 
-                    StdProfileEditCtrl stdProfileEditCtrl = new StdProfileEditCtrl(db, item, username);
-                    FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("student/StdProfileEditing.fxml"));
-                    fxmlLoader.setController(stdProfileEditCtrl);
+                    //StdProfileEditCtrl stdProfileEditCtrl = new StdProfileEditCtrl(db, item, username);
+                    editStudentProfile editStudentProfile = new editStudentProfile(db, item, access, username);
+                    FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("student/studentProfileEdit.fxml"));
+                    fxmlLoader.setController(editStudentProfile);
 
                     AnchorPane pane = fxmlLoader.load();
                     contentPane.getChildren().setAll(pane);

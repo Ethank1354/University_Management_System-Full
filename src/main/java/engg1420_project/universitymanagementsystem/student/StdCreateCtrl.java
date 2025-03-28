@@ -77,10 +77,13 @@ public class StdCreateCtrl {
         student[5] = (String) cBoxAcmLvl.getValue();
         student[6] = tfSemester.getText();
         //Subjects Registered
-        //Photo
+        String[] photoInfo = new String[2];
+        photoInfo[0] = student[0];
+        photoInfo[1] = "BlankProfile.png";
 
         try {
             db.addRowToTable("Students", student);
+            db.addRowToTable("Photos", photoInfo);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

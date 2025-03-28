@@ -27,13 +27,15 @@ public class editStudentProfile {
     private Student student;
     private String access;
     private String cellItem;
+    private String username;
 
-    public editStudentProfile(DatabaseManager db, String cellItem, String access) throws SQLException {
+    public editStudentProfile(DatabaseManager db, String cellItem, String access, String username) throws SQLException {
         this.db = db;
         this.cellItem = cellItem;
         String[] id = cellItem.split(":"); //The first part of this string is the id of the student, the second part is the name
         this.student = new Student(id[0], db);
         this.access = access;
+        this.username = username;
     }
 
     @FXML
@@ -57,9 +59,9 @@ public class editStudentProfile {
 
     //Tution Page
     @FXML
-    private Label labelName, labelStudentID1, labelAcademiclevel, labelTotal, labelBalance, labelPaid;
+    private Label labelName, labelStudentID1, labelAcadmeiclevel, labelTotal, labelBalance, labelPaid;
 
-    @FXML TextField tfPaid, tfTotal, tfBalance;
+    @FXML TextField tfPaid, tfTotal;
 
     @FXML
     private Button btnEditTution;
@@ -68,7 +70,9 @@ public class editStudentProfile {
     private ImageView imgViewProfile1;
 
     public void initialize() {
+
         //Main Page
+        /*
         Image profile = null;
         try {
             profile = new Image(HelloApplication.class.getResourceAsStream("images/" + student.getPhotoLocation()));
@@ -77,8 +81,12 @@ public class editStudentProfile {
             imgViewProfile1.setImage(new Image(HelloApplication.class.getResourceAsStream("images/BlankProfile.png")));
         }
 
+
+
         imgViewProfile.setImage(profile);
         imgViewProfile1.setImage(profile);
+
+         */
 
         labelStudentID.setText(student.getStudentID());
         labelError.setText("");
@@ -106,7 +114,7 @@ public class editStudentProfile {
         //Tution Page
         labelName.setText(student.getName());
         labelStudentID1.setText(student.getStudentID());
-        labelAcademiclevel.setText(student.getAcademicLvl());
+        labelAcadmeiclevel.setText(student.getAcademicLvl());
 
         labelTotal.setText(Double.toString(student.getTution()));
         labelTotal.setText(Double.toString(student.getTutionPaid()));
@@ -114,7 +122,7 @@ public class editStudentProfile {
 
         tfPaid.setDisable(true);
         tfTotal.setDisable(true);
-        tfBalance.setDisable(true);
+
 
     }
 
@@ -217,11 +225,10 @@ public class editStudentProfile {
         if (tfPaid.isDisabled() == true) {
             tfPaid.setDisable(false);
             tfTotal.setDisable(false);
-            tfBalance.setDisable(false);
+
         } else {
             tfPaid.setDisable(true);
             tfTotal.setDisable(true);
-            tfBalance.setDisable(true);
         }
     }
 
@@ -229,6 +236,10 @@ public class editStudentProfile {
     void updateTution(ActionEvent event) throws IOException {
         student.setTutionPaid(student.getTutionPaid() + ((double) Double.parseDouble(tfPaid.getText())));
         student.setTution(student.getTution() + ((double) Double.parseDouble(tfPaid.getText())));
+
+        labelTotal.setText(Double.toString(student.getTution()));
+        labelTotal.setText(Double.toString(student.getTutionPaid()));
+        labelBalance.setText(Double.toString(student.getTution() -  student.getTutionPaid()));
     }
 
     @FXML

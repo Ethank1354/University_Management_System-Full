@@ -64,8 +64,9 @@ public class Student extends User {
         } else {
             this.tution = 50000.0;
         }
-
+/*
         //Handle Profile Photo
+        //Need to update the database under the photos table to include student ID's
         this.photoName = studentMember.get(7);
         List<String> photo = dbm.getRow("Photos", "ID", studentID);
 
@@ -75,6 +76,8 @@ public class Student extends User {
         }
 
         this.profilePhotoLocation = photo.get(1);
+
+ */
 
 
 
