@@ -1,9 +1,16 @@
-//package com.example.project;
+//Mateo
 package engg1420_project.universitymanagementsystem.course;
 
+import engg1420_project.universitymanagementsystem.HelloApplication;
+import engg1420_project.universitymanagementsystem.projectClasses.DatabaseManager;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
+
+import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class EditCourseController {
 
@@ -20,6 +27,7 @@ public class EditCourseController {
     @FXML private Button cancelButton;
 
     private Course course;
+    private static DatabaseManager db = new DatabaseManager(HelloApplication.class.getResource("test.db").toString());
 
     public void setCourse(Course course) {
         this.course = course;
@@ -28,7 +36,7 @@ public class EditCourseController {
         subjectField.setText(course.getSubjectName());
         sectionField.setText(String.valueOf(course.getSectionNumber()));
         teacherField.setText(course.getTeacherName());
-        capacityField.setText(String.valueOf(course.getCapacity()));
+        capacityField.setText(String.valueOf(course.getMaxCapacity()));
         timeField.setText(course.getLectureTime());
         locationField.setText(course.getLocation());
         examField.setText(course.getFinalExamDateTime());
@@ -41,23 +49,52 @@ public class EditCourseController {
         confirmation.setHeaderText(null);
 
         if (confirmation.showAndWait().orElse(ButtonType.NO) == ButtonType.YES) {
-            course.setCourseName(nameField.getText());
-            course.setSubjectName(subjectField.getText());
-            course.setTeacherName(teacherField.getText());
-            course.setLectureTime(timeField.getText());
-            course.setLocation(locationField.getText());
-            course.setFinalExamDateTime(examField.getText());
-
             try {
-                course.setCourseCode(Integer.parseInt(codeField.getText()));
-                course.setSectionNumber(Integer.parseInt(sectionField.getText()));
-                course.setCapacity(Integer.parseInt(capacityField.getText()));
-            } catch (NumberFormatException e) {
-                System.out.println("Invalid number format. Skipping invalid fields.");
-            }
+                int courseCode = Integer.parseInt(codeField.getText());
+                int sectionNumber = Integer.parseInt(sectionField.getText());
+                int capacity = Integer.parseInt(capacityField.getText());
 
-            Stage stage = (Stage) saveButton.getScene().getWindow();
-            stage.close();
+                // Update object in memory
+                course.setCourseName(nameField.getText());
+                course.setSubjectName(subjectField.getText());
+                course.setTeacherName(teacherField.getText());
+                course.setLectureTime(timeField.getText());
+                course.setLocation(locationField.getText());
+                course.setFinalExamDateTime(examField.getText());
+                course.setCourseCode(courseCode);
+                course.setSectionNumber(sectionNumber);
+                course.setMaxCapacity(capacity);
+
+                // Update the database
+                // Convert Map to List<String> in correct order
+                List<String> newValues = List.of(
+                        nameField.getText(),
+                        subjectField.getText(),
+                        teacherField.getText(),
+                        timeField.getText(),
+                        locationField.getText(),
+                        examField.getText(),
+                        String.valueOf(sectionNumber),
+                        String.valueOf(capacity)
+                );
+
+// Update the database using the correct method signature
+                boolean updated = db.updateRowInTable("courses", "course_code", String.valueOf(courseCode), newValues);
+
+
+                if (!updated) {
+                    showAlert("Error", "Failed to update the course.");
+                }
+
+                // Close window
+                Stage stage = (Stage) saveButton.getScene().getWindow();
+                stage.close();
+
+            } catch (NumberFormatException e) {
+                showAlert("Invalid Input", "Please enter valid numbers for Course Code, Section, and Capacity.");
+            } catch (SQLException e) {
+                showAlert("Database Error", "Failed to update the course in the database.");
+            }
         }
     }
 
@@ -71,5 +108,13 @@ public class EditCourseController {
             Stage stage = (Stage) cancelButton.getScene().getWindow();
             stage.close();
         }
+    }
+
+    private void showAlert(String title, String content) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(content);
+        alert.showAndWait();
     }
 }

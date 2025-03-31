@@ -1,6 +1,7 @@
-//package com.example.project;
 package engg1420_project.universitymanagementsystem.course;
 
+import engg1420_project.universitymanagementsystem.HelloApplication;
+import engg1420_project.universitymanagementsystem.projectClasses.DatabaseManager;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -11,6 +12,8 @@ import javafx.scene.control.*;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.sql.SQLException;
+import java.util.List;
 
 public class ManageEnrollmentsController {
 
@@ -24,61 +27,58 @@ public class ManageEnrollmentsController {
     @FXML private TableColumn<StudentCM, String> levelColumn;
     @FXML private TableColumn<StudentCM, String> semesterColumn;
 
-    @FXML private ComboBox<String> studentComboBox;
     @FXML private Button addStudentButton;
     @FXML private Button removeStudentButton;
     @FXML private Button closeButton;
 
     private ObservableList<StudentCM> studentList = FXCollections.observableArrayList();
     private Course currentCourse;
+    private DatabaseManager db;
 
-    public void setCourse(Course course) {
+    // Constructor to initialize DatabaseManager
+    public ManageEnrollmentsController() {
+        this.db = new DatabaseManager(HelloApplication.class.getResource("test.db").toString());
+    }
+
+    public void setCourse(Course course) throws SQLException {
         this.currentCourse = course;
         courseLabel.setText(course.getCourseName() + " - Enrolled Students");
 
-        // Fill the list with your hardcoded student data
-        studentList.setAll(
-                new StudentCM(20250001, "Alice Smith", "123 Maple St.", "555-1234", "alice@example.edu", "Undergraduate", 2025),
-                new StudentCM(20250002, "Bob Johnson", "456 Oak St.", "555-5678", "bob@example.edu", "Graduate", 2025),
-                new StudentCM(20250003, "Carol Williams", "789 Pine St.", "555-9012", "carol@example.edu", "Graduate", 2025),
-                new StudentCM(20250004, "Lucka Racki", "1767 Jane St.", "439-9966", "lucka@example.edu", "Undergraduate", 2025),
-                new StudentCM(20250005, "David Lee", "90 Elm St.", "555-3456", "david@example.edu", "Undergraduate", 2025),
-                new StudentCM(20250006, "Emily Brown", "111 Oak Ave.", "555-7890", "emily@example.edu", "Graduate", 2025),
-                new StudentCM(20250007, "George Smith", "222 Pine Rd.", "555-2345", "george@example.edu", "Undergraduate", 2025),
-                new StudentCM(20250008, "Helen Jones", "333 Maple Dr.", "555-4567", "helen@example.edu", "Graduate", 2025),
-                new StudentCM(20250009, "Isaac Clark", "444 Cedar Ln.", "555-8901", "isaac@example.edu", "Undergraduate", 2025),
-                new StudentCM(20250010, "Jennifer Davis", "555 Oakwood Pl", "555-3456", "jennifer@example.edu", "Graduate", 2025)
-        );
+        loadEnrolledStudents();
+    }
+
+    private void loadEnrolledStudents() throws SQLException {
+        studentList.clear();
+        List<String> studentIDs = db.getColumnValuesByFilter("enrollments", "student_id", "course_code", String.valueOf(currentCourse.getCourseCode()));
+
+        for (String studentID : studentIDs) {
+            List<String> studentData = db.getRow("students", "student_id", studentID);
+            if (studentData != null && !studentData.isEmpty()) {
+                studentList.add(new StudentCM(
+                        Integer.parseInt(studentData.get(0)),
+                        studentData.get(1),
+                        studentData.get(2),
+                        studentData.get(3),
+                        studentData.get(4),
+                        studentData.get(5),
+                        Integer.parseInt(studentData.get(6))
+                ));
+            }
+        }
 
         studentsTable.setItems(studentList);
 
-        // Populate studentComboBox with student names for adding
-        ObservableList<String> studentNames = FXCollections.observableArrayList();
-        for (StudentCM student : studentList) {
-            studentNames.add(student.getName());
-        }
-        studentComboBox.setItems(studentNames);
+        currentCourse.setCurrentCapacity(studentList.size());
     }
 
-    @FXML
-    private void initialize() {
-        // Populate ComboBox with student names
-        ObservableList<String> studentNames = FXCollections.observableArrayList();
-        for (StudentCM student : studentList) {
-            studentNames.add(student.getName());
-        }
-        studentComboBox.setItems(studentNames);
-    }
 
     @FXML
     private void openAddStudentWindow() throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/project/AddStudent.fxml"));
         Parent root = loader.load();
 
-        // Correct the controller reference passing
         AddStudentController controller = loader.getController();
-        controller.setStudentList(studentList);  // Pass the student list to the new window
-        controller.setManageEnrollmentsController(this);  // Pass the main controller to update the table
+        controller.setManageEnrollmentsController(this);
 
         Stage stage = new Stage();
         stage.setTitle("Add Student");
@@ -86,25 +86,47 @@ public class ManageEnrollmentsController {
         stage.show();
     }
 
+    public void addStudentToCourse(StudentCM studentToAdd) throws SQLException {
+        if (currentCourse.getCurrentCapacity() < currentCourse.getMaxCapacity()) {
+            if (!studentList.contains(studentToAdd)) {
+                boolean success = db.addRowToTable("enrollments", new String[]{
+                        String.valueOf(currentCourse.getCourseCode()),
+                        String.valueOf(studentToAdd.getStudentID())
+                });
 
-    public void addStudentToCourse(StudentCM studentToAdd) {
-        studentsTable.getItems().add(studentToAdd);
+                if (success) {
+                    studentList.add(studentToAdd);
+                    currentCourse.setCurrentCapacity(currentCourse.getCurrentCapacity() + 1); // Increase currentCapacity
+                    studentsTable.refresh();
+                } else {
+                    showAlert("Error", "Failed to enroll student.");
+                }
+            } else {
+                showAlert("Duplicate Entry", "This student is already enrolled.");
+            }
+        } else {
+            showAlert("Enrollment Full", "The course has reached its maximum capacity.");
+        }
     }
 
-
-
-
     @FXML
-    private void removeStudent() {
+    private void removeStudent() throws SQLException {
         StudentCM selectedStudent = studentsTable.getSelectionModel().getSelectedItem();
         if (selectedStudent != null) {
-            Alert confirmation = new Alert(Alert.AlertType.CONFIRMATION,
-                    "Are you sure you want to remove this student?", ButtonType.YES, ButtonType.NO);
+            Alert confirmation = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you want to remove this student?", ButtonType.YES, ButtonType.NO);
             confirmation.setTitle("Confirm Removal");
             confirmation.setHeaderText(null);
 
             if (confirmation.showAndWait().orElse(ButtonType.NO) == ButtonType.YES) {
-                studentsTable.getItems().remove(selectedStudent);
+                boolean success = db.deleteRowFromTable("enrollments", "student_id", String.valueOf(selectedStudent.getStudentID()));
+
+                if (success) {
+                    studentList.remove(selectedStudent);
+                    currentCourse.setCurrentCapacity(currentCourse.getCurrentCapacity() - 1); // Decrease currentCapacity
+                    studentsTable.refresh();
+                } else {
+                    showAlert("Error", "Failed to remove student from the course.");
+                }
             }
         }
     }
@@ -114,4 +136,14 @@ public class ManageEnrollmentsController {
         Stage stage = (Stage) closeButton.getScene().getWindow();
         stage.close();
     }
+
+    private void showAlert(String title, String content) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(content);
+        alert.showAndWait();
+    }
 }
+
+

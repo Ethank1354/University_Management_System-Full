@@ -1,4 +1,4 @@
-//package com.example.project;
+//Mateo
 package engg1420_project.universitymanagementsystem.course;
 
 
@@ -12,6 +12,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import java.io.IOException;
+import java.sql.SQLException;
 
 public class ViewCoursesController {
 
@@ -44,7 +45,7 @@ public class ViewCoursesController {
     private ObservableList<Course> courseList;
 
     @FXML
-    private void initialize() {
+    private void initialize() throws SQLException {
         // Column bindings
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("courseName"));
         codeColumn.setCellValueFactory(new PropertyValueFactory<>("courseCode"));
@@ -72,7 +73,6 @@ public class ViewCoursesController {
         Course selectedCourse = coursesTable.getSelectionModel().getSelectedItem();
         if (selectedCourse == null) return;
 
-        // Open Manage Enrollments window (empty list for now)
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("ManageEnrollments.fxml"));
             Parent root = loader.load();
