@@ -3,9 +3,11 @@ package engg1420_project.universitymanagementsystem.student;
 import engg1420_project.universitymanagementsystem.HelloApplication;
 import engg1420_project.universitymanagementsystem.Main;
 import engg1420_project.universitymanagementsystem.projectClasses.DatabaseManager;
+import javafx.beans.binding.Bindings;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -21,6 +23,8 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class editStudentProfile {
     private DatabaseManager db;
@@ -69,24 +73,26 @@ public class editStudentProfile {
     @FXML
     private ImageView imgViewProfile1;
 
+    //Course Page
+    @FXML
+    private ListView subjectListView;
+
     public void initialize() {
 
         //Main Page
-        /*
+
         Image profile = null;
         try {
             profile = new Image(HelloApplication.class.getResourceAsStream("images/" + student.getPhotoLocation()));
         }catch (Exception e){
-            imgViewProfile.setImage(new Image(HelloApplication.class.getResourceAsStream("images/BlankProfile.png")));
-            imgViewProfile1.setImage(new Image(HelloApplication.class.getResourceAsStream("images/BlankProfile.png")));
+            imgViewProfile.setImage(new Image(HelloApplication.class.getResourceAsStream("images/default.png")));
+           imgViewProfile1.setImage(new Image(HelloApplication.class.getResourceAsStream("images/default.png")));
         }
-
-
 
         imgViewProfile.setImage(profile);
         imgViewProfile1.setImage(profile);
 
-         */
+
 
         labelStudentID.setText(student.getStudentID());
         labelError.setText("");
@@ -110,6 +116,61 @@ public class editStudentProfile {
         }
 
         //Course Page
+        if (student.getSubjects() != null) {
+            ArrayList<String> subjects = student.getSubjects();
+            //String[] grades = student.getGrades();
+
+            List<String> subjectList = new ArrayList<>();
+
+            for (int i = 0; i < subjects.size(); i++) {
+                subjectList.add(subjects.get(i));
+            }
+
+            for (int i = 0; i < subjects.size(); i++) {
+                subjectListView.getItems().addAll(subjectList);
+            }
+        } else {
+            subjectListView.getItems().add("No Registered Subjects");
+        }
+
+        subjectListView.setCellFactory(lv -> {
+
+            ListCell<String> cell = new ListCell<>();
+
+            ContextMenu contextMenu = new ContextMenu();
+
+           /*
+           change to not delete the student
+            */
+            MenuItem dropItem = new MenuItem();
+            dropItem.textProperty().bind(Bindings.format("Drop \"%s\"", cell.itemProperty()));
+            dropItem.setOnAction(event -> {
+                String item = cell.getItem();
+                subjectListView.getItems().remove(item);
+                String[] parts = item.split(":");
+                System.out.println(parts[0]);
+                try {
+                    db.deleteRowFromTable("Students", "Student ID", parts[0]);
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+            });
+
+            //Adding all the options to the click down menu
+            contextMenu.getItems().addAll(dropItem);
+
+            cell.textProperty().bind(cell.itemProperty());
+
+            cell.emptyProperty().addListener((obs, wasEmpty, isNowEmpty) -> {
+                if (isNowEmpty) {
+                    cell.setContextMenu(null);
+                } else {
+                    cell.setContextMenu(contextMenu);
+                }
+            });
+
+            return cell;
+        });
 
         //Tution Page
         labelName.setText(student.getName());
@@ -120,8 +181,8 @@ public class editStudentProfile {
         labelTotal.setText(Double.toString(student.getTutionPaid()));
         labelBalance.setText(Double.toString((student.getTution()) - student.getTutionPaid()));
 
-        tfPaid.setDisable(true);
-        tfTotal.setDisable(true);
+        tfPaid.setVisible(false);
+        tfTotal.setVisible(false);
 
 
     }
@@ -140,6 +201,11 @@ public class editStudentProfile {
         return 0;
     }
 
+    /*
+    Exception Handling
+        Checking all the text fields to make sure the inputs are correct
+        mainly checks to see that the fields actually filled or that its only numbers or certain characters
+     */
     private int exceptionHandling() {
         //Name
         if (tfName.getText().length() <= 0 || doesContain(tfName.getText(), ' ') == 1) {
@@ -147,7 +213,7 @@ public class editStudentProfile {
         }
 
         //Password
-        if (tfPassword.getText().length() <= 0) {
+        if (tfPassword.getText().length() <= 1) {
             tfPassword.clear();
             return 2;
         }
@@ -164,9 +230,14 @@ public class editStudentProfile {
 
         //Phone
         //Do it later
+        if (tfPhone.getText().length() <= 0 || doesContain(tfPhone.getText(), '-') == 1 || tfPhone.getText().matches("\\d+")) {
+            return 5;
+        }
 
         //Progress
-        //Do it later
+        if (tfProgress.getText().length() <= 0 || tfPhone.getText().matches("\\d+") || doesContain(tfProgress.getText(), '.') == 1) {
+            return 6;
+        }
 
         //Semester
         if (tfSemester.getText().length() <= 0 || doesContain(tfSemester.getText(), ' ') == 1) {
@@ -176,6 +247,17 @@ public class editStudentProfile {
         return 0;
     }
 
+
+    /*
+    Saves the Changes
+        first, it uses the exception handling method to make sure every input is up to par
+        next it updates all the changes to the dummy student and tries to update the student in the database
+
+        if successful it will bring you back to the dashboard
+        if it isn't it shows the error found with the exception handling
+
+        NEED TO UPDATE THE DESTNATIONS DEPENDING ON THE ACCESS LEVEL
+     */
     @FXML
     void saveChanges(ActionEvent event) throws IOException, SQLException {
         if (exceptionHandling() == 0) {
@@ -215,16 +297,23 @@ public class editStudentProfile {
                 labelError.setText("Please Re-enter your address");
             } else if (exceptionHandling() == 7) {
                 labelError.setText("Please Re-enter your smesmer?");
+            } else if (exceptionHandling() == 5) {
+                labelError.setText("Please Re-enter your phone number");
+            } else if (exceptionHandling() == 6) {
+                labelError.setText("Please Re-enter your academic progress");
             }
 
         }
     }
 
+    /*
+    Makes the tution text fields visible or invisble when the buttons are pressed
+     */
     @FXML
     void editTution(ActionEvent event) throws IOException {
-        if (tfPaid.isDisabled() == true) {
-            tfPaid.setDisable(false);
-            tfTotal.setDisable(false);
+        if (tfPaid.isVisible() == true) {
+            tfPaid.setVisible(false);
+            tfTotal.setVisible(false);
 
         } else {
             tfPaid.setDisable(true);
@@ -232,6 +321,10 @@ public class editStudentProfile {
         }
     }
 
+    /*
+    What do you think
+    just read it
+     */
     @FXML
     void updateTution(ActionEvent event) throws IOException {
         student.setTutionPaid(student.getTutionPaid() + ((double) Double.parseDouble(tfPaid.getText())));

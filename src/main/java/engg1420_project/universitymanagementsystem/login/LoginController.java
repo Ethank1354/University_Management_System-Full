@@ -20,8 +20,6 @@ import javafx.stage.*;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.Arrays;
-import java.util.List;
 import java.util.Objects;
 
 public class LoginController {
@@ -45,7 +43,17 @@ public class LoginController {
     private DatabaseManager db = new DatabaseManager(HelloApplication.class.getResource("test.db").toString());
 
     //User Info
-    private String[] studentID;
+
+
+    private String[] studentID = {"S20250001", "S20250002", "S20250003", "S20250004", "S20250005", "S20250006", "S20250007", "S20250008", "S20250009", "S20250010"};
+
+    {
+       // try {
+            //studentID = (String[]) db.getColumnValues("Students", "Student ID").toArray();
+       // } catch (SQLException e) {
+        //    throw new RuntimeException(e);
+        //}
+    }
 
     private String[] studentEmail = {"alice@example.edu", "bob.@example.edu", "carol@example.edu", "lucka@example.edu", "lee@example.edu", "brown@example.edu", "smith@example.edu", "jones@example.edu", "clarka@example.edu", "davis@example.edu"};
 
@@ -55,26 +63,6 @@ public class LoginController {
 
     private String adminID = "admin123";
     private String adminEmail = "admin@uni";
-
-    public LoginController() {
-        try {
-            studentID =  db.getColumnValues("Students", "StudentID").toArray(new String[0]);  //studentIDs.toArray(new String[0]);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    //private String[] studentID = {"S20250001", "S20250002", "S20250003", "S20250004", "S20250005", "S20250006", "S20250007", "S20250008", "S20250009", "S20250010"};
-
-
-        // try {
-            //studentID = (String[]) db.getColumnValues("Students", "Student ID").toArray();
-       // } catch (SQLException e) {
-        //    throw new RuntimeException(e);
-        //}
-
-
-
 
 
     @FXML
@@ -89,7 +77,7 @@ public class LoginController {
                     stage.show();
                 }
                 else {
-                    Parent dashboardFX = FXMLLoader.load(HelloApplication.class.getResource("menuUser.fxml"));
+                    Parent dashboardFX = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("menuUser.fxml")));
                     stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                     scene = new Scene(dashboardFX);
                     stage.setScene(scene);
@@ -168,6 +156,22 @@ public class LoginController {
         }
     }
 
+    /*@FXML
+    void openFaculty(ActionEvent event) throws IOException {
+        try {
+            facultyController facultycontroller = new facultyController();
+            FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("faculty-overview.fxml"));
+            fxmlLoader.setController(facultycontroller);
+            Parent root = fxmlLoader.load();
+
+            Stage newStage = new Stage();
+            newStage.setScene(new Scene(root, 600, 400));
+            newStage.setTitle("Faculty Overview");
+            newStage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }*/
     @FXML
     void openFaculty() throws IOException {
         try {
@@ -183,7 +187,7 @@ public class LoginController {
             }else{
                 if(loginUser.equals("Faculty")) {
                     FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("faculty/faculty-profile.fxml"));
-                    facultyController facultycontroller = new facultyController(db, id.getText(), contentPane);
+                    facultyController facultycontroller = new facultyController(db, "admin", contentPane);
                     fxmlLoader.setController(facultycontroller);
                     AnchorPane pane = fxmlLoader.load();
                 }else if(loginUser.equals("Student")) {

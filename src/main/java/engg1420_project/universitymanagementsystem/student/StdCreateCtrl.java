@@ -64,7 +64,7 @@ public class StdCreateCtrl {
     public void addStudent(ActionEvent event) throws IOException, SQLException {
 
         //Still need to figure out the subject/courses, student ID & photo
-        String[] student = new String[12];
+        String[] student = new String[15];
 
         student[0] = generateID();
         student[1] = tfName.getText();
@@ -76,10 +76,12 @@ public class StdCreateCtrl {
         student[11] = tfPassword.getText();
         student[5] = (String) cBoxAcmLvl.getValue();
         student[6] = tfSemester.getText();
+
         //Subjects Registered
         String[] photoInfo = new String[2];
         photoInfo[0] = student[0];
         photoInfo[1] = "BlankProfile.png";
+
 
         try {
             db.addRowToTable("Students", student);

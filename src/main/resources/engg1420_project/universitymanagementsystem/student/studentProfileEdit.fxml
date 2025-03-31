@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane fx:id="contentPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" >
+<AnchorPane fx:id="contentPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <TabPane prefHeight="400.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE">
         <tabs>
@@ -23,10 +23,10 @@
                         <TextField fx:id="tfSemester" layoutX="397.0" layoutY="263.0" promptText="Semester" />
                         <Button fx:id="btnSave" layoutX="257.0" layoutY="304.0" mnemonicParsing="false" onAction="#saveChanges" text="Save" />
                         <ImageView fx:id="imgViewProfile" fitHeight="140.0" fitWidth="180.0" layoutX="190.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true" />
-                        <Button fx:id="btnUpload" layoutX="396.0" layoutY="137.0" mnemonicParsing="false" text="Upload" />
+                        <Button fx:id="btnUpload" layoutX="396.0" layoutY="137.0" mnemonicParsing="false" onAction="#chooseImage" text="Upload" />
                         <ChoiceBox fx:id="chBoxLevel" layoutX="31.0" layoutY="263.0" prefWidth="150.0" />
                         <Label fx:id="labelStudentID" layoutX="209.0" layoutY="141.0" text="Student ID: ID" />
-                        <Label fx:id="labelError" layoutX="269.0" layoutY="340.0" text="Error" textAlignment="CENTER" />
+                        <Label fx:id="labelError" layoutX="264.0" layoutY="339.0" text="Error" textAlignment="CENTER" />
                      </children></AnchorPane>
             </content>
           </Tab>
@@ -34,7 +34,7 @@
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <ListView fx:id="listViewCourses" layoutY="82.0" prefHeight="292.0" prefWidth="600.0" />
+                        <ListView fx:id="subjectListView" layoutY="82.0" prefHeight="292.0" prefWidth="600.0" />
                      </children></AnchorPane>
             </content>
           </Tab>

@@ -171,6 +171,16 @@ public class StdProfileViewCtrl  {
 
     @FXML
     public void initialize() {
+
+        Image profile = null;
+        try {
+            profile = new Image(HelloApplication.class.getResourceAsStream("images/" + student.getPhotoLocation()));
+        }catch (Exception e){
+            profilePhoto.setImage(new Image(HelloApplication.class.getResourceAsStream("images/default.png")));
+
+        }
+
+        profilePhoto.setImage(profile);
         /*
         if (access == "Faculty") {
             btnEdit.setDisable(true);
@@ -195,7 +205,7 @@ public class StdProfileViewCtrl  {
 
         barProgramProgress.setProgress(student.getAcademicProgress());
 
-
+/*
         if (student.getSubjects() != null) {
             String[] subjects = student.getSubjects();
             String[] grades = student.getGrades();
@@ -212,7 +222,7 @@ public class StdProfileViewCtrl  {
         } else {
             subjectListView.getItems().add("No Registered Subjects");
         }
-/*
+
         Image profile = null;
         try {
             profile = new Image(HelloApplication.class.getResourceAsStream("images/" + student.getPhotoLocation()));

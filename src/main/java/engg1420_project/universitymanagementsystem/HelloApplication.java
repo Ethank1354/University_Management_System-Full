@@ -22,6 +22,7 @@ public class HelloApplication extends Application {
         stage.setTitle("Hello World");
         stage.show();
 
+
         /*List<String> faculty = db.getColumnValues("Students", "Student ID");
         for (String facultyName : faculty) {
             System.out.println("Faculty: " + facultyName);
