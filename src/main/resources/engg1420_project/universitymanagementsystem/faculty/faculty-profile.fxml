@@ -7,7 +7,7 @@
 
 <!-- Import Insets -->
 
-<AnchorPane fx:id="anchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:id="anchorPane" prefHeight="400.0" prefWidth="600.0" stylesheets="@faculty-profile-style.css" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1">
 
 <BorderPane fx:id="borderPane" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1">
 
@@ -28,7 +28,7 @@
       
                       <!-- Name -->
                       <Label fx:id="nameLabel" style="-fx-font-size: 24px; -fx-font-weight: bold;" text="Faculty Member Name" />
-                  <TextField fx:id="passwordText" />
+                  <TextField fx:id="passwordText" stylesheets="@faculty-profile-style.css" />
                   <Button fx:id="chooseImageButton" mnemonicParsing="false" onAction="#chooseImage" text="Choose Image" />
                </children>
             </VBox>
