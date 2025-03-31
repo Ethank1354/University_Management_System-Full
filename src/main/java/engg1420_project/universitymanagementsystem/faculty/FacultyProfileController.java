@@ -231,10 +231,6 @@ public class FacultyProfileController {
 
     }
 
-    protected void setPreviousScene(Scene previousScene) {
-        this.previousScene = previousScene;
-    }
-
     @FXML
     private void chooseImage(ActionEvent event) {
         try {
@@ -264,7 +260,7 @@ public class FacultyProfileController {
 
         //System.out.println(newFile.getAbsolutePath());
         faculty.setProfilePhotoLocation(newFile.getName());
-        faculty.updateProfilePhoto();
+        //faculty.updateProfilePhoto();
 
         FileInputStream imageFile = new FileInputStream(newFile);
 
