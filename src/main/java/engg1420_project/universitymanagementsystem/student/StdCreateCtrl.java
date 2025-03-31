@@ -15,15 +15,15 @@ import javafx.scene.layout.AnchorPane;
 import javafx.event.ActionEvent;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.List;
 
 public class StdCreateCtrl {
 
     private DatabaseManager db;
     private Scene previousScene;
     private String username;
-    private static int idValue = 20250010;
 
-    public StdCreateCtrl( DatabaseManager db, String username) {
+    public StdCreateCtrl(DatabaseManager db, String username) {
         this.db = db;
 
         this.username = username;
@@ -45,15 +45,28 @@ public class StdCreateCtrl {
     @FXML
     private AnchorPane contentPane;
 
+    public String generateID() throws SQLException {
+        int largestID = 0;
+        List<String> id = db.getColumnValues("Students", "Student ID");
+
+        for (int i = 0; i < id.size(); i++) {
+            if (Integer.parseInt(id.get(i).substring(1)) > largestID) {
+                largestID = Integer.parseInt(id.get(i).substring(1));
+            }
+        }
+
+        return "S" + (largestID +1);
+    }
+
 
     //Save Changes Button
     @FXML
-    public void addStudent(ActionEvent event) throws IOException {
+    public void addStudent(ActionEvent event) throws IOException, SQLException {
+
         //Still need to figure out the subject/courses, student ID & photo
         String[] student = new String[12];
 
-        idValue++;
-        student[0] = "S" + idValue;
+        student[0] = generateID();
         student[1] = tfName.getText();
         student[2] = tfAddress.getText();
         student[3] = tfPhone.getText();
@@ -64,30 +77,23 @@ public class StdCreateCtrl {
         student[5] = (String) cBoxAcmLvl.getValue();
         student[6] = tfSemester.getText();
         //Subjects Registered
-        //Photo
+        String[] photoInfo = new String[2];
+        photoInfo[0] = student[0];
+        photoInfo[1] = "BlankProfile.png";
 
         try {
-            db.addRowToTable("UMS_Data_Students ", student);
+            db.addRowToTable("Students", student);
+            db.addRowToTable("Photos", photoInfo);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
 
         try {
             StdDashCtrl stdDashCtrl = new StdDashCtrl(db,username);
-            FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("StdDashboard.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("student/StdDashboard.fxml"));
             fxmlLoader.setController(stdDashCtrl);
             AnchorPane pane = fxmlLoader.load();
             contentPane.getChildren().setAll(pane);
-//            Parent root = fxmlLoader.load();
-//
-//            // Get current stage and store previous scene
-//            Stage currentStage = (Stage) btnAddStd.getScene().getWindow();
-//            Scene previousScene = currentStage.getScene(); // Save current scene
-//
-//
-//
-//            currentStage.setScene(new Scene(root, 600, 400));
-//            currentStage.setTitle("Student Management System");
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -101,20 +107,10 @@ public class StdCreateCtrl {
     public void exit (ActionEvent event) throws IOException {
         try {
             StdDashCtrl stdDashCtrl = new StdDashCtrl(db,username);
-            FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("StdDashboard.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("student/StdDashboard.fxml"));
             fxmlLoader.setController(stdDashCtrl);
             AnchorPane pane = fxmlLoader.load();
             contentPane.getChildren().setAll(pane);
-//            Parent root = fxmlLoader.load();
-//
-//            // Get current stage and store previous scene
-//            Stage currentStage = (Stage) btnExit.getScene().getWindow();
-//            Scene previousScene = currentStage.getScene(); // Save current scene
-//
-//
-//
-//            currentStage.setScene(new Scene(root, 600, 400));
-//            currentStage.setTitle("Student Management System");
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -128,10 +124,6 @@ public class StdCreateCtrl {
         cBoxAcmLvl.getItems().addAll("Undergraduate", "Graduate");
 
     }
-
-
-
-
 
 
 }

@@ -5,9 +5,8 @@ import engg1420_project.universitymanagementsystem.projectClasses.User;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
-
-//import com.example.engg1420facultymanagement.DatabaseManager;
 
 public class Faculty extends User {
 
@@ -21,31 +20,37 @@ public class Faculty extends User {
     private String profilePhotoLocation;
 
     public Faculty(String facultyId, DatabaseManager dbm) throws SQLException {
+
+        LinkedHashMap<String, String> photoColumn = new LinkedHashMap<>();
+        photoColumn.put("Photo", "TEXT");
+
         this.dbm = dbm;
         this.facultyMember = dbm.getRow("Faculties", "Faculty ID", facultyId);
-        this.facultyID = facultyMember.get(0);
-        super.name = facultyMember.get(1);
-        this.degree = facultyMember.get(2);
-        this.researchInterest = facultyMember.get(3);
-        super.email = facultyMember.get(4);
-        this.officeLocation = facultyMember.get(5);
-        this.coursesOffered = facultyMember.get(6);
-        super.password = facultyMember.get(7);
 
-        List<String> columns = dbm.getColumnValues("Photos", "ID");
-
-        for (String column : columns) {
-            System.out.println(column);
+        if (this.facultyMember.size() == 8){
+            dbm.addColumnsToTable("Faculties", photoColumn);
+            this.facultyMember = dbm.getRow("Faculties", "Faculty ID", facultyId);
+            this.facultyID = facultyMember.get(0);
+            super.name = facultyMember.get(1);
+            this.degree = facultyMember.get(2);
+            this.researchInterest = facultyMember.get(3);
+            super.email = facultyMember.get(4);
+            this.officeLocation = facultyMember.get(5);
+            this.coursesOffered = facultyMember.get(6);
+            super.password = facultyMember.get(7);
+            this.profilePhotoLocation = "images/BlankProfile.png";
+        }else{
+            this.facultyID = facultyMember.get(0);
+            super.name = facultyMember.get(1);
+            this.degree = facultyMember.get(2);
+            this.researchInterest = facultyMember.get(3);
+            super.email = facultyMember.get(4);
+            this.officeLocation = facultyMember.get(5);
+            this.coursesOffered = facultyMember.get(6);
+            super.password = facultyMember.get(7);
+            this.profilePhotoLocation = facultyMember.get(8);
         }
 
-        List<String> photo = dbm.getRow("Photos", "ID", facultyID);
-
-        for (String row : photo) {
-            System.out.println("Row: " + row);
-            System.out.println(row);
-        }
-
-        this.profilePhotoLocation = photo.get(1);
         System.out.println("Photo Location " + profilePhotoLocation);
     }
 
@@ -115,6 +120,7 @@ public class Faculty extends User {
         this.facultyMember.set(5, this.officeLocation);
         this.facultyMember.set(6, this.coursesOffered);
         this.facultyMember.set(7, super.password);
+        this.facultyMember.set(8, this.profilePhotoLocation);
 
         try {
             this.dbm.updateRowInTable("Faculties", "Faculty ID", this.facultyID, this.facultyMember);

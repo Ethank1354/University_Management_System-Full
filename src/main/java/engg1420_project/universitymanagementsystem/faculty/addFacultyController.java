@@ -1,4 +1,3 @@
-//package com.example.engg1420facultymanagement;
 package engg1420_project.universitymanagementsystem.faculty;
 
 import engg1420_project.universitymanagementsystem.projectClasses.DatabaseManager;
@@ -68,8 +67,57 @@ public class addFacultyController {
             if(db.belongsToTable("Faculties", facultyIdField.getText())){
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Error");
-                alert.setHeaderText("The faculty ID: " + facultyIdField.getText() +  " is already in use");
+                alert.setHeaderText("The faculty ID: " + facultyIdField.getText() +  " is already in use. Please choose an ID after " + IDs.get(IDs.size()-1));
                 alert.showAndWait();
+                
+            }else if(facultyIdField.getText().isEmpty()){
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setHeaderText("Please enter a Faculty ID");
+                alert.showAndWait();
+                
+            }else if(nameField.getText().isEmpty()){
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setHeaderText("Please enter a Faculty name");
+                alert.showAndWait();
+
+            }else if(degreeField.getText().isEmpty()){
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setHeaderText("Please enter a Degree");
+                alert.showAndWait();
+
+            }else if(researchInterestField.getText().isEmpty()){
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setHeaderText("Please enter a Research Interest");
+                alert.showAndWait();
+
+            }else if(emailField.getText().isEmpty()){
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setHeaderText("Please enter a Email");
+                alert.showAndWait();
+
+            }else if(officeLocationField.getText().isEmpty()){
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setHeaderText("Please enter a Office Location");
+                alert.showAndWait();
+
+            }else if(coursesOfferedField.getText().isEmpty()){
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setHeaderText("Please enter a Courses Offered");
+                alert.showAndWait();
+
+            }else if(passwordField.getText().isEmpty()){
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setHeaderText("Please enter a Password");
+                alert.showAndWait();
+
             }else{
                 faculty[0] = facultyIdField.getText();
                 faculty[1] = nameField.getText();
@@ -92,7 +140,7 @@ public class addFacultyController {
                 }
 
                 try {
-                    FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("faculty-overview.fxml"));
+                    FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("faculty/faculty-overview.fxml"));
                     fxmlLoader.setController(new facultyController(db, "admin", superAnchorPane));
                     AnchorPane pane = fxmlLoader.load();
                     superAnchorPane.getChildren().clear();
@@ -112,7 +160,7 @@ public class addFacultyController {
     @FXML
     private void cancel(ActionEvent event) {
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("faculty-overview.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("faculty/faculty-overview.fxml"));
             fxmlLoader.setController(new facultyController(db, "admin", superAnchorPane));
             AnchorPane pane = fxmlLoader.load();
             superAnchorPane.getChildren().clear();

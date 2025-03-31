@@ -201,7 +201,7 @@ public class FacultyProfileController {
     @FXML
     private void goBack(ActionEvent event) {
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("faculty-overview.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("faculty/faculty-overview.fxml"));
             fxmlLoader.setController(new facultyController(db, "admin", superAnchorPane));
             AnchorPane pane = fxmlLoader.load();
             superAnchorPane.getChildren().clear();
@@ -218,7 +218,7 @@ public class FacultyProfileController {
             Scene currentScene = currentStage.getScene();
 
             studentListController studentListController = new studentListController(db, currentScene, course, superAnchorPane, faculty.getFacultyId(), this.access);
-            FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("students-list.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("faculty/students-list.fxml"));
             fxmlLoader.setController(studentListController);
             AnchorPane pane = fxmlLoader.load();
             superAnchorPane.getChildren().clear();
@@ -229,10 +229,6 @@ public class FacultyProfileController {
             throw new RuntimeException(e);
         }
 
-    }
-
-    protected void setPreviousScene(Scene previousScene) {
-        this.previousScene = previousScene;
     }
 
     @FXML
@@ -264,7 +260,7 @@ public class FacultyProfileController {
 
         //System.out.println(newFile.getAbsolutePath());
         faculty.setProfilePhotoLocation(newFile.getName());
-        faculty.updateProfilePhoto();
+        //faculty.updateProfilePhoto();
 
         FileInputStream imageFile = new FileInputStream(newFile);
 

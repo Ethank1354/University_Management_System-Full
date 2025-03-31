@@ -1,5 +1,6 @@
+// Anthony
 //package com.example.project1;
-package engg1420_project.universitymanagementsystem;
+package engg1420_project.universitymanagementsystem.subject;
 
 
 import engg1420_project.universitymanagementsystem.subject.AdminViewSubjectsController;

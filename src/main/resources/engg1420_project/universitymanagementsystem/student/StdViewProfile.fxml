@@ -45,5 +45,6 @@
       <Label fx:id="labelSemester" layoutX="344.0" layoutY="55.0" text="Current Semester" />
       <Label fx:id="labelAcmLvl" layoutX="344.0" layoutY="75.0" text="Academic Level" />
       <Label fx:id="labelThesis" layoutX="344.0" layoutY="95.0" text="Thesis Title" />
+      <Button fx:id="btnEdit" layoutX="344.0" layoutY="30.0" mnemonicParsing="false" onAction="#edit" text="Edit Profile" />
    </children>
 </AnchorPane>

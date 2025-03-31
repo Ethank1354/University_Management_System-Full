@@ -40,7 +40,7 @@ public class AdminViewController {
 
     @FXML
     public void viewSubjects(ActionEvent event) throws IOException {
-        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("admin-view-subjects.fxml")));
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("course/admin-view-subjects.fxml")));
 
         // Create a new stage (window)
         Stage newStage = new Stage();

@@ -10,17 +10,16 @@ module engg1420_project.universitymanagementsystem {
     requires org.kordamp.bootstrapfx.core;
     requires eu.hansolo.tilesfx;
     requires com.almasb.fxgl.all;
+
     requires org.apache.poi.ooxml;
     requires org.apache.logging.log4j;
     requires java.sql;
     requires org.apache.commons.io;
 
+
     opens engg1420_project.universitymanagementsystem to javafx.fxml;
     opens engg1420_project.universitymanagementsystem.faculty to javafx.fxml;
-    //opens engg1420_project.universitymanagementsystem.student to javafx.fxml;
-    //opens engg1420_project.universitymanagementsystem.subject to javafx.fxml;
-    //opens engg1420_project.universitymanagementsystem.course to javafx.fxml;
-    //opens engg1420_project.universitymanagementsystem.event to javafx.fxml;
+
     exports engg1420_project.universitymanagementsystem;
     exports engg1420_project.universitymanagementsystem.student;
     opens engg1420_project.universitymanagementsystem.student to javafx.fxml;
@@ -34,6 +33,5 @@ module engg1420_project.universitymanagementsystem {
     opens engg1420_project.universitymanagementsystem.subject to javafx.fxml;
     exports engg1420_project.universitymanagementsystem.login;
     opens engg1420_project.universitymanagementsystem.login to javafx.fxml;
-    exports engg1420_project.universitymanagementsystem.empty;
-    opens engg1420_project.universitymanagementsystem.empty to javafx.fxml;
+
 }

@@ -14,7 +14,6 @@
             <Font size="18.0" />
          </font>
       </Label>
-      <Button fx:id="btnAddStd" layoutX="205.0" layoutY="50.0" mnemonicParsing="false" onAction="#addStd" text="Add Student" />
-      <Button fx:id="btnDeleteStd" layoutX="100.0" layoutY="50.0" mnemonicParsing="false" onAction="#deleteStd" text="Delete Student" />
+      <Button fx:id="btnAddStd" layoutX="100.0" layoutY="50.0" mnemonicParsing="false" onAction="#addStd" text="Add Student" />
    </children>
 </AnchorPane>
