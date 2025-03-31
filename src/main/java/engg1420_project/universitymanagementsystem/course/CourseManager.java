@@ -104,7 +104,7 @@ public class CourseManager {
         String filterColumn2 = "sectionNumber"; // Section number filter
         String filterValue2 = String.valueOf(course.getSectionNumber());
 
-        db.deleteRowFromTable("courses", filterColumn1, filterValue1, filterColumn2, filterValue2);
+        db.deleteRowFromTable("courses", filterColumn1, filterValue1);
     }
 
     private static boolean checkForLectureTimeConflict(Course newCourse) throws SQLException {
