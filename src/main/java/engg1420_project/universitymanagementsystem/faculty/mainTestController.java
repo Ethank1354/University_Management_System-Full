@@ -21,8 +21,7 @@ public class mainTestController {
 
     @FXML
     void initialize() throws SQLException, IOException {
-
-        DatabaseManager db = new DatabaseManager("/home/user/test.db");
+        /*
         String access;
 
         String username = "admin";  //"F0001" ""S20250001";
@@ -50,7 +49,7 @@ public class mainTestController {
                 mainAnchorPane.getChildren().add(pane);
             }
 
-        }
+        }*/
 
     }
 

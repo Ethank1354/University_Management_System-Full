@@ -6,6 +6,7 @@
 <?import javafx.scene.layout.*?>
 
 <!-- Import Insets -->
+
 <AnchorPane fx:id="anchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1">
 
 <BorderPane fx:id="borderPane" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1">
@@ -14,7 +15,7 @@
     <top>
         <VBox alignment="CENTER" spacing="10">
             <HBox alignment="CENTER" spacing="10">
-                <Button fx:id="backButton" mnemonicParsing="false" onAction="#goBack" text="Back" />
+                <Button fx:id="backButton" mnemonicParsing="false" onAction="#goBack" />
 
                 <!-- Profile photo (placeholder) -->
                 <ImageView fx:id="profileImage" fitHeight="100.0" fitWidth="100.0" preserveRatio="true">

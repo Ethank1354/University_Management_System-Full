@@ -9,7 +9,7 @@
    <children>
       <!-- Back Button in the top left -->
       <HBox alignment="CENTER_LEFT" spacing="10">
-         <Button fx:id="backButton" onAction="#goBack" text="Back" />
+         <Button fx:id="backButton" onAction="#goBack" />
       </HBox>
 
       <!-- Labels centered in the VBox -->
