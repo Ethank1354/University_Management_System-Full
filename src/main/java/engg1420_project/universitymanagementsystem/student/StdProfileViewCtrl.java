@@ -119,55 +119,6 @@ public class StdProfileViewCtrl  {
         }
     }
 
-    //Photo File Stuff
-    //Just what ethan did (will probably just be the same way he did it)
-    /*
-    @FXML
-    private void chooseImage(ActionEvent event) {
-        try {
-            FileChooser fileChooser = new FileChooser();
-            fileChooser.setTitle("Choose Profile Photo");
-            File file = fileChooser.showOpenDialog((Stage) profilePhoto.getScene().getWindow());
-            System.out.println(file.getName());
-
-
-            File destination = null;
-
-            URL resourceUrl = StdDashApp.class.getResource("images/");
-            if (resourceUrl != null) {
-                destination = new File(resourceUrl.toURI());
-                if (destination.isDirectory()) {
-                    FileUtils.copyFileToDirectory(file, destination);
-                } else {
-                    System.out.println("Destination is not a directory.");
-                }
-            } else {
-                System.out.println("Resource path is null.");
-            }
-
-            //System.out.println(destination.getAbsolutePath());
-
-            File newFile = new File(destination.getAbsolutePath() + "/" + file.getName() );
-
-            //System.out.println(newFile.getAbsolutePath());
-            faculty.setProfilePhotoLocation(newFile.getName());
-            faculty.updateProfilePhoto();
-
-            FileInputStream imageFile = new FileInputStream(newFile);
-
-            Image image = new Image(imageFile);
-            profileImage.setImage(image);
-
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        } catch (URISyntaxException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-     */
 
     @FXML
     public void initialize() {
