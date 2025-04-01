@@ -5,7 +5,7 @@
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="engg1420_project.universitymanagementsystem.login.LoginController">
    <children>
-      <GridPane prefHeight="392.0" prefWidth="600.0">
+      <GridPane fx:id="gridPane" onMouseClicked="#recentEvents" onTouchMoved="#recentEvents" prefHeight="392.0" prefWidth="600.0">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -17,12 +17,30 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <TextField text="Manage Students" GridPane.rowIndex="1" />
-             <TextField text="Manage Courses" GridPane.rowIndex="2"/>
-             <TextField text="Manage Faculty" GridPane.rowIndex="3"/>
-             <TextField text="Manage Subjects" GridPane.rowIndex="1" GridPane.columnIndex="1" />
-             <TextField text="Manage Events" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
-             <TextField text="Recent Activities" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+            <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
+               <children>
+                  <TextField text="Manage Students" />
+               </children></AnchorPane>
+            <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="2">
+               <children>
+                   <TextField text="Manage Courses" />
+               </children></AnchorPane>
+            <AnchorPane fx:id="facultyPane" onDragDetected="#facultyManage" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="3">
+               <children>
+                   <TextField text="Manage Faculty" />
+               </children></AnchorPane>
+            <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+               <children>
+                   <TextField text="Manage Subjects" />
+               </children></AnchorPane>
+            <AnchorPane fx:id="eventPane" onMouseMoved="#recentEvents" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+               <children>
+                   <TextField text="Manage Events" />
+               </children></AnchorPane>
+            <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+               <children>
+                   <TextField text="Recent Activities" />
+               </children></AnchorPane>
 
          </children>
       </GridPane>

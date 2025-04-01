@@ -17,12 +17,36 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             </rowConstraints>
             <children>
-                <TextField text="Other Students" GridPane.rowIndex="1" />
-                <TextField text="Manage Courses" GridPane.rowIndex="2"/>
-                <TextField text="My Faculty" GridPane.rowIndex="3"/>
-                <TextField text="My Subjects" GridPane.rowIndex="1" GridPane.columnIndex="1" />
-                <TextField text="Upcoming Events" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
-                <TextField text="Upcoming Activities" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+            <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="0" GridPane.rowIndex="1">
+               <children>
+                      <TextField text="Other Students" />
+               </children>
+            </AnchorPane>
+            <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="2">
+               <children>
+                      <TextField text="Manage Courses" />
+               </children>
+            </AnchorPane>
+            <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="0" GridPane.rowIndex="3">
+               <children>
+                      <TextField text="My Faculty" />
+               </children>
+            </AnchorPane>
+            <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+               <children>
+                      <TextField text="My Subjects" />
+               </children>
+            </AnchorPane>
+            <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+               <children>
+                      <TextField text="Upcoming Events" />
+               </children>
+            </AnchorPane>
+            <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+               <children>
+                      <TextField text="Upcoming Activities" />
+               </children>
+            </AnchorPane>
 
             </children>
         </GridPane>

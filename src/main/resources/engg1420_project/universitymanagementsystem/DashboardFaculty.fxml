@@ -1,11 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
@@ -23,12 +17,36 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             </rowConstraints>
             <children>
-                <TextField text="My Students" GridPane.rowIndex="1" />
-                <TextField text="My Courses" GridPane.rowIndex="2"/>
-                <TextField text="Faculty" GridPane.rowIndex="3"/>
-                <TextField text="My Subjects" GridPane.rowIndex="1" GridPane.columnIndex="1" />
-                <TextField text="Relevant Events" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
-                <TextField text="Relevant Activities" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+            <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
+               <children>
+                      <TextField text="My Students" />
+               </children>
+            </AnchorPane>
+            <AnchorPane layoutX="10.0" layoutY="108.0" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="2">
+               <children>
+                  <TextField text="My Courses" />
+               </children>
+            </AnchorPane>
+            <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="3">
+               <children>
+                      <TextField text="Faculty" />
+               </children>
+            </AnchorPane>
+            <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+               <children>
+                      <TextField text="My Subjects" />
+               </children>
+            </AnchorPane>
+            <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+               <children>
+                      <TextField text="Relevant Events" />
+               </children>
+            </AnchorPane>
+            <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+               <children>
+                      <TextField text="Relevant Activities" />
+               </children>
+            </AnchorPane>
 
             </children>
         </GridPane>

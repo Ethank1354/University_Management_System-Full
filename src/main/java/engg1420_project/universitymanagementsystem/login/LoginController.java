@@ -14,6 +14,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.*;
 
@@ -29,9 +30,11 @@ public class LoginController {
     @FXML
     public Button student_management, event_management, subject_management, faculty_management, course_management, main, dashboard, login;
     @FXML
-    public AnchorPane contentPane;
+    public AnchorPane contentPane, eventPane, facultyPane;
     @FXML
     public Pane pane;
+    @FXML
+    public GridPane gridPane;
     @FXML
     public Button profile_management;
 
@@ -41,7 +44,9 @@ public class LoginController {
     public static String loginUser;
     private DatabaseManager db = new DatabaseManager(HelloApplication.class.getResource("test.db").toString());
 
+
     //User Info
+//    boolean didThisWork = importXLSXToDatabase("UMS_Data.xlsx");
 
 
     private String[] studentID = {"S20250001", "S20250002", "S20250003", "S20250004", "S20250005", "S20250006", "S20250007", "S20250008", "S20250009", "S20250010"};
@@ -204,23 +209,6 @@ public class LoginController {
         }
     }
 
-
-
-    /*@FXML
-    void openStudents(ActionEvent event) throws IOException {
-        try {
-            FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("StdDashboard.fxml"));
-
-            Parent root = fxmlLoader.load();
-
-            Stage newStage = new Stage();
-            newStage.setScene(new Scene(root, 600, 400));
-            newStage.setTitle("Student Dashboard");
-            newStage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }*/
     @FXML
     void openStudents() throws IOException {
         try {
@@ -371,5 +359,54 @@ public class LoginController {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    //Admin dashboard view
+
+    @FXML
+    private void recentEvents() {
+        try {
+            // Load the AdminView.fxml into the right side of the screen
+            FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("events/EventManagement.fxml"));
+            AnchorPane pane = fxmlLoader.load();
+
+            // Replace the content of contentPane (the right side)
+            eventPane.getChildren().setAll(pane);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+        @FXML
+        private void facultyManage() {
+            try {
+                // Load the AdminView.fxml into the right side of the screen
+                FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("faculty/faculty-overview.fxml"));
+                AnchorPane pane = fxmlLoader.load();
+
+                // Replace the content of contentPane (the right side)
+                facultyPane.getChildren().setAll(pane);
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        //try {
+//            // Load the new FXML file
+//            FXMLLoader loader = new FXMLLoader(getClass().getResource("events/EventManagement.fxml"));
+//            AnchorPane dashPane = loader.load();
+//
+//            // Remove existing content in a specific cell (e.g., column 0, row 0)
+//            gridPane.getChildren().removeIf(node ->
+//                    GridPane.getColumnIndex(node) == 0 && GridPane.getRowIndex(node) == 1
+//            );
+//
+//            // Add the new FXML content to the same location
+//            gridPane.add(dashPane, 0, 1);
+//
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
     }
 }
