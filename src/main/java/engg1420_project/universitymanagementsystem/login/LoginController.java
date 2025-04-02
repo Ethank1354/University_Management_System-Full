@@ -20,6 +20,7 @@ import javafx.stage.*;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.Objects;
 
 public class LoginController {
@@ -64,10 +65,19 @@ public class LoginController {
     private String adminID = "admin123";
     private String adminEmail = "admin@uni";
 
+    /*
+    I'm using this string to hold the text in the email text field since I need it in the dashboard fxml
+     */
+    private static String emailHold;
+
 
     @FXML
+    //Not currently working with faculty or student logins
+    //Something to do with the Objects.requireNonNull() function
+
     public void openDashboard(ActionEvent event) throws IOException {
         if (checkLogin()) {
+            emailHold = email.getText();
             try{
                 if(loginUser.equals("Admin")) {
                     Parent dashboardFX = FXMLLoader.load(HelloApplication.class.getResource("dashboard.fxml"));
@@ -233,7 +243,7 @@ public class LoginController {
             if (loginUser.equals("Admin")) {
                 // Load the FXML and set the controller
                 FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("student/StdDashboard.fxml"));
-                StdDashCtrl controller = new StdDashCtrl(db, loginUser);
+                StdDashCtrl controller = new StdDashCtrl(db, emailHold, loginUser);
                 fxmlLoader.setController(controller);
                 AnchorPane pane = fxmlLoader.load();
 
@@ -241,7 +251,15 @@ public class LoginController {
                 contentPane.getChildren().setAll(pane);
             } else if (loginUser.equals("Faculty")) {
                 FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("student/StdDashboard.fxml"));
-                StdDashCtrl controller = new StdDashCtrl(db, loginUser);
+                StdDashCtrl controller = new StdDashCtrl(db, emailHold, loginUser);
+                fxmlLoader.setController(controller);
+                AnchorPane pane = fxmlLoader.load();
+
+            } else if (loginUser.equals("Student")) {
+                List<String> row = db.getRow("Students", "Email", email.getText());
+                String studentInfo = row.get(0) + ":" + row.get(1);
+                FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("student/StdViewProfile.fxml"));
+                StdDashCtrl controller = new StdDashCtrl(db, studentInfo, loginUser);
                 fxmlLoader.setController(controller);
                 AnchorPane pane = fxmlLoader.load();
 

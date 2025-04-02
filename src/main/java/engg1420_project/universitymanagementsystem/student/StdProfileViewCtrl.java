@@ -57,8 +57,6 @@ public class StdProfileViewCtrl  {
     }
      */
 
-    @FXML
-    private ListView<String> courseListView;
 
     @FXML
     private ListView<String> subjectListView;
@@ -66,7 +64,10 @@ public class StdProfileViewCtrl  {
     @FXML
     private Label labelStdName, labelStdID, labelStdEmail, labelStdPhone, labelStdAddress, labelSemester, labelAcmLvl, labelThesis;
     @FXML
-    private Label labelTotalAmt, labelAmtPaid, labelAmtLeft;
+    private Label labelTotalAmt, labelAmtPaid, labelAmtLeft, ProgramProgress, TutionInfo, TotalAmount, AmountPaid, AmountLeft;
+
+    @FXML
+    private Separator horzLine, vertLine;
 
     @FXML
     private ProgressBar barProgramProgress;
@@ -123,6 +124,28 @@ public class StdProfileViewCtrl  {
     @FXML
     public void initialize() {
 
+        if (access.equals("Faculty")) {
+            btnEdit.setVisible(false);
+            barProgramProgress.setVisible(false);
+            subjectListView.setVisible(false);
+            horzLine.setVisible(false);
+            vertLine.setVisible(false);
+            TutionInfo.setVisible(false);
+            TotalAmount.setVisible(false);
+            AmountPaid.setVisible(false);
+            AmountLeft.setVisible(false);
+        } else {
+            btnEdit.setVisible(true);
+            barProgramProgress.setVisible(true);
+            subjectListView.setVisible(true);
+            horzLine.setVisible(true);
+            vertLine.setVisible(true);
+            TutionInfo.setVisible(true);
+            TotalAmount.setVisible(true);
+            AmountPaid.setVisible(true);
+            AmountLeft.setVisible(true);
+        }
+
         Image profile = null;
         try {
             profile = new Image(HelloApplication.class.getResourceAsStream("images/" + student.getPhotoLocation()));
@@ -132,14 +155,7 @@ public class StdProfileViewCtrl  {
         }
 
         profilePhoto.setImage(profile);
-        /*
-        if (access == "Faculty") {
-            btnEdit.setDisable(true);
-        } else {
-            btnEdit.setDisable(false);
-        }
-//Also include tution information
-         */
+
 
         labelTotalAmt.setText("$"+ student.getTution().toString());
         labelAmtPaid.setText("$"+ student.getTutionPaid().toString());
@@ -156,34 +172,25 @@ public class StdProfileViewCtrl  {
 
         barProgramProgress.setProgress(student.getAcademicProgress());
 
-/*
         if (student.getSubjects() != null) {
-            String[] subjects = student.getSubjects();
-            String[] grades = student.getGrades();
+            ArrayList<String> subjects = student.getSubjects();
+
+            ArrayList<String> grades = student.getGrades();
 
             List<String> subjectList = new ArrayList<>();
 
-            for (int i = 0; i < subjects.length; i++) {
-                subjectList.add(subjects[i] + " : " + grades[i]);
+            for (int i = 0; i < subjects.size(); i++) {
+                subjectList.add(subjects.get(i) + ": " + grades.get(i));
             }
 
-            for (int i = 0; i < subjects.length; i++) {
+            for (int i = 0; i < subjects.size(); i++) {
                 subjectListView.getItems().addAll(subjectList);
             }
         } else {
             subjectListView.getItems().add("No Registered Subjects");
         }
 
-        Image profile = null;
-        try {
-            profile = new Image(HelloApplication.class.getResourceAsStream("images/" + student.getPhotoLocation()));
-        }catch (Exception e){
-            profilePhoto.setImage(new Image(HelloApplication.class.getResourceAsStream("images/BlankProfile.png")));
-        }
 
-        profilePhoto.setImage(profile);
-
- */
 
     }
 }

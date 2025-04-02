@@ -28,7 +28,7 @@ public class Student extends User {
     private String profilePhotoLocation;
     //private String[] subjects;
     private ArrayList<String> subjects = new ArrayList<>();
-    private String[] grades;
+    private ArrayList<String> grades = new ArrayList<>();
 
     private double tution;
     private double tutionPaid = 0.0;
@@ -50,11 +50,11 @@ public class Student extends User {
             for (int i = 0; i < subjectlist.length; i++) {
                 this.subjects.add(subjectlist[i]);
             }
-            grades = new String[subjects.size()];
+            //grades = new String[subjects.size()];
 
 
             for (int i = 0; i < subjects.size(); i++) {
-                grades[i] = "50%";
+                grades.add("50%");
             }
         }
 
@@ -159,9 +159,9 @@ public class Student extends User {
         return subjectsStr;
     }
 
-    public String[] getGrades() {
+    public ArrayList<String> getGrades() {
         if (grades == null) {
-            return new String[0];
+            return null;
         }
         return grades;
     }
@@ -169,8 +169,8 @@ public class Student extends User {
     public String getGradeString() {
         String gradesStr = "";
         if (grades != null) {
-            for (int i = 0; i < grades.length; i++) {
-                gradesStr += grades[i] + ", ";
+            for (int i = 0; i < grades.size(); i++) {
+                gradesStr += grades.get(i) + ", ";
             }
         }
         return gradesStr;

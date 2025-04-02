@@ -24,7 +24,7 @@
          </font>
       </Label>
       <ListView fx:id="subjectListView" layoutX="-1.0" layoutY="220.0" prefHeight="180.0" prefWidth="320.0" />
-      <Label fx:id="TutitionInfo" layoutX="358.0" layoutY="220.0" text="Tutition Information">
+      <Label fx:id="TutionInfo" layoutX="358.0" layoutY="220.0" text="Tution Information">
          <font>
             <Font size="14.0" />
          </font>
@@ -35,8 +35,8 @@
       <Label fx:id="labelTotalAmt" layoutX="446.0" layoutY="248.0" text="12345" />
       <Label fx:id="labelAmtPaid" layoutX="446.0" layoutY="278.0" text="12345" />
       <Label fx:id="labelAmtLeft" layoutX="446.0" layoutY="310.0" text="12345" />
-      <Separator layoutX="358.0" layoutY="309.0" prefWidth="200.0" />
-      <Separator layoutX="440.0" layoutY="245.0" orientation="VERTICAL" prefHeight="85.0" />
+      <Separator fx:id="horzLine" layoutX="358.0" layoutY="309.0" prefWidth="200.0" />
+      <Separator fx:id="vertLine" layoutX="440.0" layoutY="245.0" orientation="VERTICAL" prefHeight="85.0" />
       <ProgressBar fx:id="barProgramProgress" layoutX="115.0" layoutY="193.0" prefWidth="200.0" progress="0.0" />
       <Label fx:id="ProgramProgress" layoutX="10.0" layoutY="192.0" text="Program Progress:" />
       <Label fx:id="labelStdEmail" layoutX="175.0" layoutY="80.0" text="email@email.com" />

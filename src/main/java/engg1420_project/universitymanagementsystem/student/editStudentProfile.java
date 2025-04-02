@@ -44,6 +44,7 @@ public class editStudentProfile {
 
     @FXML
     private AnchorPane contentPane;
+    private Tab tabProfile, tabCourse, tabTution;
 
     //Main Page
     @FXML
@@ -63,21 +64,33 @@ public class editStudentProfile {
 
     //Tution Page
     @FXML
-    private Label labelName, labelStudentID1, labelAcadmeiclevel, labelTotal, labelBalance, labelPaid;
+    private Label  labelTotal, labelBalance, labelPaid, labelEditPaid, labelEditOwed;
 
     @FXML TextField tfPaid, tfTotal;
 
     @FXML
-    private Button btnEditTution;
+    private Button btnEditTution, btnUpdateTution;
 
-    @FXML
-    private ImageView imgViewProfile1;
 
     //Course Page
     @FXML
     private ListView subjectListView;
 
     public void initialize() {
+        if (access.equals("Student")) {
+            btnSave.setVisible(false);
+            tfProgress.setVisible(false);
+            tfSemester.setVisible(false);
+            tfThesis.setVisible(false);
+            chBoxLevel.setVisible(false);
+        } else if (access.equals("Admin")) {
+            btnSave.setVisible(true);
+            tfProgress.setVisible(true);
+            tfSemester.setVisible(true);
+            tfThesis.setVisible(true);
+            chBoxLevel.setVisible(true);
+
+        }
 
         //Main Page
 
@@ -86,11 +99,11 @@ public class editStudentProfile {
             profile = new Image(HelloApplication.class.getResourceAsStream("images/" + student.getPhotoLocation()));
         }catch (Exception e){
             imgViewProfile.setImage(new Image(HelloApplication.class.getResourceAsStream("images/default.png")));
-           imgViewProfile1.setImage(new Image(HelloApplication.class.getResourceAsStream("images/default.png")));
+
         }
 
         imgViewProfile.setImage(profile);
-        imgViewProfile1.setImage(profile);
+
 
 
 
@@ -118,12 +131,13 @@ public class editStudentProfile {
         //Course Page
         if (student.getSubjects() != null) {
             ArrayList<String> subjects = student.getSubjects();
-            //String[] grades = student.getGrades();
+
+            ArrayList<String> grades = student.getGrades();
 
             List<String> subjectList = new ArrayList<>();
 
             for (int i = 0; i < subjects.size(); i++) {
-                subjectList.add(subjects.get(i));
+                subjectList.add(subjects.get(i) + ": " + grades.get(i));
             }
 
             for (int i = 0; i < subjects.size(); i++) {
@@ -173,16 +187,18 @@ public class editStudentProfile {
         });
 
         //Tution Page
-        labelName.setText(student.getName());
-        labelStudentID1.setText(student.getStudentID());
-        labelAcadmeiclevel.setText(student.getAcademicLvl());
+
 
         labelTotal.setText(Double.toString(student.getTution()));
-        labelTotal.setText(Double.toString(student.getTutionPaid()));
+        labelPaid.setText(Double.toString(student.getTutionPaid()));
         labelBalance.setText(Double.toString((student.getTution()) - student.getTutionPaid()));
 
+        //Visible Stuff
         tfPaid.setVisible(false);
         tfTotal.setVisible(false);
+        labelEditPaid.setVisible(false);
+        labelEditOwed.setVisible(false);
+        btnUpdateTution.setVisible(false);
 
 
     }
@@ -311,13 +327,21 @@ public class editStudentProfile {
      */
     @FXML
     void editTution(ActionEvent event) throws IOException {
-        if (tfPaid.isVisible() == true) {
-            tfPaid.setVisible(false);
-            tfTotal.setVisible(false);
+        if (!tfPaid.isVisible()) {
+            tfPaid.setVisible(true);
+            tfTotal.setVisible(true);
+            labelEditPaid.setVisible(true);
+            labelEditOwed.setVisible(true);
+            btnUpdateTution.setVisible(true);
+
+
 
         } else {
-            tfPaid.setDisable(true);
-            tfTotal.setDisable(true);
+            tfPaid.setVisible(false);
+            tfTotal.setVisible(false);
+            labelEditPaid.setVisible(false);
+            labelEditOwed.setVisible(false);
+            btnUpdateTution.setVisible(false);
         }
     }
 
