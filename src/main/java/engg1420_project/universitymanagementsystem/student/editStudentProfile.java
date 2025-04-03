@@ -140,9 +140,9 @@ public class editStudentProfile {
                 subjectList.add(subjects.get(i) + ": " + grades.get(i));
             }
 
-            for (int i = 0; i < subjects.size(); i++) {
+
                 subjectListView.getItems().addAll(subjectList);
-            }
+
         } else {
             subjectListView.getItems().add("No Registered Subjects");
         }
@@ -425,6 +425,22 @@ public class editStudentProfile {
             e.printStackTrace();
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        }
+    }
+
+
+    @FXML
+    public void addCourse (ActionEvent event) throws IOException {
+        try {
+            addStudentCourse addStudentCourse = new addStudentCourse(db, student, username, access);
+            FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("student/studentCourseAdd.fxml"));
+            fxmlLoader.setController(addStudentCourse);
+
+            AnchorPane pane = fxmlLoader.load();
+            contentPane.getChildren().setAll(pane);
+
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 

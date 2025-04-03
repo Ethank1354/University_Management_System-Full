@@ -1,14 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<AnchorPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
+            fx:controller="engg1420_project.universitymanagementsystem.AddEventController">
+    <Label text="Event Name:" layoutX="20.0" layoutY="20.0"/>
+    <TextField fx:id="eventNameField" layoutX="100.0" layoutY="20.0" promptText="Enter Event Name"/>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="engg1420_project.universitymanagementsystem.events.AddEventController"
-            prefHeight="400.0" prefWidth="600.0">
+    <Label text="Event Code:" layoutX="20.0" layoutY="60.0"/>
+    <TextField fx:id="eventCodeField" layoutX="100.0" layoutY="60.0" promptText="Enter Event Code"/>
 
+    <Label text="Description:" layoutX="20.0" layoutY="100.0"/>
+    <TextArea fx:id="descriptionField" layoutX="100.0" layoutY="100.0" promptText="Enter Event Description" prefHeight="60.0"/>
+
+    <Label text="Location:" layoutX="20.0" layoutY="180.0"/>
+    <TextField fx:id="locationField" layoutX="100.0" layoutY="180.0" promptText="Enter Location"/>
+
+    <Label text="Date (MM/DD/YYYY):" layoutX="20.0" layoutY="220.0"/>
+    <TextField fx:id="dateField" layoutX="150.0" layoutY="220.0" promptText="Enter Date"/>
+
+    <Label text="Time (HH:MM):" layoutX="20.0" layoutY="260.0"/>
+    <TextField fx:id="timeField" layoutX="150.0" layoutY="260.0" promptText="Enter Time"/>
+
+    <Label text="Capacity:" layoutX="20.0" layoutY="300.0"/>
+    <TextField fx:id="capacityField" layoutX="100.0" layoutY="300.0" promptText="Enter Capacity"/>
+
+    <Label text="Cost:" layoutX="20.0" layoutY="340.0"/>
+    <TextField fx:id="costField" layoutX="100.0" layoutY="340.0" promptText="Enter Cost"/>
+
+    <Button text="Save Event" layoutX="100.0" layoutY="380.0" onAction="#addEvent"/>
 </AnchorPane>

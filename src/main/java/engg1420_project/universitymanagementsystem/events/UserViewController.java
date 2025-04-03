@@ -1,48 +1,79 @@
-
-
-//package com.example.project1;
 package engg1420_project.universitymanagementsystem.events;
 
-import java.io.IOException;
-
-import engg1420_project.universitymanagementsystem.subject.Subjects;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.stage.Stage;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ListView;
 
 public class UserViewController {
-    @FXML
-    private Stage stage;
-    private Scene scene;
-    @FXML
-    private TableView<Subjects> subjectsTable;
-    @FXML
-    private TableColumn<Subjects, String> nameColumn;
-    @FXML
-    private TableColumn<Subjects, String> codeColumn;
-    private ObservableList<Subjects> subjectsData = FXCollections.observableArrayList();
+    private String userId;
+    private String name;
+    private String email;
+    private boolean isAdmin;  // To distinguish between Admin and User
 
-    public UserViewController() {
+    public UserViewController(String userId, String name, String email, boolean isAdmin) {
+        this.userId = userId;
+        this.name = name;
+        this.email = email;
+        this.isAdmin = isAdmin;
     }
 
-    @FXML
-    public void setStage(Stage stage) {
-        this.stage = stage;
+    public String getUserId() {
+        return userId;
     }
 
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
+    public boolean isAdmin() {
+        return isAdmin;
+    }
+
+    public void setAdmin(boolean admin) {
+        isAdmin = admin;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
     @FXML
-    public void viewSubjects(ActionEvent event) throws IOException {
-        Parent root = (Parent)FXMLLoader.load(this.getClass().getResource("/com/example/project1/user-view-subjects.fxml"));
-        Stage newStage = new Stage();
-        newStage.setTitle("View Subjects");
-        newStage.setScene(new Scene(root));
-        newStage.show();
+    private ListView<String> eventListView;
+
+    // Register for event
+    @FXML
+    private void registerForEvent() {
+        String selectedEvent = eventListView.getSelectionModel().getSelectedItem();
+        if (selectedEvent != null) {
+            // Logic to register user for the selected event
+            showAlert("Registration Successful", "You have been registered for the event.");
+        } else {
+            showAlert("Error", "Please select an event to register.");
+        }
+    }
+
+    // View Registered Events
+    @FXML
+    private void viewRegisteredEvents() {
+        // Logic to view registered events
+    }
+
+    private void showAlert(String title, String message) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle(title);
+        alert.setContentText(message);
+        alert.showAndWait();
     }
 }
+
