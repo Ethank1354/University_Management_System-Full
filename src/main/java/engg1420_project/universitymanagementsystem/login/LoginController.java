@@ -1,6 +1,7 @@
 package engg1420_project.universitymanagementsystem.login;
 
 import engg1420_project.universitymanagementsystem.HelloApplication;
+import engg1420_project.universitymanagementsystem.faculty.FacultyProfileController;
 import engg1420_project.universitymanagementsystem.faculty.facultyController;
 import engg1420_project.universitymanagementsystem.projectClasses.DatabaseManager;
 import engg1420_project.universitymanagementsystem.student.StdDashCtrl;
@@ -20,6 +21,7 @@ import javafx.stage.*;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
