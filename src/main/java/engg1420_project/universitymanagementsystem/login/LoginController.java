@@ -20,6 +20,7 @@ import javafx.stage.*;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
@@ -42,42 +43,19 @@ public class LoginController {
     private Parent root;
     public static String loginUser;
     private DatabaseManager db = new DatabaseManager(HelloApplication.class.getResource("test.db").toString());
-
-    //User Info
-
-
-    private String[] studentID = {"S20250001", "S20250002", "S20250003", "S20250004", "S20250005", "S20250006", "S20250007", "S20250008", "S20250009", "S20250010"};
-
-    {
-       // try {
-            //studentID = (String[]) db.getColumnValues("Students", "Student ID").toArray();
-       // } catch (SQLException e) {
-        //    throw new RuntimeException(e);
-        //}
-    }
-
-    private String[] studentEmail = {"alice@example.edu", "bob.@example.edu", "carol@example.edu", "lucka@example.edu", "lee@example.edu", "brown@example.edu", "smith@example.edu", "jones@example.edu", "clarka@example.edu", "davis@example.edu"};
-
-    private String[] facultyID = {"F0001", "F0002", "F0003", "F0004", "F0005"};
-    private String[] facultyEmail = {"turing@university.edu", "bronte@university.edu", "hopper@university.edu", "copeland@university.edu", "gharabaghi@university.edu"};
-    private String[] facultyOffice = {"Room 201", "Room 202", "Lab 203", "Room 201", "Lab 202"};
+    private static String loginEmail;
 
     private String adminID = "admin123";
     private String adminEmail = "admin@uni";
 
-    /*
-    I'm using this string to hold the text in the email text field since I need it in the dashboard fxml
-     */
-    private static String emailHold;
+
+
+
 
 
     @FXML
-    //Not currently working with faculty or student logins
-    //Something to do with the Objects.requireNonNull() function
-
     public void openDashboard(ActionEvent event) throws IOException {
         if (checkLogin()) {
-            emailHold = email.getText();
             try{
                 if(loginUser.equals("Admin")) {
                     Parent dashboardFX = FXMLLoader.load(HelloApplication.class.getResource("dashboard.fxml"));
@@ -87,7 +65,6 @@ public class LoginController {
                     stage.show();
                 }
                 else {
-                    //Parent dashboardFX = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("menuUser.fxml")));
                     Parent dashboardFX = FXMLLoader.load(HelloApplication.class.getResource("menuUser.fxml"));
                     stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                     scene = new Scene(dashboardFX);
@@ -117,19 +94,40 @@ public class LoginController {
     }
 
     public boolean checkLogin(){
-        for(int i=0; i<facultyEmail.length; i++){
-            if (email.getText().toString().equals(facultyEmail[i]) && id.getText().toString().equals(facultyID[i])){
-                loginUser = "Faculty";
-                return true;
+        String[] column = {"Password"};
+
+            List<String> facultyRow;
+            List<String> studentRow;
+            try{
+                facultyRow = db.getFilteredValues("Faculties", column, "Email", email.getText().toString());
+            }catch (SQLException e){
+                facultyRow = new ArrayList<>();
+                facultyRow.add("error");
             }
-        }
-        for(int i=0; i<studentEmail.length; i++){
-            if (email.getText().toString().equals(studentEmail[i]) && id.getText().toString().equals(studentID[i])){
-                loginUser = "Student";
-                return true;
+
+            try {
+                studentRow = db.getFilteredValues("Students", column, "Email", email.getText().toString());
+            }catch (SQLException e){
+                studentRow = new ArrayList<>();
+                studentRow.add("error");
+
             }
-        }
-        if(email.getText().toString().equals(adminEmail) && id.getText().toString().equals(adminID)){
+        facultyRow.add("error");
+        studentRow.add("error");
+        System.out.println(email.getText() + " email without to string");
+        System.out.println(email.getText().toString() + " email with to string");
+        System.out.println(facultyRow.get(0));
+        System.out.println(studentRow);
+        if(id.getText().toString().equals(facultyRow.get(0))){
+            this.loginEmail = email.getText().toString();
+            //System.out.println(loginID + "loginid should be set here");
+            loginUser = "Faculty";
+            return true;
+        }else if(id.getText().toString().equals(studentRow.get(0))){
+            loginUser = "Student";
+            this.loginEmail = id.getText().toString();
+            return true;
+        }else if(email.getText().toString().equals(adminEmail) && id.getText().toString().equals(adminID)){
             loginUser = "Admin";
             return true;
         }
@@ -167,22 +165,6 @@ public class LoginController {
         }
     }
 
-    /*@FXML
-    void openFaculty(ActionEvent event) throws IOException {
-        try {
-            facultyController facultycontroller = new facultyController();
-            FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("faculty-overview.fxml"));
-            fxmlLoader.setController(facultycontroller);
-            Parent root = fxmlLoader.load();
-
-            Stage newStage = new Stage();
-            newStage.setScene(new Scene(root, 600, 400));
-            newStage.setTitle("Faculty Overview");
-            newStage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }*/
     @FXML
     void openFaculty() throws IOException {
         try {
@@ -198,7 +180,7 @@ public class LoginController {
             }else{
                 if(loginUser.equals("Faculty")) {
                     FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("faculty/faculty-profile.fxml"));
-                    facultyController facultycontroller = new facultyController(db, "admin", contentPane);
+                    facultyController facultycontroller = new facultyController(db, id.getText(), contentPane);
                     fxmlLoader.setController(facultycontroller);
                     AnchorPane pane = fxmlLoader.load();
                 }else if(loginUser.equals("Student")) {
@@ -244,7 +226,7 @@ public class LoginController {
             if (loginUser.equals("Admin")) {
                 // Load the FXML and set the controller
                 FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("student/StdDashboard.fxml"));
-                StdDashCtrl controller = new StdDashCtrl(db, emailHold, loginUser);
+                StdDashCtrl controller = new StdDashCtrl(db, loginUser);
                 fxmlLoader.setController(controller);
                 AnchorPane pane = fxmlLoader.load();
 
@@ -252,15 +234,7 @@ public class LoginController {
                 contentPane.getChildren().setAll(pane);
             } else if (loginUser.equals("Faculty")) {
                 FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("student/StdDashboard.fxml"));
-                StdDashCtrl controller = new StdDashCtrl(db, emailHold, loginUser);
-                fxmlLoader.setController(controller);
-                AnchorPane pane = fxmlLoader.load();
-
-            } else if (loginUser.equals("Student")) {
-                List<String> row = db.getRow("Students", "Email", email.getText());
-                String studentInfo = row.get(0) + ":" + row.get(1);
-                FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("student/StdViewProfile.fxml"));
-                StdDashCtrl controller = new StdDashCtrl(db, studentInfo, loginUser);
+                StdDashCtrl controller = new StdDashCtrl(db, loginUser);
                 fxmlLoader.setController(controller);
                 AnchorPane pane = fxmlLoader.load();
 
@@ -384,12 +358,22 @@ public class LoginController {
 
     public void openProfile(ActionEvent actionEvent) {
         try {
-            // Load the AdminView.fxml into the right side of the screen
-            FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("faculty/faculty-profile.fxml"));
-            AnchorPane pane = fxmlLoader.load();
 
-            // Replace the content of contentPane (the right side)
-            contentPane.getChildren().setAll(pane);
+            try {
+                FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("faculty/faculty-profile.fxml"));
+                //System.out.println("Hopefully this works: " + loginEmail);
+                String[] IDColumn = {"Faculty ID"};
+                List<String> id = db.getFilteredValues("Faculties", IDColumn, "Email", this.loginEmail);
+                System.out.println(id.get(0));
+                FacultyProfileController facultyProfilecontroller = new FacultyProfileController(id.get(0), "faculty", db, contentPane);
+                fxmlLoader.setController(facultyProfilecontroller);
+                AnchorPane pane = fxmlLoader.load();
+
+                contentPane.getChildren().setAll(pane);
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+
 
         } catch (IOException e) {
             e.printStackTrace();

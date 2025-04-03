@@ -7,9 +7,9 @@
 
 <!-- Import Insets -->
 
-<AnchorPane fx:id="anchorPane" prefHeight="400.0" prefWidth="600.0" stylesheets="@faculty-profile-style.css" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:id="anchorPane"  stylesheets="@faculty-profile-style.css" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1">
 
-<BorderPane fx:id="borderPane" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane fx:id="borderPane" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1">
 
     <!-- Top section: Name, Profile Photo and Edit Button -->
     <top>
