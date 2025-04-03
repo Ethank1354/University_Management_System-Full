@@ -1,11 +1,15 @@
 package engg1420_project.universitymanagementsystem.student;
 
+import engg1420_project.universitymanagementsystem.Main;
 import engg1420_project.universitymanagementsystem.projectClasses.DatabaseManager;
 import javafx.beans.binding.Bindings;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -64,7 +68,7 @@ public class addStudentCourse {
                 String[] parts = item.split(": ");
 
                 try {
-                    addCourse(parts[0]);
+                    addCourse(parts[1]);
                 } catch (SQLException e) {
                     throw new RuntimeException(e);
                 }
@@ -100,6 +104,24 @@ public class addStudentCourse {
             }
         }
         student.updateStudent();
+    }
+
+    @FXML
+    public void exit (ActionEvent event) throws IOException {
+        try {
+            String cellItem = student.getStudentID() + ":" + student.getName();
+            editStudentProfile editStudentProfile = new editStudentProfile(db, cellItem, access, username);
+            FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("student/studentProfileEdit.fxml"));
+            fxmlLoader.setController(editStudentProfile);
+
+            AnchorPane pane = fxmlLoader.load();
+            contentPane.getChildren().setAll(pane);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
 }
