@@ -40,4 +40,7 @@
     <right>
         <AnchorPane fx:id="contentPane" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
     </right>
+   <top>
+      <Button fx:id="logout" mnemonicParsing="false" onAction="#logout" text="Logout" BorderPane.alignment="BOTTOM_RIGHT" />
+   </top>
 </BorderPane>

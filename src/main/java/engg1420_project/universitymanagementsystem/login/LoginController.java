@@ -32,7 +32,7 @@ public class LoginController {
     @FXML
     public TextField email, id;
     @FXML
-    public Button student_management, event_management, subject_management, faculty_management, course_management, main, dashboard, login;
+    public Button student_management, event_management, subject_management, faculty_management, course_management, main, dashboard, login, logout;
     @FXML
     public AnchorPane contentPane, eventPane, facultyPane, coursePane, subjectPane, studentPane;
     @FXML
@@ -46,20 +46,6 @@ public class LoginController {
     public static String loginUser;
     private static String loginEmail;
     private DatabaseManager db = new DatabaseManager(HelloApplication.class.getResource("test.db").toString());
-
-
-    //User Info
-//    boolean didThisWork = importXLSXToDatabase("UMS_Data.xlsx");
-
-
-//    private String[] studentID = {"S20250001", "S20250002", "S20250003", "S20250004", "S20250005", "S20250006", "S20250007", "S20250008", "S20250009", "S20250010"};
-
-
-//    private String[] studentEmail = {"alice@example.edu", "bob.@example.edu", "carol@example.edu", "lucka@example.edu", "lee@example.edu", "brown@example.edu", "smith@example.edu", "jones@example.edu", "clarka@example.edu", "davis@example.edu"};
-//
-//    private String[] facultyID = {"F0001", "F0002", "F0003", "F0004", "F0005"};
-//    private String[] facultyEmail = {"turing@university.edu", "bronte@university.edu", "hopper@university.edu", "copeland@university.edu", "gharabaghi@university.edu"};
-//    private String[] facultyOffice = {"Room 201", "Room 202", "Lab 203", "Room 201", "Lab 202"};
 
     private String adminID = "admin123";
     private String adminEmail = "admin@uni";
@@ -75,7 +61,7 @@ public class LoginController {
                     scene = new Scene(dashboardFX);
                     stage.setScene(scene);
                     stage.show();
-                } else {
+                } else if (loginUser.equals("Student") || loginUser.equals("Faculty")) {
                     Parent dashboardFX = FXMLLoader.load(Objects.requireNonNull(HelloApplication.class.getResource("menuUser.fxml")));
                     stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                     scene = new Scene(dashboardFX);
@@ -164,37 +150,7 @@ public class LoginController {
         else {
             return false;
         }
-
-   /* for(int i=0; i<studentEmail.length; i++){
-        if (email.getText().toString().equals(studentEmail[i]) && id.getText().toString().equals(studentID[i])){
-            loginUser = "Student";
-            return true;
-        }
-    }*/
-
     }
-
-
-//        for (int i = 0; i < facultyEmail.length; i++) {
-//            if (email.getText().toString().equals(facultyEmail[i]) && id.getText().toString().equals(facultyID[i])) {
-//                loginUser = "Faculty";
-//                loginID = id.getText();
-//                return true;
-//            }
-//        }
-//        for (int i = 0; i < studentEmail.length; i++) {
-//            if (email.getText().toString().equals(studentEmail[i]) && id.getText().toString().equals(studentID[i])) {
-//                loginUser = "Student";
-//                return true;
-//            }
-//        }
-//        if (email.getText().toString().equals(adminEmail) && id.getText().toString().equals(adminID)) {
-//            loginUser = "Admin";
-//            return true;
-//        } else {
-//            return false;
-//        }
-//    }
 
     @FXML
     void openDashboardMain(ActionEvent event) throws IOException {
@@ -367,13 +323,14 @@ public class LoginController {
     }
 
     @FXML
-    public void openProfile() throws SQLException, IOException {
+    void openProfile() throws SQLException, IOException {
         if(loginUser.equals("Faculty")){
             openFacultyProfile();
         }
-        else{   //If loginUser equals Student
+        else if(loginUser.equals("Student")){   //If loginUser equals Student
             openStdProfile();
         }
+        //Don't do else in case loged out
     }
 
     public void openFacultyProfile() {
@@ -486,4 +443,20 @@ public class LoginController {
             e.printStackTrace();
         }
     }
+
+
+    @FXML
+    void logout(ActionEvent event){
+        try {
+            Parent loginScreen = FXMLLoader.load(Objects.requireNonNull(HelloApplication.class.getResource("login.fxml")));
+            stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            scene = new Scene(loginScreen);
+            stage.setScene(scene);
+            stage.show();
+            loginUser = "None";
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 }
