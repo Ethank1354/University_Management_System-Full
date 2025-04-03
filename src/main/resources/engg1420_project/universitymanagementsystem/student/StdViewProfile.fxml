@@ -5,10 +5,10 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane fx:id="contentPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:id="contentPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@student_profile_style.css" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Button fx:id="btnExit" layoutX="565.0" mnemonicParsing="false" onAction="#exit" text="Exit" />
-      <ImageView fx:id="profilePhoto" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" x="5.0" y="5.0">
+      <ImageView fx:id="profilePhoto" fitHeight="150.0" fitWidth="154.0" pickOnBounds="true" preserveRatio="true" x="5.0" y="5.0">
          <image>
             <Image url="@images/BlankProfile.png" />
          </image>

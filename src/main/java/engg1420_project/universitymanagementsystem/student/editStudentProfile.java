@@ -406,6 +406,23 @@ public class editStudentProfile {
 
     }
 
+    @FXML
+    public void exit (ActionEvent event) throws IOException {
+        try {
+            StdDashCtrl stdDashCtrl = new StdDashCtrl(db,username);
+            FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("student/StdDashboard.fxml"));
+            fxmlLoader.setController(stdDashCtrl);
+
+            AnchorPane pane = fxmlLoader.load();
+            contentPane.getChildren().setAll(pane);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 
 
 

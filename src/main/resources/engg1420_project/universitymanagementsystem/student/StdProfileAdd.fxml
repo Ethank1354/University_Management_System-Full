@@ -5,9 +5,9 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane fx:id="contentPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:id="contentPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@student_profile_style.css" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Button fx:id="btnExit" layoutX="565.0" mnemonicParsing="false" onAction="#exit" text="Exit" />
+      <Button fx:id="btnExit" layoutX="545.0" layoutY="14.0" mnemonicParsing="false" onAction="#exit" text="Exit" />
       <ImageView fx:id="imgViewProfile" fitHeight="150.0" fitWidth="150.0" layoutX="225.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true" />
       <TextField fx:id="tfName" layoutX="14.0" layoutY="168.0" promptText="Name" />
       <TextField fx:id="tfEmail" layoutX="226.0" layoutY="168.0" promptText="Email" />

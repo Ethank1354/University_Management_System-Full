@@ -98,5 +98,6 @@
       <ImageView fx:id="imgViewProfile" fitHeight="140.0" fitWidth="180.0" layoutX="200.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true" />
       <Button fx:id="btnUpload" layoutX="380.0" layoutY="137.0" mnemonicParsing="false" onAction="#chooseImage" text="Upload" />
       <Label fx:id="labelStudentID" layoutX="235.0" layoutY="150.0" text="Student ID: ID" />
+      <Button fx:id="btnExit" layoutX="544.0" layoutY="14.0" mnemonicParsing="false" onAction="#exit" text="Exit" />
    </children>
 </AnchorPane>

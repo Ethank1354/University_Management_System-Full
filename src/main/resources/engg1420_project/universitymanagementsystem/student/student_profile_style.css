@@ -14,10 +14,10 @@
 .button {
     -fx-background-color: white;
     -fx-text-fill: black;
-    -fx-font-size: 14px;
+    -fx-font-size: 12px;
     -fx-border-color: red gold;
     -fx-border-width: 2px;
-    -fx-border-radius: 5px;
+    -fx-border-radius: 4px;
     -fx-background-radius: 5px;
 }
 .button:hover {
@@ -27,11 +27,11 @@
 /* Labels */
 .label {
     -fx-text-fill: black;
-    -fx-font-size: 16px;
+    -fx-font-size: 12px;
 }
 
 /* Name Label */
-#nameLabel {
+#labelStdName {
     -fx-font-size: 24px;
     -fx-font-weight: bold;
     -fx-text-fill: black;
@@ -84,4 +84,27 @@
     -fx-border-color: red gold;
     -fx-border-width: 3px;
     -fx-border-radius: 50%;
+}
+
+/* Choice Box */
+.choice-box {
+    -fx-background-color: white;
+    -fx-text-fill: black;
+    -fx-font-size: 12px;
+    -fx-border-color: red gold;
+    -fx-border-width: 2px;
+    -fx-border-radius: 4px;
+    -fx-background-radius: 5px;
+
+}
+
+.progress-bar {
+    -fx-background-color: white;
+    -fx-border-color: red gold;
+    -fx-border-width: 2px;
+    -fx-border-radius: 4px;
+    -fx-background-radius: 5px;
+    -fx-progress-color: red;
+
+
 }

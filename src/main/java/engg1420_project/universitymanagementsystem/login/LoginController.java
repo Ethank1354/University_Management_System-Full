@@ -87,7 +87,8 @@ public class LoginController {
                     stage.show();
                 }
                 else {
-                    Parent dashboardFX = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("menuUser.fxml")));
+                    //Parent dashboardFX = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("menuUser.fxml")));
+                    Parent dashboardFX = FXMLLoader.load(HelloApplication.class.getResource("menuUser.fxml"));
                     stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                     scene = new Scene(dashboardFX);
                     stage.setScene(scene);
