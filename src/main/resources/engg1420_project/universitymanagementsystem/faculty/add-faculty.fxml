@@ -44,8 +44,9 @@
 
       <!-- Courses Offered -->
       <HBox alignment="CENTER_LEFT" spacing="10.0">
-         <Label text="Courses Offered:" />
+         <Label text="Courses Offered" />
          <TextField fx:id="coursesOfferedField" />
+         <Label text="(separated by only commas)" />
       </HBox>
 
       <!-- Password -->
