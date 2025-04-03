@@ -7,9 +7,9 @@
 
 <!-- Import Insets -->
 
-<AnchorPane fx:id="anchorPane"  stylesheets="@faculty-profile-style.css" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:id="anchorPane" prefHeight="600.0" prefWidth="800.0" stylesheets="@faculty-profile-style.css" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1">
 
-<BorderPane fx:id="borderPane" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane fx:id="borderPane" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1">
 
     <!-- Top section: Name, Profile Photo and Edit Button -->
     <top>
@@ -20,7 +20,7 @@
                 <!-- Profile photo (placeholder) -->
                 <ImageView fx:id="profileImage" fitHeight="100.0" fitWidth="100.0" preserveRatio="true">
                <image>
-                  <Image url="@profile.jpg" />
+                  <Image url="@images/profile.jpg" />
                </image>
                 </ImageView>
             <VBox prefHeight="77.0" prefWidth="325.0">

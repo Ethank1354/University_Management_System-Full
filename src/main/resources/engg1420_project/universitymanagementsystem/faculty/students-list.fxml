@@ -3,7 +3,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane fx:id="anchorPane"  stylesheets="@faculty-profile-style.css" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:id="anchorPane" prefHeight="600.0" prefWidth="800.0" stylesheets="@faculty-profile-style.css" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1">
 
 <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"  xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1">
    <children>
@@ -17,7 +17,7 @@
       <Label alignment="CENTER" text="Students" VBox.vgrow="ALWAYS" />
 
       <!-- ListView for students -->
-      <ListView fx:id="studentsList" prefHeight="200.0" prefWidth="350.0" />
+      <ListView fx:id="studentsList" prefHeight="200.0" prefWidth="500.0" />
    </children>
 </VBox>
 </AnchorPane>

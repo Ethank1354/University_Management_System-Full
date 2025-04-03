@@ -4,12 +4,12 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane fx:id="anchorPane"  xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:id="anchorPane" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1">
 
-<VBox alignment="TOP_CENTER" spacing="10" stylesheets="@faculty-profile-style.css" xmlns:fx="http://javafx.com/fxml">
+<VBox alignment="TOP_CENTER" prefHeight="400.0" prefWidth="600.0" spacing="10" stylesheets="@faculty-profile-style.css" xmlns:fx="http://javafx.com/fxml">
 
    <!-- ListView to display the list of courses with checkboxes -->
-   <ListView fx:id="courseListView" prefHeight="361.0" prefWidth="55.0">
+   <ListView fx:id="courseListView" prefHeight="200.0" prefWidth="500.0">
       <items>
          <FXCollections fx:factory="observableArrayList" />
       </items>
