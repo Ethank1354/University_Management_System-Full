@@ -228,6 +228,10 @@ public class Student extends User {
         }
     }
 
+    public void addSubject(String subject) {
+        this.subjects.add(subject);
+    }
+
     public void updateStudent() throws SQLException {
         this.studentMember.set(0, this.studentID);
         this.studentMember.set(1, super.name);
