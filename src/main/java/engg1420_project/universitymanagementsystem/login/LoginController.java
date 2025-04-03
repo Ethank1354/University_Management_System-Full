@@ -32,7 +32,7 @@ public class LoginController {
     @FXML
     public TextField email, id;
     @FXML
-    public Button student_management, event_management, subject_management, faculty_management, course_management, main, dashboard, login, profile_management, Logout;
+    public Button student_management, event_management, subject_management, faculty_management, course_management, main, dashboard, login;
     @FXML
     public AnchorPane contentPane, eventPane, facultyPane, coursePane, subjectPane, studentPane;
     @FXML
