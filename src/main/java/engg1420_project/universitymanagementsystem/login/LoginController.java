@@ -28,15 +28,13 @@ public class LoginController {
     @FXML
     public TextField email, id;
     @FXML
-    public Button student_management, event_management, subject_management, faculty_management, course_management, main, dashboard, login;
+    public Button student_management, event_management, subject_management, faculty_management, course_management, main, dashboard, login, profile_management, Logout;;
     @FXML
     public AnchorPane contentPane, eventPane, facultyPane, coursePane, subjectPane, studentPane;
     @FXML
     public Pane pane;
     @FXML
     public GridPane gridPane;
-    @FXML
-    public Button profile_management;
 
     private Stage stage;
     private Scene scene;
@@ -297,7 +295,7 @@ public class LoginController {
     public void openProfile() {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("faculty/faculty-profile.fxml"));
-            facultyController facultycontroller = new facultyController(db, "faculty", contentPane);
+            facultyController facultycontroller = new facultyController(db, "admin", contentPane);
             fxmlLoader.setController(facultycontroller);
             AnchorPane pane = fxmlLoader.load();
 
