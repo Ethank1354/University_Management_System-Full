@@ -7,7 +7,6 @@ import engg1420_project.universitymanagementsystem.projectClasses.User;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 //Kyle Egan
 
@@ -27,8 +26,9 @@ public class Student extends User {
     private Double academicProgress;
     private String photoName;
     private String profilePhotoLocation;
-    private String[] subjects;
-    private String[] grades;
+    //private String[] subjects;
+    private ArrayList<String> subjects = new ArrayList<>();
+    private ArrayList<String> grades = new ArrayList<>();
 
     private double tution;
     private double tutionPaid = 0.0;
@@ -46,12 +46,15 @@ public class Student extends User {
         this.semster = studentMember.get(6);
 
         if (studentMember.get(8) != null) {
-            subjects = studentMember.get(8).split(", ");
-            grades = new String[subjects.length];
+            String[] subjectlist = studentMember.get(8).split(", ");
+            for (int i = 0; i < subjectlist.length; i++) {
+                this.subjects.add(subjectlist[i]);
+            }
+            //grades = new String[subjects.size()];
 
 
-            for (int i = 0; i < subjects.length; i++) {
-                grades[i] = "50%";
+            for (int i = 0; i < subjects.size(); i++) {
+                grades.add("50%");
             }
         }
 
@@ -59,25 +62,27 @@ public class Student extends User {
         this.academicProgress = Double.parseDouble(studentMember.get(10));
         super.password = studentMember.get(11);
 
-        if (academicLvl.equals("Graduate")) {
-            this.tution = 40000.0;
+        if (studentMember.get(14) == null) {
+
+            if (academicLvl.equals("Graduate")) {
+                this.tution = 40000.0;
+            } else {
+                this.tution = 50000.0;
+            }
         } else {
-            this.tution = 50000.0;
+            tution = Double.parseDouble(studentMember.get(14));
         }
-/*
+
+        if (studentMember.get(12) == null) {
+            tutionPaid = 0.0;
+        } else {
+            tutionPaid = Double.parseDouble(studentMember.get(12));
+        }
+
         //Handle Profile Photo
-        //Need to update the database under the photos table to include student ID's
-        this.photoName = studentMember.get(7);
-        List<String> photo = dbm.getRow("Photos", "ID", studentID);
 
-        for (String row : photo) {
-            System.out.println("Row: " + row);
-            System.out.println(row);
-        }
+        this.profilePhotoLocation = studentMember.get(7);
 
-        this.profilePhotoLocation = photo.get(1);
-
- */
 
 
 
@@ -140,9 +145,9 @@ public class Student extends User {
         return academicProgress;
     }
 
-    public String[] getSubjects() {
+    public ArrayList<String> getSubjects() {
         if (subjects == null) {
-            return new String[0];
+            return null;
         }
         return subjects;
     }
@@ -150,16 +155,16 @@ public class Student extends User {
     public String getSubjectString() {
         String subjectsStr = "";
         if (subjects != null) {
-            for (int i = 0; i < subjects.length; i++) {
-                subjectsStr += subjects[i] + ", ";
+            for (int i = 0; i < subjects.size(); i++) {
+                subjectsStr += subjects.get(i) + ", ";
             }
         }
         return subjectsStr;
     }
 
-    public String[] getGrades() {
+    public ArrayList<String> getGrades() {
         if (grades == null) {
-            return new String[0];
+            return null;
         }
         return grades;
     }
@@ -167,16 +172,23 @@ public class Student extends User {
     public String getGradeString() {
         String gradesStr = "";
         if (grades != null) {
-            for (int i = 0; i < grades.length; i++) {
-                gradesStr += grades[i] + ", ";
+            for (int i = 0; i < grades.size(); i++) {
+                gradesStr += grades.get(i) + ", ";
             }
         }
         return gradesStr;
     }
 
     public String getPhotoLocation() {
+        return profilePhotoLocation;
+    }
+
+    /*
+    public String getPhotoName() {
         return photoName;
     }
+
+     */
 
     //Setter Methods
 
@@ -204,8 +216,16 @@ public class Student extends User {
         this.academicProgress = academicProgress;
     }
 
-    public void updateSubjects(String[] subjects, int index) {
-        this.subjects[index] = subjects[index];
+    public void updateSubjects(String subject, int index) {
+        this.subjects.set(index, subject);
+    }
+
+    public void deleteSubjects(String subjectName) {
+        for (int i = 0; i < subjects.size(); i++) {
+            if (subjects.get(i).equals(subjectName)) {
+                subjects.remove(i);
+            }
+        }
     }
 
     public void updateStudent() throws SQLException {
@@ -216,11 +236,15 @@ public class Student extends User {
         this.studentMember.set(4, super.email);
         this.studentMember.set(5, this.academicLvl);
         this.studentMember.set(6, this.semster);
-        this.studentMember.set(7, this.photoName);
+        this.studentMember.set(7, this.profilePhotoLocation);
         this.studentMember.set(8, this.getSubjectString());
         this.studentMember.set(9, this.thesis);
         this.studentMember.set(10, this.academicProgress.toString());
         this.studentMember.set(11, super.password);
+        this.studentMember.set(12, Double.toString(this.tutionPaid));
+        this.studentMember.set(13, this.getGradeString());
+        this.studentMember.set(14, Double.toString(this.tution));
+
 
         try {
             this.dbm.updateRowInTable("Students", "Student ID", this.studentID, this.studentMember);

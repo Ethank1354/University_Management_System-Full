@@ -8,6 +8,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
@@ -47,7 +49,10 @@ public class studentListController {
 
         this.course = this.course.replace("Intro ", "Introduction ");
         System.out.println("Course: " + course);
-
+        ImageView backImage = new ImageView(new Image(HelloApplication.class.getResourceAsStream("images/backButton.png")));
+        backImage.setFitHeight(30);
+        backImage.setFitWidth(30);
+        backButton.setGraphic(backImage);
         String[] columns = {"Subject Code"};
         List<String> course_code = db.getFilteredValues("Courses", columns, "Course Name", course);
         List<String> students = db.getColumnValuesByFilter("Students", "Name", "Subjects Registered", course_code.get(0));

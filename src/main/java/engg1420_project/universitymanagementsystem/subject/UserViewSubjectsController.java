@@ -16,22 +16,13 @@ public class UserViewSubjectsController {
     private TableColumn<Subjects, String> nameColumn;
     @FXML
     private TableColumn<Subjects, String> codeColumn;
-    private final ObservableList<Subjects> subjectsData = FXCollections.observableArrayList();
-
-    public UserViewSubjectsController() {
-    }
 
     @FXML
     public void initialize() {
-        this.nameColumn.setCellValueFactory(new PropertyValueFactory("name"));
-        this.codeColumn.setCellValueFactory(new PropertyValueFactory("code"));
-        this.subjectsData.add(new Subjects("Mathematics", "MATH101"));
-        this.subjectsData.add(new Subjects("Computer Science", "COMP200"));
-        this.subjectsData.add(new Subjects("Physics", "PHYS150"));
-        this.subjectsTable.setItems(this.subjectsData);
-    }
+        // Bind columns to Subjects properties
+        nameColumn.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
+        codeColumn.setCellValueFactory(cellData -> cellData.getValue().codeProperty());
 
-    public void addSubject(String name, String code) {
-        this.subjectsData.add(new Subjects(name, code));
+        subjectsTable.setItems(AdminViewSubjectsController.sharedSubjectsData);
     }
 }

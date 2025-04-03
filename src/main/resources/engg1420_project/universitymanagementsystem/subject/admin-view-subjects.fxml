@@ -15,21 +15,13 @@
       fx:controller="engg1420_project.universitymanagementsystem.subject.AdminViewSubjectsController">
     <children>
         <Label text="Subject Information">
-            <font>
-                <Font size="24.0" />
-            </font>
+            <font><Font size="24.0" /></font>
         </Label>
         <Button text="Create New Subject" onAction="#openCreateDialog" />
         <TableView fx:id="subjectsTable" fixedCellSize="30.0" prefHeight="365.0" prefWidth="600.0">
             <columns>
                 <TableColumn fx:id="nameColumn" prefWidth="40" text="Subject Name" />
                 <TableColumn fx:id="codeColumn" prefWidth="30" text="Subject Code" />
-                <TableColumn prefWidth="30" text="Actions">
-                    <cellFactory>
-                        <!-- Directly reference the static factory method -->
-                        <ButtonTableCell fx:factory="forTableColumn" />
-                    </cellFactory>
-                </TableColumn>
             </columns>
         </TableView>
     </children>

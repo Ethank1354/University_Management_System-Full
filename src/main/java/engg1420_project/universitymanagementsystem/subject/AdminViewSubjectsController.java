@@ -3,7 +3,6 @@
 package engg1420_project.universitymanagementsystem.subject;
 
 import java.io.IOException;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -11,6 +10,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -24,90 +24,90 @@ public class AdminViewSubjectsController {
     private TableColumn<Subjects, String> nameColumn;
     @FXML
     private TableColumn<Subjects, String> codeColumn;
-    private final ObservableList<Subjects> subjectsData = FXCollections.observableArrayList();
 
-    public AdminViewSubjectsController() {
+    // Make the data source static to share across controllers
+    public static ObservableList<Subjects> sharedSubjectsData = FXCollections.observableArrayList();
+
+    // Handle editing a subject
+    public void handleEditSubject(Subjects subject) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/project1/subject-dialog.fxml"));
+            Parent root = loader.load();
+
+            // Get the dialog controller
+            SubjectDialogController dialogController = loader.getController();
+            // dialogController.setSubject(subject); // Pass the subject to edit
+            dialogController.setAllSubjects(sharedSubjectsData); // Initialize allSubjects
+            dialogController.setSubject(subject);
+
+            Stage dialogStage = new Stage();
+            dialogStage.initModality(Modality.APPLICATION_MODAL);
+            dialogStage.setScene(new Scene(root));
+
+            // Show the dialog and wait for a result
+            dialogStage.showAndWait();
+
+            // Check if "Save" was clicked
+            if (dialogController.isSaved()) {
+                dialogController.updateSubject();
+                subjectsTable.refresh(); // Force UI refresh
+            }
+        } catch (IOException e) {
+            // Handle the exception (e.g., show an error dialog);
+            showErrorDialog("Failed to load the edit dialog: "  + e.getMessage());
+        }
     }
 
-    @FXML
-    public void handleEditSubject(Subjects subject) {
-        FXMLLoader loader = new FXMLLoader(this.getClass().getResource("subject-dialog.fxml"));
-        Parent root = null;
-
-        try {
-            root = (Parent)loader.load();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
-        SubjectDialogController dialogController = (SubjectDialogController)loader.getController();
-        dialogController.setSubject(subject);
-        Stage dialogStage = new Stage();
-        dialogStage.initModality(Modality.APPLICATION_MODAL);
-        dialogStage.setScene(new Scene(root));
-        dialogStage.showAndWait();
-        if (dialogController.isInputValid()) {
-            dialogController.updateSubject();
-            this.subjectsTable.refresh();
-        }
-
+    public void showErrorDialog(String message) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Error");
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
     }
 
     @FXML
     public void handleDeleteSubject(Subjects subject) {
-        this.subjectsData.remove(subject);
+        sharedSubjectsData.remove(subject);
     }
 
     @FXML
     public void initialize() {
-        this.nameColumn.setCellValueFactory(new PropertyValueFactory("name"));
-        this.codeColumn.setCellValueFactory(new PropertyValueFactory("code"));
-        this.subjectsData.add(new Subjects("Mathematics", "MATH101"));
-        this.subjectsData.add(new Subjects("Computer Science", "COMP200"));
-        this.subjectsData.add(new Subjects("Physics", "PHYS150"));
-        this.subjectsTable.setItems(this.subjectsData);
-        this.subjectsTable.sceneProperty().addListener((obs, oldScene, newScene) -> {
-            if (newScene != null) {
-                Parent root = newScene.getRoot();
-                root.getProperties().put("controller", this);
-            }
+        // Use lambda expressions to bind to properties
+        nameColumn.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
+        codeColumn.setCellValueFactory(cellData -> cellData.getValue().codeProperty());
 
-        });
+        // Add Actions column with controller reference
+        TableColumn<Subjects, Void> actionsColumn = new TableColumn<>("Actions");
+        actionsColumn.setCellFactory(ButtonTableCell.forTableColumn(this));
+        subjectsTable.getColumns().add(actionsColumn);
+
+        subjectsTable.setItems(sharedSubjectsData);
     }
 
     @FXML
     private void openCreateDialog(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(this.getClass().getResource("subject-dialog.fxml"));
-        Parent root = (Parent)loader.load();
-        SubjectDialogController dialogController = (SubjectDialogController)loader.getController();
-        Stage dialogStage = new Stage();
-        dialogStage.initModality(Modality.APPLICATION_MODAL);
-        dialogStage.setScene(new Scene(root));
-        dialogStage.showAndWait();
-        if (dialogController.isInputValid()) {
-            Subjects newSubject = dialogController.getSubject();
-            this.subjectsData.add(newSubject);
-        }
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/project1/subject-dialog.fxml"));
+            Parent root = (Parent) loader.load();
 
-    }
+            SubjectDialogController dialogController = loader.getController();
+            dialogController.setAllSubjects(sharedSubjectsData); // Initialize allSubjects
+            dialogController.setSubject(new Subjects("", ""));
 
-    @FXML
-    private void openSubjectDialog(Subjects subject) throws IOException {
-        FXMLLoader loader = new FXMLLoader(this.getClass().getResource("subject-dialog.fxml"));
-        Parent root = (Parent)loader.load();
-        SubjectDialogController dialogController = (SubjectDialogController)loader.getController();
-        dialogController.setSubject(subject);
-        Stage stage = new Stage();
-        stage.setScene(new Scene(root));
-        stage.initModality(Modality.APPLICATION_MODAL);
-        stage.showAndWait();
-        if (dialogController.isInputValid()) {
-            if (subject == null) {
-                this.subjectsData.add(dialogController.getSubject());
-            } else {
-                this.subjectsTable.refresh();
+            Stage dialogStage = new Stage();
+            dialogStage.initModality(Modality.APPLICATION_MODAL);
+            dialogStage.setScene(new Scene(root));
+            dialogStage.showAndWait();
+
+
+            // Check if the dialog was saved and input is valid
+            if (dialogController.isSaved()) {
+                Subjects newSubject = dialogController.getSubject();
+                sharedSubjectsData.add(newSubject);
             }
+        } catch (IOException e) {
+            showErrorDialog("Failed to load the edit dialog.");
         }
-
     }
 }

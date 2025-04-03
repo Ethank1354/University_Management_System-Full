@@ -5,60 +5,41 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane fx:id="contentPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" >
+<AnchorPane fx:id="contentPane" prefHeight="400.0" prefWidth="600.0" stylesheets="@student_profile_style.css" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <TabPane prefHeight="400.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE">
+      <TabPane layoutY="168.0" prefHeight="236.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE">
         <tabs>
-          <Tab text="Student Details">
+          <Tab fx:id="tabProfile" text="Student Details">
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <TextField fx:id="tfName" layoutX="31.0" layoutY="175.0" promptText="Name" />
-                        <TextField fx:id="tfEmail" layoutX="208.0" layoutY="175.0" promptText="Email" />
-                        <TextField fx:id="tfPassword" layoutX="396.0" layoutY="175.0" promptText="Password" />
-                        <TextField fx:id="tfAddress" layoutX="32.0" layoutY="218.0" promptText="Address" />
-                        <TextField fx:id="tfPhone" layoutX="209.0" layoutY="218.0" promptText="Number" />
-                        <TextField fx:id="tfProgress" layoutX="397.0" layoutY="218.0" promptText="Program Progress" />
-                        <TextField fx:id="tfThesis" layoutX="209.0" layoutY="263.0" promptText="Thesis" />
-                        <TextField fx:id="tfSemester" layoutX="397.0" layoutY="263.0" promptText="Semester" />
-                        <Button fx:id="btnSave" layoutX="257.0" layoutY="304.0" mnemonicParsing="false" onAction="#saveChanges" text="Save" />
-                        <ImageView fx:id="imgViewProfile" fitHeight="140.0" fitWidth="180.0" layoutX="190.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true" />
-                        <Button fx:id="btnUpload" layoutX="396.0" layoutY="137.0" mnemonicParsing="false" text="Upload" />
-                        <ChoiceBox fx:id="chBoxLevel" layoutX="31.0" layoutY="263.0" prefWidth="150.0" />
-                        <Label fx:id="labelStudentID" layoutX="209.0" layoutY="141.0" text="Student ID: ID" />
-                        <Label fx:id="labelError" layoutX="269.0" layoutY="340.0" text="Error" textAlignment="CENTER" />
+                        <TextField fx:id="tfName" layoutX="32.0" layoutY="38.0" promptText="Name" />
+                        <TextField fx:id="tfEmail" layoutX="202.0" layoutY="38.0" promptText="Email" />
+                        <TextField fx:id="tfPassword" layoutX="397.0" layoutY="38.0" promptText="Password" />
+                        <TextField fx:id="tfAddress" layoutX="31.0" layoutY="80.0" promptText="Address" />
+                        <TextField fx:id="tfPhone" layoutX="202.0" layoutY="80.0" promptText="Number" />
+                        <TextField fx:id="tfProgress" layoutX="397.0" layoutY="80.0" promptText="Program Progress" />
+                        <TextField fx:id="tfThesis" layoutX="202.0" layoutY="128.0" promptText="Thesis" />
+                        <TextField fx:id="tfSemester" layoutX="397.0" layoutY="128.0" promptText="Semester" />
+                        <Button fx:id="btnSave" layoutX="257.0" layoutY="166.0" mnemonicParsing="false" onAction="#saveChanges" text="Save" />
+                        <ChoiceBox fx:id="chBoxLevel" layoutX="31.0" layoutY="128.0" prefWidth="150.0" />
+                        <Label fx:id="labelError" layoutX="264.0" layoutY="339.0" text="Error" textAlignment="CENTER" />
                      </children></AnchorPane>
             </content>
           </Tab>
-          <Tab text="Course Details">
+          <Tab fx:id="tabCourse" text="Course Details">
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <ListView fx:id="listViewCourses" layoutY="82.0" prefHeight="292.0" prefWidth="600.0" />
+                        <ListView fx:id="subjectListView" layoutY="-2.0" prefHeight="212.0" prefWidth="600.0" />
                      </children></AnchorPane>
             </content>
           </Tab>
-            <Tab text="Tution Details">
+            <Tab fx:id="tabTution" text="Tution Details">
               <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <ImageView fx:id="imgViewProfile1" fitHeight="140.0" fitWidth="180.0" layoutX="29.0" layoutY="46.0" pickOnBounds="true" preserveRatio="true" />
-                        <Label fx:id="labelName" layoutX="29.0" layoutY="186.0" text="Name">
-                           <font>
-                              <Font size="18.0" />
-                           </font>
-                        </Label>
-                        <Label fx:id="labelStudentID1" layoutX="29.0" layoutY="213.0" text="Student ID">
-                           <font>
-                              <Font size="18.0" />
-                           </font>
-                        </Label>
-                        <Separator layoutX="232.0" layoutY="13.0" orientation="VERTICAL" prefHeight="345.0" prefWidth="12.0" />
-                        <Label fx:id="labelAcadmeiclevel" layoutX="29.0" layoutY="240.0" text="Academic Level">
-                           <font>
-                              <Font size="18.0" />
-                           </font>
-                        </Label>
+                        <Separator layoutX="189.0" layoutY="14.0" orientation="VERTICAL" prefHeight="200.0" prefWidth="12.0" />
                         <Label layoutX="245.0" layoutY="32.0" text="Tution Details">
                            <font>
                               <Font size="18.0" />
@@ -79,16 +60,16 @@
                               <Font size="14.0" />
                            </font>
                         </Label>
-                        <Separator layoutX="246.0" layoutY="123.0" prefHeight="7.0" prefWidth="313.0" />
-                        <TextField fx:id="tfTotal" layoutX="403.0" layoutY="240.0" promptText="ie. 2000" />
-                        <TextField fx:id="tfPaid" layoutX="403.0" layoutY="282.0" promptText="ie. 2000" />
-                        <Button fx:id="btnEditTution" layoutX="247.0" layoutY="201.0" mnemonicParsing="false" onAction="#editTution" text="Edit Tution Balance" />
-                        <Label layoutX="247.0" layoutY="243.0" text="Add to Amount Owed:">
+                        <Separator layoutX="198.0" layoutY="126.0" prefHeight="7.0" prefWidth="313.0" />
+                        <TextField fx:id="tfTotal" layoutX="29.0" layoutY="83.0" promptText="ie. 2000" />
+                        <TextField fx:id="tfPaid" layoutX="29.0" layoutY="135.0" promptText="ie. 2000" />
+                        <Button fx:id="btnEditTution" layoutX="34.0" layoutY="19.0" mnemonicParsing="false" onAction="#editTution" text="Edit Tution Balance" />
+                        <Label fx:id="labelEditOwed" layoutX="29.0" layoutY="57.0" text="Add to Amount Owed:">
                            <font>
                               <Font size="14.0" />
                            </font>
                         </Label>
-                        <Label layoutX="247.0" layoutY="285.0" text="Add to Amount Paid:">
+                        <Label fx:id="labelEditPaid" layoutX="28.0" layoutY="116.0" text="Add to Amount Paid:">
                            <font>
                               <Font size="14.0" />
                            </font>
@@ -108,11 +89,15 @@
                               <Font size="14.0" />
                            </font>
                         </Label>
-                        <Button fx:id="btnUpdate" layoutX="246.0" layoutY="316.0" mnemonicParsing="false" onAction="#updateTution" text="Update" />
+                        <Button fx:id="btnUpdateTution" layoutX="29.0" layoutY="167.0" mnemonicParsing="false" onAction="#updateTution" text="Update" />
                      </children></AnchorPane>
               </content>
             </Tab>
         </tabs>
       </TabPane>
+      <ImageView fx:id="imgViewProfile" fitHeight="140.0" fitWidth="180.0" layoutX="200.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true" />
+      <Button fx:id="btnUpload" layoutX="380.0" layoutY="137.0" mnemonicParsing="false" onAction="#chooseImage" text="Upload" />
+      <Label fx:id="labelStudentID" layoutX="235.0" layoutY="150.0" text="Student ID: ID" />
+      <Button fx:id="btnExit" layoutX="544.0" layoutY="14.0" mnemonicParsing="false" onAction="#exit" text="Exit" />
    </children>
 </AnchorPane>

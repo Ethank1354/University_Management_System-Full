@@ -1,6 +1,7 @@
 package engg1420_project.universitymanagementsystem.login;
 
 import engg1420_project.universitymanagementsystem.HelloApplication;
+import engg1420_project.universitymanagementsystem.faculty.FacultyProfileController;
 import engg1420_project.universitymanagementsystem.faculty.facultyController;
 import engg1420_project.universitymanagementsystem.projectClasses.DatabaseManager;
 import engg1420_project.universitymanagementsystem.student.StdDashCtrl;
@@ -20,6 +21,7 @@ import javafx.stage.*;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
@@ -43,35 +45,11 @@ public class LoginController {
     private Parent root;
     public static String loginUser;
     private DatabaseManager db = new DatabaseManager(HelloApplication.class.getResource("test.db").toString());
-
-    //User Info
-    private String[] studentID;
-
-    private String[] studentEmail = {"alice@example.edu", "bob.@example.edu", "carol@example.edu", "lucka@example.edu", "lee@example.edu", "brown@example.edu", "smith@example.edu", "jones@example.edu", "clarka@example.edu", "davis@example.edu"};
-
-    private String[] facultyID = {"F0001", "F0002", "F0003", "F0004", "F0005"};
-    private String[] facultyEmail = {"turing@university.edu", "bronte@university.edu", "hopper@university.edu", "copeland@university.edu", "gharabaghi@university.edu"};
-    private String[] facultyOffice = {"Room 201", "Room 202", "Lab 203", "Room 201", "Lab 202"};
+    private static String loginEmail;
 
     private String adminID = "admin123";
     private String adminEmail = "admin@uni";
 
-    public LoginController() {
-        try {
-            studentID =  db.getColumnValues("Students", "StudentID").toArray(new String[0]);  //studentIDs.toArray(new String[0]);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    //private String[] studentID = {"S20250001", "S20250002", "S20250003", "S20250004", "S20250005", "S20250006", "S20250007", "S20250008", "S20250009", "S20250010"};
-
-
-        // try {
-            //studentID = (String[]) db.getColumnValues("Students", "Student ID").toArray();
-       // } catch (SQLException e) {
-        //    throw new RuntimeException(e);
-        //}
 
 
 
@@ -118,19 +96,40 @@ public class LoginController {
     }
 
     public boolean checkLogin(){
-        for(int i=0; i<facultyEmail.length; i++){
-            if (email.getText().toString().equals(facultyEmail[i]) && id.getText().toString().equals(facultyID[i])){
-                loginUser = "Faculty";
-                return true;
+        String[] column = {"Password"};
+
+            List<String> facultyRow;
+            List<String> studentRow;
+            try{
+                facultyRow = db.getFilteredValues("Faculties", column, "Email", email.getText().toString());
+            }catch (SQLException e){
+                facultyRow = new ArrayList<>();
+                facultyRow.add("error");
             }
-        }
-        for(int i=0; i<studentEmail.length; i++){
-            if (email.getText().toString().equals(studentEmail[i]) && id.getText().toString().equals(studentID[i])){
-                loginUser = "Student";
-                return true;
+
+            try {
+                studentRow = db.getFilteredValues("Students", column, "Email", email.getText().toString());
+            }catch (SQLException e){
+                studentRow = new ArrayList<>();
+                studentRow.add("error");
+
             }
-        }
-        if(email.getText().toString().equals(adminEmail) && id.getText().toString().equals(adminID)){
+        facultyRow.add("error");
+        studentRow.add("error");
+        System.out.println(email.getText() + " email without to string");
+        System.out.println(email.getText().toString() + " email with to string");
+        System.out.println(facultyRow.get(0));
+        System.out.println(studentRow);
+        if(id.getText().toString().equals(facultyRow.get(0))){
+            this.loginEmail = email.getText().toString();
+            //System.out.println(loginID + "loginid should be set here");
+            loginUser = "Faculty";
+            return true;
+        }else if(id.getText().toString().equals(studentRow.get(0))){
+            loginUser = "Student";
+            this.loginEmail = id.getText().toString();
+            return true;
+        }else if(email.getText().toString().equals(adminEmail) && id.getText().toString().equals(adminID)){
             loginUser = "Admin";
             return true;
         }
@@ -361,12 +360,22 @@ public class LoginController {
 
     public void openProfile(ActionEvent actionEvent) {
         try {
-            // Load the AdminView.fxml into the right side of the screen
-            FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("faculty/faculty-profile.fxml"));
-            AnchorPane pane = fxmlLoader.load();
 
-            // Replace the content of contentPane (the right side)
-            contentPane.getChildren().setAll(pane);
+            try {
+                FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("faculty/faculty-profile.fxml"));
+                //System.out.println("Hopefully this works: " + loginEmail);
+                String[] IDColumn = {"Faculty ID"};
+                List<String> id = db.getFilteredValues("Faculties", IDColumn, "Email", this.loginEmail);
+                System.out.println(id.get(0));
+                FacultyProfileController facultyProfilecontroller = new FacultyProfileController(id.get(0), "faculty", db, contentPane);
+                fxmlLoader.setController(facultyProfilecontroller);
+                AnchorPane pane = fxmlLoader.load();
+
+                contentPane.getChildren().setAll(pane);
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+
 
         } catch (IOException e) {
             e.printStackTrace();

@@ -21,9 +21,9 @@ public class StdDashCtrl {
 
     private DatabaseManager db;
     private String username;
-    private String access;
+    private String access = "";
     private Student student;
-    private String ID;
+
 
     //Controller Constructor
     public StdDashCtrl(DatabaseManager db, String username) throws SQLException {
@@ -31,10 +31,11 @@ public class StdDashCtrl {
         this.username = username;
     }
 
-    public StdDashCtrl(DatabaseManager db, String access, String ID) throws SQLException {
+    public StdDashCtrl(DatabaseManager db, String username, String access) throws SQLException {
         this.db = db;
+        this.username = username;
         this.access = access;
-        this.ID = ID;
+
     }
 
 
@@ -108,17 +109,11 @@ public class StdDashCtrl {
 
     @FXML
     public void initialize() throws SQLException {
-        //Disabling Buttons for Faculty
-        /*
-        if (access == "Faculty") {
-            btnAddStd.setDisable(true);
-            btnDelStd.setDisable(true);
-        } else {
-            btnAddStd.setDisable(false);
-            btnDelStd.setDisable(false);
+        if (access.equals("Faculty")) {
+            btnAddStd.setVisible(false);
+            btnDelStd.setVisible(false);
         }
-         */
-        //Populating the List view with the student names and student IDs
+
         List<String> viewableInfo = new ArrayList<>();
         List<String> StudentNames = db.getColumnValues("Students", "Name");
         List<String> StudentIDs = db.getColumnValues("Students", "Student ID");
@@ -208,7 +203,12 @@ public class StdDashCtrl {
             });
 
             //Adding all the options to the click down menu
-            contextMenu.getItems().addAll(viewProfile, deleteItem, editProfile);
+            if (access.equals("Faculty")) {
+                contextMenu.getItems().addAll(viewProfile, deleteItem, editProfile);
+            } else if (access.equals("Admin")) {
+                contextMenu.getItems().addAll(viewProfile);
+            }
+
 
             cell.textProperty().bind(cell.itemProperty());
 
