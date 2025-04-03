@@ -163,11 +163,13 @@ public class editStudentProfile {
                 subjectListView.getItems().remove(item);
                 String[] parts = item.split(":");
                 System.out.println(parts[0]);
+                student.deleteSubjects(parts[0]);
                 try {
-                    db.deleteRowFromTable("Students", "Student ID", parts[0]);
+                    student.updateStudent();
                 } catch (SQLException e) {
                     throw new RuntimeException(e);
                 }
+
             });
 
             //Adding all the options to the click down menu
@@ -355,8 +357,11 @@ public class editStudentProfile {
         student.setTution(student.getTution() + ((double) Double.parseDouble(tfPaid.getText())));
 
         labelTotal.setText(Double.toString(student.getTution()));
-        labelTotal.setText(Double.toString(student.getTutionPaid()));
+        labelPaid.setText(Double.toString(student.getTutionPaid()));
         labelBalance.setText(Double.toString(student.getTution() -  student.getTutionPaid()));
+
+        tfPaid.setText("");
+        tfTotal.setText("");
     }
 
     @FXML

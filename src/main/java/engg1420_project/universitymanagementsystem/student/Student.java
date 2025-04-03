@@ -62,26 +62,29 @@ public class Student extends User {
         this.academicProgress = Double.parseDouble(studentMember.get(10));
         super.password = studentMember.get(11);
 
-        if (academicLvl.equals("Graduate")) {
-            this.tution = 40000.0;
+        if (studentMember.get(14) == null) {
+
+            if (academicLvl.equals("Graduate")) {
+                this.tution = 40000.0;
+            } else {
+                this.tution = 50000.0;
+            }
         } else {
-            this.tution = 50000.0;
+            tution = Double.parseDouble(studentMember.get(14));
+        }
+
+        if (studentMember.get(12) == null) {
+            tutionPaid = 0.0;
+        } else {
+            tutionPaid = Double.parseDouble(studentMember.get(12));
         }
 
         //Handle Profile Photo
 
         this.profilePhotoLocation = studentMember.get(7);
-        /*
-        List<String> photo = dbm.getRow("Student", "ID", studentID);
 
-        for (String row : photo) {
-            System.out.println("Row: " + row);
-            System.out.println(row);
-        }
 
-        this.profilePhotoLocation = photo.get(1);
 
- */
 
     }
 
@@ -240,6 +243,7 @@ public class Student extends User {
         this.studentMember.set(11, super.password);
         this.studentMember.set(12, Double.toString(this.tutionPaid));
         this.studentMember.set(13, this.getGradeString());
+        this.studentMember.set(14, Double.toString(this.tution));
 
 
         try {

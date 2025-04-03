@@ -172,9 +172,11 @@ public class StdProfileViewCtrl  {
 
         barProgramProgress.setProgress(student.getAcademicProgress());
 
-        if (student.getSubjects() != null) {
-            ArrayList<String> subjects = student.getSubjects();
+        if (student.getSubjects() == null  || student.getSubjects().contains("")) {
+            subjectListView.getItems().add("No Registered Subjects");
+        } else {
 
+            ArrayList<String> subjects = student.getSubjects();
             ArrayList<String> grades = student.getGrades();
 
             List<String> subjectList = new ArrayList<>();
@@ -186,8 +188,6 @@ public class StdProfileViewCtrl  {
             for (int i = 0; i < subjects.size(); i++) {
                 subjectListView.getItems().addAll(subjectList);
             }
-        } else {
-            subjectListView.getItems().add("No Registered Subjects");
         }
 
 
