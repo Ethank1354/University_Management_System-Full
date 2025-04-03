@@ -40,10 +40,10 @@ public class ViewCoursesAdminController {
 
     @FXML
     private void initialize() throws SQLException {
-        // Column bindings
+        // Initialize columns with respective property names
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("courseName"));
         codeColumn.setCellValueFactory(new PropertyValueFactory<>("courseCode"));
-        subjectColumn.setCellValueFactory(new PropertyValueFactory<>("subjectName"));
+        subjectColumn.setCellValueFactory(new PropertyValueFactory<>("subjectCode"));
         sectionColumn.setCellValueFactory(new PropertyValueFactory<>("sectionNumber"));
         teacherColumn.setCellValueFactory(new PropertyValueFactory<>("teacherName"));
         capacityColumn.setCellValueFactory(new PropertyValueFactory<>("capacity"));
@@ -51,9 +51,9 @@ public class ViewCoursesAdminController {
         locationColumn.setCellValueFactory(new PropertyValueFactory<>("location"));
         examColumn.setCellValueFactory(new PropertyValueFactory<>("finalExamDateTime"));
 
-        // Load courses from the CourseManager (already working with the current database interaction)
-        courseList = FXCollections.observableArrayList(CourseManager.getCourses()); // Fetch from the current method
-        coursesTable.setItems(courseList);
+
+        // Fetch and display courses from the database
+        refreshTable();
 
         // Disable buttons initially
         editCourseButton.setDisable(true);
@@ -61,7 +61,7 @@ public class ViewCoursesAdminController {
         manageEnrollmentsButton.setDisable(true);
         assignFacultyButton.setDisable(true);
 
-        // Enable buttons only when a course is selected
+        // Enable buttons when a course is selected
         coursesTable.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
             boolean isSelected = newSelection != null;
             editCourseButton.setDisable(!isSelected);
@@ -71,6 +71,12 @@ public class ViewCoursesAdminController {
         });
     }
 
+    void refreshTable() throws SQLException {
+        courseList = FXCollections.observableArrayList(CourseManager.getCourses());
+        System.out.println("Total courses to be displayed: " + courseList.size()); // Debugging
+        coursesTable.setItems(courseList);
+        coursesTable.refresh();
+    }
 
     // Open Add Course window
     @FXML
@@ -86,13 +92,11 @@ public class ViewCoursesAdminController {
             addCourseStage.showAndWait();
 
             // Refresh the course list after adding a new course
-            courseList.setAll(CourseManager.getCourses()); // Refresh the list from CourseManager
-            coursesTable.refresh();
+            refreshTable();
         } catch (IOException | SQLException e) {
             e.printStackTrace();
         }
     }
-
 
     // Open Edit Course Window
     @FXML
@@ -114,8 +118,7 @@ public class ViewCoursesAdminController {
             editStage.showAndWait();
 
             // Refresh table after editing
-            courseList.setAll(CourseManager.getCourses()); // Refresh the list from DB
-            coursesTable.refresh();
+            refreshTable();
         } catch (IOException | SQLException e) {
             e.printStackTrace();
         }
@@ -125,7 +128,15 @@ public class ViewCoursesAdminController {
     @FXML
     private void deleteCourse() throws SQLException {
         Course selectedCourse = coursesTable.getSelectionModel().getSelectedItem();
-        if (selectedCourse == null) return;
+        if (selectedCourse == null) {
+            System.out.println("No course selected for deletion.");
+            return;
+        }
+
+        System.out.println("Selected course for deletion: " +
+                "Code=" + selectedCourse.getCourseCode() +
+                ", Name=" + selectedCourse.getCourseName() +
+                ", Section=" + selectedCourse.getSectionNumber());
 
         Alert confirmation = new Alert(Alert.AlertType.CONFIRMATION,
                 "Are you sure you want to delete this course?", ButtonType.YES, ButtonType.NO);
@@ -133,11 +144,24 @@ public class ViewCoursesAdminController {
         confirmation.setHeaderText(null);
 
         if (confirmation.showAndWait().orElse(ButtonType.NO) == ButtonType.YES) {
-            CourseManager.deleteCourse(selectedCourse); // Delete course from DB using CourseManager
-            courseList.setAll(CourseManager.getCourses()); // Refresh the list from DB
-            coursesTable.refresh();
+            boolean deleted = CourseManager.deleteCourse(selectedCourse);
+            if (deleted) {
+                System.out.println("Course successfully deleted from database.");
+            } else {
+                System.out.println("Failed to delete course from database.");
+                Alert errorAlert = new Alert(Alert.AlertType.ERROR,
+                        "Failed to delete the course. Please try again.",
+                        ButtonType.OK);
+                errorAlert.setTitle("Delete Failed");
+                errorAlert.setHeaderText(null);
+                errorAlert.showAndWait();
+            }
+            refreshTable(); // Refresh the list from DB
         }
     }
+
+
+
 
 
     // Open Manage Enrollments Window
@@ -147,7 +171,7 @@ public class ViewCoursesAdminController {
         if (selectedCourse == null) return;
 
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/project/ManageEnrollments.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("ManageEnrollments.fxml"));
             Parent root = loader.load();
 
             ManageEnrollmentsController controller = loader.getController();
@@ -166,7 +190,7 @@ public class ViewCoursesAdminController {
     }
 
     @FXML
-    private void assignFaculty() {
+    private void assignFaculty() throws SQLException {
         Course selectedCourse = coursesTable.getSelectionModel().getSelectedItem();
         if (selectedCourse == null) return;
 
@@ -188,11 +212,9 @@ public class ViewCoursesAdminController {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        refreshTable();
     }
 
-    public void refreshTable() {
-        coursesTable.refresh();
-    }
 
     // Close the window
     @FXML

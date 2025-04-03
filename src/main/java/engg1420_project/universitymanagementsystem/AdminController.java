@@ -26,7 +26,7 @@ public class AdminController {
         String eventCode = eventCodeField.getText();
         String eventDescription = eventDescriptionField.getText();
 
-        Event newEvent = new Event(eventName, eventCode, eventDescription, "default.jpg", "Location", "2025-03-20 10:00", 100, 0.0);
+        //Event newEvent = new Event(eventName, eventCode, eventDescription, "default.jpg", "Location", "2025-03-20 10:00", 100, 0.0);
         // Save the new event in a list or database
 
         showAlert("Event Added", "The event was successfully added.");

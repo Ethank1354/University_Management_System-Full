@@ -3,12 +3,10 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
-            fx:controller="engg1420_project.universitymanagementsystem.course.ManageEnrollmentsController">
+<AnchorPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" stylesheets="@course~profile~style.css" fx:controller="engg1420_project.universitymanagementsystem.course.ManageEnrollmentsController">
     <VBox spacing="10" alignment="CENTER">
         <Label fx:id="courseLabel" text="Course Name" style="-fx-font-size: 16px;"/>
 
-        <!-- Table to show enrolled students -->
         <TableView fx:id="studentsTable" prefWidth="600" prefHeight="400">
             <columns>
                 <TableColumn fx:id="idColumn" text="Student ID" prefWidth="100" />
@@ -26,7 +24,7 @@
         <ComboBox fx:id="studentComboBox" />
 
         <HBox spacing="10">
-            <Button fx:id="addStudentButton" text="Add Student" onAction="#openAddStudentWindow"/>
+            <Button fx:id="addStudentButton" text="Add Student" onAction="#addStudent"/>
             <Button fx:id="removeStudentButton" text="Remove Student" onAction="#removeStudent"/>
             <Button fx:id="closeButton" text="Close" onAction="#closeWindow"/>
         </HBox>

@@ -21,6 +21,7 @@ public class DatabaseManager {
     private Connection conn;
 
     public DatabaseManager(String filePath) {
+        this.dbPath = filePath;
         String url = "jdbc:sqlite:" + filePath;
         try {
             conn = DriverManager.getConnection(url);
@@ -29,6 +30,24 @@ public class DatabaseManager {
             System.out.println("Connection failed: " + e.getMessage());
         }
     }
+
+    public Connection getConnection() {
+        try {
+            if (conn == null || conn.isClosed()) {
+                // Re-establish the connection
+                String url = "jdbc:sqlite:" + this.dbPath;  // You need to store dbPath as a field
+                conn = DriverManager.getConnection(url);
+                System.out.println("Reconnected to database");
+            }
+            return conn;
+        } catch (SQLException e) {
+            System.out.println("Error reconnecting to database: " + e.getMessage());
+            e.printStackTrace();
+            return null;
+        }
+    }
+    private String dbPath;
+
     //working
     public boolean importXlsxToDatabase(String filePath) {
         try (FileInputStream fis = new FileInputStream(filePath);
@@ -536,4 +555,6 @@ public class DatabaseManager {
         }
 
     }*/
+
+
 }

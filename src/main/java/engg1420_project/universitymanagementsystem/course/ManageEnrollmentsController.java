@@ -26,6 +26,7 @@ public class ManageEnrollmentsController {
     @FXML private TableColumn<StudentCM, String> emailColumn;
     @FXML private TableColumn<StudentCM, String> levelColumn;
     @FXML private TableColumn<StudentCM, String> semesterColumn;
+    @FXML private ComboBox<String> studentComboBox;
 
     @FXML private Button addStudentButton;
     @FXML private Button removeStudentButton;
@@ -45,6 +46,7 @@ public class ManageEnrollmentsController {
         courseLabel.setText(course.getCourseName() + " - Enrolled Students");
 
         loadEnrolledStudents();
+        populateStudentComboBox();
     }
 
     private void loadEnrolledStudents() throws SQLException {
@@ -67,27 +69,40 @@ public class ManageEnrollmentsController {
         }
 
         studentsTable.setItems(studentList);
-
         currentCourse.setCurrentCapacity(studentList.size());
     }
 
+    private void populateStudentComboBox() throws SQLException {
+        List<String> studentNames = db.getColumnValues("students", "name");
+        studentComboBox.setItems(FXCollections.observableArrayList(studentNames));
+    }
 
     @FXML
-    private void openAddStudentWindow() throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/project/course/AddStudent.fxml"));
-        Parent root = loader.load();
+    private void addStudent() throws SQLException {
+        String selectedStudentName = studentComboBox.getValue();
 
-        AddStudentController controller = loader.getController();
-        controller.setManageEnrollmentsController(this);
+        if (selectedStudentName != null) {
+            // Retrieve full student data from the database
+            List<String> studentData = db.getRow("Students", "Name", selectedStudentName);
 
-        Stage stage = new Stage();
-        stage.setTitle("Add Student");
-        stage.setScene(new Scene(root));
-        stage.show();
+            if (studentData != null && !studentData.isEmpty()) {
+                StudentCM studentToAdd = new StudentCM(
+                        Integer.parseInt(studentData.get(0)),  // Student ID
+                        studentData.get(1),  // Name
+                        studentData.get(2),  // Address
+                        studentData.get(3),  // Phone
+                        studentData.get(4),  // Email
+                        studentData.get(5),  // Academic Level
+                        Integer.parseInt(studentData.get(6))  // Current Semester
+                );
+
+                addStudentToCourse(studentToAdd);
+            }
+        }
     }
 
     public void addStudentToCourse(StudentCM studentToAdd) throws SQLException {
-        if (currentCourse.getCurrentCapacity() < currentCourse.getMaxCapacity()) {
+        if (currentCourse.getCurrentCapacity() < currentCourse.getCapacity()) {
             if (!studentList.contains(studentToAdd)) {
                 boolean success = db.addRowToTable("enrollments", new String[]{
                         String.valueOf(currentCourse.getCourseCode()),
@@ -96,7 +111,7 @@ public class ManageEnrollmentsController {
 
                 if (success) {
                     studentList.add(studentToAdd);
-                    currentCourse.setCurrentCapacity(currentCourse.getCurrentCapacity() + 1); // Increase currentCapacity
+                    currentCourse.setCurrentCapacity(currentCourse.getCurrentCapacity() - 1);
                     studentsTable.refresh();
                 } else {
                     showAlert("Error", "Failed to enroll student.");
@@ -122,10 +137,10 @@ public class ManageEnrollmentsController {
 
                 if (success) {
                     studentList.remove(selectedStudent);
-                    currentCourse.setCurrentCapacity(currentCourse.getCurrentCapacity() - 1); // Decrease currentCapacity
+                    currentCourse.setCurrentCapacity(currentCourse.getCurrentCapacity() + 1); // Decrease currentCapacity
                     studentsTable.refresh();
                 } else {
-                    showAlert("Error", "Failed to remove student from the course.");
+                    showAlert("Error", "Failed to remove the student.");
                 }
             }
         }
@@ -145,5 +160,3 @@ public class ManageEnrollmentsController {
         alert.showAndWait();
     }
 }
-
-

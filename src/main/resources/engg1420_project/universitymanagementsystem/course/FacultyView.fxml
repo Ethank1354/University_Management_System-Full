@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.project.FacultyViewController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" stylesheets="@course~profile~style.css" fx:controller="engg1420_project.universitymanagementsystem.course.FacultyViewController">
     <Button fx:id="viewEnrollmentsButton" layoutX="232.0" layoutY="200.0" onAction="#viewEnrollments" text="View Enrollments">
         <font>
             <Font size="16.0" />
