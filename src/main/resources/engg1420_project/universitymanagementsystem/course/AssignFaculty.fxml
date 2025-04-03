@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
+<!--Mateo -->
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="212.0" prefWidth="331.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.project.AssignFacultyController">
+<AnchorPane prefHeight="212.0" prefWidth="331.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="engg1420_project.universitymanagementsystem.course.AssignFacultyController">
     <children>
         <ComboBox fx:id="teacherComboBox" layoutX="80.0" layoutY="79.0" prefHeight="26.0" prefWidth="171.0" />
         <Button layoutX="27.0" layoutY="158.0" onAction="#assignFaculty" prefHeight="38.0" prefWidth="78.0" text="Assign" />

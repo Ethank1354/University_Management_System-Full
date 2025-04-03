@@ -5,10 +5,10 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane fx:id="contentPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:id="contentPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@student_profile_style.css" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Button fx:id="btnExit" layoutX="565.0" mnemonicParsing="false" onAction="#exit" text="Exit" />
-      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="225.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true" />
+      <Button fx:id="btnExit" layoutX="545.0" layoutY="14.0" mnemonicParsing="false" onAction="#exit" text="Exit" />
+      <ImageView fx:id="imgViewProfile" fitHeight="150.0" fitWidth="150.0" layoutX="225.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true" />
       <TextField fx:id="tfName" layoutX="14.0" layoutY="168.0" promptText="Name" />
       <TextField fx:id="tfEmail" layoutX="226.0" layoutY="168.0" promptText="Email" />
       <TextField fx:id="tfPhone" layoutX="416.0" layoutY="168.0" promptText="Phone" />
@@ -17,7 +17,7 @@
       <Button fx:id="btnAddStd" layoutX="250.0" layoutY="361.0" mnemonicParsing="false" onAction="#addStudent" text="Add Student" textAlignment="CENTER" />
       <ChoiceBox fx:id="cBoxAcmLvl" layoutX="13.0" layoutY="266.0" prefWidth="150.0" />
       <TextField fx:id="tfThesis" layoutX="226.0" layoutY="266.0" promptText="Thesis Title" />
-      <Button fx:id="btdUpload" layoutX="416.0" layoutY="130.0" mnemonicParsing="false" text="Upload" />
+      <Button fx:id="btdUpload" layoutX="416.0" layoutY="130.0" mnemonicParsing="false" onAction="#chooseImage" text="Upload" />
       <Label layoutX="416.0" layoutY="113.0" text="Upload Profile Picture">
          <font>
             <Font size="9.0" />
@@ -25,5 +25,6 @@
       </Label>
       <TextField fx:id="tfProgress" layoutX="226.0" layoutY="314.0" promptText="Progress" />
       <TextField fx:id="tfSemester" layoutX="14.0" layoutY="314.0" promptText="Semester" />
+      <Label fx:id="labelError" layoutX="278.0" layoutY="340.0" text="Label" />
    </children>
 </AnchorPane>
