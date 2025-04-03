@@ -6,6 +6,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.AnchorPane;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class addStudentCourse {
 
     private DatabaseManager db;
@@ -32,6 +35,18 @@ public class addStudentCourse {
 
     @FXML
     public void initialize() {
+        List<String> courseNames = db.getColumnValues("Courses", "Course Name");
+        List<String> subjectCode = db.getColumnValues("Courses", "Subject Code");
+
+        List<String> courses = new ArrayList<>();
+
+        for(int i = 0; i < courseNames.size(); i++) {
+            courses.add(courseNames.get(i) + ": " + subjectCode.get(i));
+        }
+
+        listViewCourses.getItems().addAll(courses);
+
+
 
     }
 
