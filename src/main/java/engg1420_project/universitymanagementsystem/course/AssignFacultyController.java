@@ -1,9 +1,14 @@
-//package com.example.project;
 package engg1420_project.universitymanagementsystem.course;
 
+import engg1420_project.universitymanagementsystem.HelloApplication;
+import engg1420_project.universitymanagementsystem.projectClasses.DatabaseManager;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
+import javafx.collections.FXCollections;
+
+import java.sql.SQLException;
+import java.util.List;
 
 public class AssignFacultyController {
 
@@ -14,7 +19,7 @@ public class AssignFacultyController {
     private Course selectedCourse;
     private ViewCoursesAdminController parentController;  // Reference to update table
 
-    private static final String[] teachers = {"Dr. Alan Turing", "Prof. Emily Brontë", "Dr. Grace Hopper", "Dr. Lakyn Copeland", "Albozr Gharabaghi"};
+    private static DatabaseManager db = new DatabaseManager(HelloApplication.class.getResource("test.db").toString());
 
     public void setCourse(Course course) {
         this.selectedCourse = course;
@@ -25,25 +30,42 @@ public class AssignFacultyController {
     }
 
     @FXML
-    private void initialize() {
-        teacherComboBox.getItems().addAll(teachers);
+    private void initialize() throws SQLException {
+        populateTeacherComboBox();
+    }
+
+    private void populateTeacherComboBox() throws SQLException {
+        List<String> teacherList = db.getColumnValues("faculty", "name");  // Use instance method
+        teacherComboBox.setItems(FXCollections.observableArrayList(teacherList));
     }
 
     @FXML
-    private void assignFaculty() {
+    private void assignFaculty() throws SQLException {
         String selectedTeacher = teacherComboBox.getValue();
 
         if (selectedTeacher != null && selectedCourse != null) {
-            selectedCourse.setTeacherName(selectedTeacher);
-            System.out.println("Assigned " + selectedTeacher + " to " + selectedCourse.getCourseName());
+            boolean success = db.updateRowInTable( // Use `db` instance instead of static call
+                    "courses",
+                    "course_code",
+                    String.valueOf(selectedCourse.getCourseCode()),
+                    List.of(selectedTeacher)
+            );
 
-            // Refresh the courses table
-            if (parentController != null) {
-                parentController.refreshTable();
+            if (success) {
+                selectedCourse.setTeacherName(selectedTeacher);
+                System.out.println("Assigned " + selectedTeacher + " to " + selectedCourse.getCourseName());
+
+                if (parentController != null) {
+                    parentController.refreshTable();
+                }
+
+                showConfirmationPopup();
+                closeDialog();
+            } else {
+                showAlert("Assignment Failed", "Could not assign faculty to the course.");
             }
-
-            showConfirmationPopup();
-            closeDialog();
+        } else {
+            showAlert("Invalid Selection", "Please select a faculty member to assign.");
         }
     }
 
@@ -62,14 +84,19 @@ public class AssignFacultyController {
         }
     }
 
-
     private void showConfirmationPopup() {
+        showAlert("Assignment Successful", "The teacher has been assigned to the course.");
+    }
+
+    private void showAlert(String title, String content) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Assignment Successful");
-        alert.setHeaderText("Faculty Assigned Successfully");
-        alert.setContentText("The teacher has been assigned to the course.");
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(content);
         alert.showAndWait();
     }
 }
+
+
 
 

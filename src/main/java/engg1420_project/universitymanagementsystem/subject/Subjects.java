@@ -3,37 +3,24 @@
 package engg1420_project.universitymanagementsystem.subject;
 
 import javafx.beans.property.SimpleStringProperty;
+import javafx.scene.control.cell.PropertyValueFactory;
 
 public class Subjects {
-    private SimpleStringProperty name;
-    private SimpleStringProperty code;
+    private final SimpleStringProperty name;
+    private final SimpleStringProperty code;
 
     public Subjects(String name, String code) {
         this.name = new SimpleStringProperty(name);
         this.code = new SimpleStringProperty(code);
     }
 
-    public void setName(String name) {
-        this.name.set(name);
-    }
+    // Property getters (critical for TableView updates)
+    public SimpleStringProperty nameProperty() { return name; }
+    public SimpleStringProperty codeProperty() { return code; }
 
-    public void setCode(String code) {
-        this.code.set(code);
-    }
-
-    public String getName() {
-        return this.name.get();
-    }
-
-    public String getCode() {
-        return this.code.get();
-    }
-
-    public SimpleStringProperty nameProperty() {
-        return this.name;
-    }
-
-    public SimpleStringProperty codeProperty() {
-        return this.code;
-    }
+    // Standard getters/setters
+    public String getName() { return name.get(); }
+    public void setName(String value) { name.set(value); }
+    public String getCode() { return code.get(); }
+    public void setCode(String value) { code.set(value); }
 }

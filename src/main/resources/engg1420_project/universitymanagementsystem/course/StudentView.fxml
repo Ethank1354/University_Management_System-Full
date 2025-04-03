@@ -4,16 +4,16 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.project.StudentViewController">
-     <Button fx:id="viewEnrollmentsButton" layoutX="232.0" layoutY="200.0" onAction="#viewEnrollments" text="View Enrollments">
-         <font>
-             <Font size="16.0" />
-         </font>
-   </Button>
-     <Button fx:id="viewCoursesButton" layoutX="242.0" layoutY="133.0" onAction="#viewCourses" text="View Courses">
-      <font>
-         <Font size="16.0" />
-      </font>
-   </Button>
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="engg1420_project.universitymanagementsystem.course.StudentViewController">
+    <Button fx:id="viewEnrollmentsButton" layoutX="228.0" layoutY="200.0" onAction="#viewEnrollments" text="View Enrollments">
+        <font>
+            <Font size="16.0" />
+        </font>
+    </Button>
+    <Button fx:id="viewCoursesButton" layoutX="241.0" layoutY="132.0" onAction="#viewCourses" text="View Courses">
+        <font>
+            <Font size="16.0" />
+        </font>
+    </Button>
 
 </AnchorPane>
