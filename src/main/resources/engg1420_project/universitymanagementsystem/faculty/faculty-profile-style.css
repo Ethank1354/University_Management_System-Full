@@ -1,0 +1,87 @@
+/* General Styling */
+.root {
+    -fx-background-color: white;
+    -fx-text-fill: black;
+    -fx-font-family: "Arial";
+}
+
+/* BorderPane Styling */
+#borderPane {
+    -fx-background-color: white;
+}
+
+/* Buttons */
+.button {
+    -fx-background-color: white;
+    -fx-text-fill: black;
+    -fx-font-size: 14px;
+    -fx-border-color: red gold;
+    -fx-border-width: 2px;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+}
+.button:hover {
+    -fx-background-color: gold;
+}
+
+/* Labels */
+.label {
+    -fx-text-fill: black;
+    -fx-font-size: 16px;
+}
+
+/* Name Label */
+#nameLabel {
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-text-fill: black;
+}
+
+/* Text Fields */
+.text-field {
+    -fx-background-color: white;
+    -fx-text-fill: black;
+    -fx-border-color: black;
+    -fx-border-width: 2px;
+    -fx-border-radius: 3px;
+    -fx-padding: 5px;
+}
+
+/* TabPane and Tabs */
+.tab-pane {
+    -fx-background-color: white;
+    -fx-border-color: red gold;
+    -fx-border-width: 2px;
+}
+.tab {
+    -fx-background-color: white;
+    -fx-text-fill: black;
+    -fx-border-color: red gold;
+    -fx-border-width: 2px;
+}
+.tab:selected {
+    -fx-background-color: gold;
+    -fx-text-fill: black;
+}
+
+/* ListView */
+.list-view {
+    -fx-background-color: white;
+    -fx-border-color: red gold;
+    -fx-border-width: 2px;
+}
+.list-cell {
+    -fx-text-fill: black;
+    -fx-background-color: white;
+}
+.list-cell:selected {
+    -fx-background-color: gold;
+    -fx-text-fill: black;
+}
+
+/* Profile Image */
+#profileImage {
+    -fx-border-color: red gold;
+    -fx-border-width: 3px;
+    -fx-border-radius: 50%;
+}

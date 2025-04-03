@@ -95,9 +95,11 @@ public class FacultyProfileController {
         coursesTab.setDisable(!editable);
 
         degreeLabel.setText(faculty.getDegree());
-        //System.out.println("Photo Location: " + faculty.getProfilePhotoLocation());
 
-        //System.out.println("Profile Photo Location: " + HelloApplication.class.getResource("images/" + faculty.getProfilePhotoLocation()));
+        ImageView backImage = new ImageView(new Image(HelloApplication.class.getResourceAsStream("images/backButton.png")));
+        backImage.setFitHeight(30);
+        backImage.setFitWidth(30);
+        backButton.setGraphic(backImage);
 
         Image profile = null;
         try {
@@ -105,13 +107,8 @@ public class FacultyProfileController {
         }catch (Exception e){
             profileImage.setImage(new Image(HelloApplication.class.getResourceAsStream("images/BlankProfile.png")));
         }
-        /*try{
 
 
-            profileImage.setImage(profile);
-        } catch (Exception e) {
-            profileImage.setImage(new Image(HelloApplication.class.getResourceAsStream("images/profile.jpg")));
-        }*/
 
         profileImage.setImage(profile);
 
@@ -231,10 +228,6 @@ public class FacultyProfileController {
 
     }
 
-    protected void setPreviousScene(Scene previousScene) {
-        this.previousScene = previousScene;
-    }
-
     @FXML
     private void chooseImage(ActionEvent event) {
         try {
@@ -264,7 +257,7 @@ public class FacultyProfileController {
 
         //System.out.println(newFile.getAbsolutePath());
         faculty.setProfilePhotoLocation(newFile.getName());
-        faculty.updateProfilePhoto();
+        //faculty.updateProfilePhoto();
 
         FileInputStream imageFile = new FileInputStream(newFile);
 

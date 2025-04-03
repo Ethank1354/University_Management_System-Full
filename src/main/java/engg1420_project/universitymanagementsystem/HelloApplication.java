@@ -15,15 +15,13 @@ import java.sql.SQLException;
 public class HelloApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException, SQLException {
-        DatabaseManager db = new DatabaseManager("/home/user/test.db");
-        String access;
-
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("test-main.fxml"));
         fxmlLoader.setController(new mainTestController());
         Scene scene = new Scene(fxmlLoader.load(), 600, 400);
         stage.setScene(scene);
         stage.setTitle("Hello World");
         stage.show();
+
 
         /*List<String> faculty = db.getColumnValues("Students", "Student ID");
         for (String facultyName : faculty) {

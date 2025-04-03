@@ -385,7 +385,7 @@ public class DatabaseManager {
         return resultList;
     }
 
-    public void createTable(String tableName, List<String> columns) throws SQLException {
+    public void createTable(String tableName, LinkedHashMap<String, String> columns) throws SQLException {
         if (columns == null || columns.isEmpty()) {
             throw new IllegalArgumentException("Column list cannot be empty.");
         }
@@ -393,14 +393,18 @@ public class DatabaseManager {
         // Quote the table name if it contains spaces
         String quotedTableName = tableName.contains(" ") ? "\"" + tableName + "\"" : tableName;
 
-        // Build the column definitions string
+        // Build the column definitions string in the order of insertion
         StringBuilder columnDefinitions = new StringBuilder();
-        for (int i = 0; i < columns.size(); i++) {
-            String column = columns.get(i).replaceAll("\\s", ""); // Remove spaces from column names
-            columnDefinitions.append("\"").append(column).append("\" TEXT"); // Default type is TEXT
-            if (i < columns.size() - 1) {
-                columnDefinitions.append(", ");
-            }
+        for (Map.Entry<String, String> entry : columns.entrySet()) {
+            String column = entry.getKey().replaceAll("\\s", ""); // Remove spaces from column names
+            String type = entry.getValue().toUpperCase(); // Ensure proper casing for SQL types
+            columnDefinitions.append("\"").append(column).append("\" ").append(type);
+            columnDefinitions.append(", ");
+        }
+
+        // Remove trailing comma and space
+        if (columnDefinitions.length() > 2) {
+            columnDefinitions.setLength(columnDefinitions.length() - 2);
         }
 
         // Construct the CREATE TABLE SQL query
@@ -414,6 +418,33 @@ public class DatabaseManager {
             System.out.println("Error creating table: " + e.getMessage());
         }
     }
+
+    public void addColumnsToTable(String tableName, LinkedHashMap<String, String> columns) throws SQLException {
+        if (columns == null || columns.isEmpty()) {
+            throw new IllegalArgumentException("Column list cannot be empty.");
+        }
+
+        // Quote the table name if it contains spaces
+        String quotedTableName = tableName.contains(" ") ? "\"" + tableName + "\"" : tableName;
+
+        // Iterate through the LinkedHashMap to maintain column order
+        for (Map.Entry<String, String> entry : columns.entrySet()) {
+            String columnName = entry.getKey().replaceAll("\\s", ""); // Remove spaces from column names
+            String columnType = entry.getValue().toUpperCase(); // Ensure proper casing for SQL types
+
+            // SQL statement to add a single column
+            String sql = "ALTER TABLE " + quotedTableName + " ADD COLUMN \"" + columnName + "\" " + columnType + ";";
+
+            // Execute the query
+            try (Statement stmt = conn.createStatement()) {
+                stmt.execute(sql);
+                System.out.println("Added column '" + columnName + "' to table '" + tableName + "'.");
+            } catch (SQLException e) {
+                System.out.println("Error adding column '" + columnName + "' to table '" + tableName + "': " + e.getMessage());
+            }
+        }
+    }
+
 
 
 

@@ -11,27 +11,28 @@ import javafx.scene.layout.AnchorPane;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.List;
 
 public class StdProfileEditCtrl  {
 
     private DatabaseManager db;
-    private String studentInfo;
+    private String cellItem;
     private Scene previousScene;
     private String username;
     private Student student;
 
 
-    public StdProfileEditCtrl(DatabaseManager db, String studentInfo, String username) throws SQLException {
+    public StdProfileEditCtrl(DatabaseManager db, String cellItem, String username) throws SQLException {
         this.db = db;
-        this.studentInfo = studentInfo;
-        String[] parts = studentInfo.split(":");
-        this.student = new Student(parts[0], db);
+        this.cellItem = cellItem;
+        String[] id = cellItem.split(":"); //The first part of this string is the id of the student, the second part is the name
+        this.student = new Student(id[0], db);
         this.username = username;
 
     }
 
     @FXML
-    private TextField tfName, tfAddress, tfPhone, tfEmail, tfPassword, tfThesis, tfProgress;
+    private TextField tfName, tfAddress, tfPhone, tfEmail, tfPassword, tfThesis, tfProgress,tfSemester;
 
     @FXML
     private ChoiceBox cBoxAcmLvl;
@@ -47,23 +48,19 @@ public class StdProfileEditCtrl  {
 
     //Save changes button
     @FXML
-    void saveChanges(ActionEvent event) throws IOException {
-        /*
-        String[] newValues = {student.getStudentID(), tfName.getText(), tfAddress.getText(), tfPhone.getText(), tfEmail.getText(), cBoxAcmLvl.getValue().toString(), "default", "Fall 2025", "ENG101", tfThesis.getText(), tfProgress.getText(),tfPassword.getText()};
-        List<String> convert = new ArrayList<>();
+    void saveChanges(ActionEvent event) throws IOException, SQLException {
+        student.setName(tfName.getText());
+        student.setAddress(tfAddress.getText());
+        student.setPhoneNumber(tfPhone.getText());
+        student.setEmail(tfEmail.getText());
+        student.setPassword(tfPassword.getText());
+        student.setThesis(tfThesis.getText());
+        student.setAcademicProgress((double) Double.parseDouble(tfProgress.getText()));
+        student.setAcademicLvl((String) cBoxAcmLvl.getValue());
+        student.setSemster(tfSemester.getText());
 
-        for (int i = 0; i < newValues.length; i++) {
-            convert.add(newValues[i]);
-        }
-        try {
-            db.updateRowInTable("UMS_Data_Students ", "StudentID", student.getStudentID(), convert);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-
-
-         */
-
+        student.updateStudent();
+      // db.updateRowInTable("Students", "Student ID" , student.getStudentID(), student.studentToList());
 
         try {
             StdDashCtrl stdDashCtrl = new StdDashCtrl(db,username);
@@ -72,16 +69,6 @@ public class StdProfileEditCtrl  {
 
             AnchorPane pane = fxmlLoader.load();
             contentPane.getChildren().setAll(pane);
-//            Parent root = fxmlLoader.load();
-//
-//            // Get current stage and store previous scene
-//            Stage currentStage = (Stage) btnSave.getScene().getWindow();
-//            Scene previousScene = currentStage.getScene(); // Save current scene
-
-
-
-//            currentStage.setScene(new Scene(root, 600, 400));
-//            currentStage.setTitle("Student Management System");
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -99,16 +86,7 @@ public class StdProfileEditCtrl  {
             fxmlLoader.setController(stdDashCtrl);
             AnchorPane pane = fxmlLoader.load();
             contentPane.getChildren().setAll(pane);
-//            Parent root = fxmlLoader.load();
-//
-//            // Get current stage and store previous scene
-//            Stage currentStage = (Stage) btnExit.getScene().getWindow();
-//            Scene previousScene = currentStage.getScene(); // Save current scene
 
-
-
-//            currentStage.setScene(new Scene(root, 600, 400));
-//            currentStage.setTitle("Student Management System");
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -129,6 +107,7 @@ public class StdProfileEditCtrl  {
         tfThesis.setText(student.getThesis());
         tfPassword.setText(student.getPassword());
         tfProgress.setText(Double.toString(student.getAcademicProgress()));
+        tfSemester.setText(student.getSemster());
         //labelSemester.setText(student.getSemster());
         if (student.getAcademicLvl().equals("Undergraduate")) {
             cBoxAcmLvl.setValue("Undergraduate");
@@ -139,9 +118,8 @@ public class StdProfileEditCtrl  {
         }
     }
 
-
-
 }
+
 
 
 
