@@ -84,6 +84,9 @@ public class FacultyProfileController {
     private Label degreeLabel;
 
     @FXML
+    private TextField degreeField;
+
+    @FXML
     public void initialize() {
         passwordText.setText(faculty.getPassword());
         passwordText.setVisible(false);
@@ -116,6 +119,7 @@ public class FacultyProfileController {
         researchLabel.setText(faculty.getResearchInterest());
         roomLabel.setText(faculty.getOfficeLocation());
         emailLabel.setText(faculty.getEmail());
+        degreeField.setText(faculty.getDegree());
 
         roomField.setText(faculty.getOfficeLocation());
         emailField.setText(faculty.getEmail());
@@ -162,6 +166,11 @@ public class FacultyProfileController {
             emailLabel.setVisible(false);
             researchLabel.setVisible(false);
 
+            if(this.access.equals("admin")) {
+                degreeLabel.setVisible(false);
+                degreeField.setVisible(true);
+            }
+
             roomField.setVisible(true);
             emailField.setVisible(true);
             researchField.setVisible(true);
@@ -173,22 +182,26 @@ public class FacultyProfileController {
             roomLabel.setText(roomField.getText());
             emailLabel.setText(emailField.getText());
             researchLabel.setText(researchField.getText());
+            degreeLabel.setText(degreeField.getText());
 
             faculty.setOfficeLocation(roomField.getText());
             faculty.setEmail(emailField.getText());
             faculty.setResearchInterest(researchField.getText());
             faculty.setPassword(passwordText.getText());
+            faculty.setName(degreeField.getText());
 
             faculty.updateInfo();
 
             roomLabel.setVisible(true);
             emailLabel.setVisible(true);
             researchLabel.setVisible(true);
+            degreeLabel.setVisible(true);
 
             roomField.setVisible(false);
             emailField.setVisible(false);
             researchField.setVisible(false);
             passwordText.setVisible(false);
+            degreeField.setVisible(false);
             chooseImageButton.setVisible(false);
         }
 
