@@ -42,6 +42,14 @@ public class StdProfileViewCtrl  {
          */
         this.username = username;
     }
+    public StdProfileViewCtrl(DatabaseManager db, String access, String studentInfo) throws SQLException {
+        this.db = db;
+        this.studentInfo = studentInfo;
+        String[] parts = studentInfo.split(":");
+        this.student = new Student(parts[0], db);
+        this.access = access;
+    }
+
 
     @FXML
     private ListView<String> courseListView;

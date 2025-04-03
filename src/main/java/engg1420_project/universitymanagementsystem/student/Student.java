@@ -30,7 +30,7 @@ public class Student extends User {
 
     public Student(String studentID, DatabaseManager dbm) throws SQLException {
         this.dbm = dbm;
-        this.studentMember = dbm.getRow("UMS_Data_Students ", "Student ID", studentID);
+        this.studentMember = dbm.getRow("Students", "Student ID", studentID);
         this.studentID = studentMember.get(0);
         super.name = studentMember.get(1);
         this.address = studentMember.get(2);
@@ -41,7 +41,7 @@ public class Student extends User {
         //Handle Subjects Registerd
         String[] subjectCol = {"Subject Registered"};
 
-        subjects =  dbm.getFilteredValues("UMS_Data_Students ", subjectCol, "Student ID", studentID).get(0).split(", ");
+        subjects =  dbm.getFilteredValues("Students ", subjectCol, "Student ID", studentID).get(0).split(", ");
 
         this.thesis = studentMember.get(8);
         this.academicProgress = Double.parseDouble(studentMember.get(10));
@@ -125,7 +125,7 @@ public class Student extends User {
         this.studentMember.set(9, this.academicProgress.toString());
 
         try {
-            this.dbm.updateRowInTable("UMS_Data_Students", "Student ID", this.studentID, this.studentMember);
+            this.dbm.updateRowInTable("Students", "Student ID", this.studentID, this.studentMember);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
