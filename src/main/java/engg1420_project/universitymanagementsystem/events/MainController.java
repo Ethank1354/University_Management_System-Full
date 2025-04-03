@@ -23,7 +23,7 @@ public class MainController {
         stage.setTitle("Event Management");
 
         // Loads the EventManagement.fxml file
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("events/EventManagement.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("DeleteEventController.fxml"));
         AnchorPane root = loader.load();  // Load the FXML into the root layout
 
         // Creates a scene with the loaded root layout

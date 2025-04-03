@@ -98,29 +98,6 @@ public class LoginController {
         stage.show();
     }
 
-//    public boolean checkLogin() throws SQLException {
-//
-//        String[] col = {"Password"};
-//
-    ////        int facultySize = db.getTableHeaders("Faculties").size();  //Captures length of a faculty row in database
-    ////        int studentSize = db.getTableHeaders("Students").size();  //Captures length of a student row in database
-//        if (db.getFilteredValues("Faculties", col, "Email", email.getText().toString()).get(0).equals(id.getText().toString())){
-//            loginUser = "Faculty";
-//            loginID = id.getText();
-//            return true;
-//        }
-//        else if (db.getFilteredValues("Students", col, "Email", email.getText().toString()).get(0).equals(id.getText().toString())){
-//            loginUser = "Student";
-//            loginID = id.getText();
-//            return true;
-//        }
-//        else if (email.getText().toString().equals(adminEmail) && id.getText().toString().equals(adminID)) {
-//            loginUser = "Admin";
-//            return true;
-//        }
-//        else{
-//            return false;
-//        }
     public boolean checkLogin(){
         String[] column = {"Password"};
         // String[] filterColumn = {"Email"};
@@ -142,12 +119,9 @@ public class LoginController {
             studentRow.add("error");
 
         }
+        //these are here because it doesnt get added in the except block, so there is an actual value to check the password against
         facultyRow.add("error");
         studentRow.add("error");
-        System.out.println(email.getText() + " email without to string");
-        System.out.println(email.getText().toString() + " email with to string");
-        System.out.println(facultyRow.get(0));
-        System.out.println(studentRow);
         if(id.getText().toString().equals(facultyRow.get(0))){
             this.loginEmail = email.getText().toString();
             //System.out.println(loginID + "loginid should be set here");
