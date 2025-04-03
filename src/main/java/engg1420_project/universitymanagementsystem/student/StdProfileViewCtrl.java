@@ -185,9 +185,9 @@ public class StdProfileViewCtrl  {
                 subjectList.add(subjects.get(i) + ": " + grades.get(i));
             }
 
-            for (int i = 0; i < subjects.size(); i++) {
+
                 subjectListView.getItems().addAll(subjectList);
-            }
+
         }
 
 
