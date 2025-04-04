@@ -2,6 +2,8 @@ package engg1420_project.universitymanagementsystem.faculty;
 
 import engg1420_project.universitymanagementsystem.projectClasses.DatabaseManager;
 import engg1420_project.universitymanagementsystem.HelloApplication;
+import engg1420_project.universitymanagementsystem.student.StdProfileViewCtrl;
+import engg1420_project.universitymanagementsystem.student.sharedDatabase;
 import javafx.beans.binding.Bindings;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -29,15 +31,17 @@ public class FacultyProfileController {
     private boolean previous;
     private AnchorPane superAnchorPane;
     private String access;
+    private String studentID;
 
-    public FacultyProfileController(String facultyInfo, String access, DatabaseManager db, AnchorPane superAnchorPane) throws SQLException {
+    public FacultyProfileController(String facultyInfo, String access, DatabaseManager db, AnchorPane superAnchorPane, String studentID) throws SQLException {
         this.db = db;
         this.superAnchorPane = superAnchorPane;
         String[] parts = facultyInfo.split(":");
         this.faculty = new Faculty(parts[0], this.db);
-        this.editable = !access.equals("student");
+        this.editable = !access.equalsIgnoreCase("student");
         this.access = access;
-        if(access.equals("admin")) {
+        this.studentID = studentID;
+        if(access.equalsIgnoreCase("admin") || access.equalsIgnoreCase("student")) {
             previous = true;
         }else{
             previous = false;
@@ -104,11 +108,13 @@ public class FacultyProfileController {
         backImage.setFitWidth(30);
         backButton.setGraphic(backImage);
 
+        profileImage.setImage(new Image(HelloApplication.class.getResourceAsStream("images/BlankProfile.png")));
+
         Image profile = null;
         try {
             profile = new Image(HelloApplication.class.getResourceAsStream("images/" + faculty.getProfilePhotoLocation()));
         }catch (Exception e){
-            profileImage.setImage(new Image(HelloApplication.class.getResourceAsStream("images/BlankProfile.png")));
+
         }
 
 
@@ -210,15 +216,34 @@ public class FacultyProfileController {
 
     @FXML
     private void goBack(ActionEvent event) {
-        try {
-            FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("faculty/faculty-overview.fxml"));
-            fxmlLoader.setController(new facultyController(db, "admin", superAnchorPane));
-            AnchorPane pane = fxmlLoader.load();
-            superAnchorPane.getChildren().clear();
-            superAnchorPane.getChildren().add(pane);
-        } catch (SQLException | IOException e) {
-            throw new RuntimeException(e);
+        if(this.access.equals("admin")) {
+            try {
+                FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("faculty/faculty-overview.fxml"));
+                fxmlLoader.setController(new facultyController(db, "admin", superAnchorPane));
+                AnchorPane pane = fxmlLoader.load();
+                superAnchorPane.getChildren().clear();
+                superAnchorPane.getChildren().add(pane);
+            } catch (SQLException | IOException e) {
+                throw new RuntimeException(e);
+            }
+        }else if(this.access.equals("student")) {
+            try {
+                // Load the FXML and set the controller
+                FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("student/StdViewProfile.fxml"));
+                StdProfileViewCtrl profileController = new StdProfileViewCtrl(db, access, studentID);
+                fxmlLoader.setController(profileController);
+                AnchorPane pane = fxmlLoader.load();
+
+                // Set the right-side content to the new pane
+                superAnchorPane.getChildren().setAll(pane);
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
         }
+
     }
 
     private void openStudentsList(String course) {

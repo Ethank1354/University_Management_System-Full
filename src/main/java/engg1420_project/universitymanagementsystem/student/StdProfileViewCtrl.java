@@ -2,8 +2,11 @@
 package engg1420_project.universitymanagementsystem.student;
 
 import engg1420_project.universitymanagementsystem.HelloApplication;
+import engg1420_project.universitymanagementsystem.faculty.FacultyProfileController;
+import engg1420_project.universitymanagementsystem.faculty.studentListController;
 import engg1420_project.universitymanagementsystem.projectClasses.DatabaseManager;
 import engg1420_project.universitymanagementsystem.Main;
+import javafx.beans.binding.Bindings;
 import javafx.event.ActionEvent;
 import javafx.fxml.*;
 import javafx.scene.control.*;
@@ -42,6 +45,7 @@ public class StdProfileViewCtrl  {
         String[] parts = studentInfo.split(":");
         this.student = new Student(parts[0], db);
         this.access = access;
+        System.out.println(this.access);
     }
 
 
@@ -176,12 +180,39 @@ public class StdProfileViewCtrl  {
 
         barProgramProgress.setProgress(student.getAcademicProgress());
 
+
+        subjectListView.setCellFactory(lv -> {
+        ListCell<String> cell = new ListCell<>();
+        ContextMenu coursesMenu = new ContextMenu();
+
+        MenuItem viewFaculty = new MenuItem();
+        viewFaculty.textProperty().bind(Bindings.format("View faculty teaching \"%s\"", cell.itemProperty()));
+        viewFaculty.setOnAction(event -> openFaculty(cell.getItem()));
+
+
+
+        coursesMenu.getItems().add(viewFaculty);
+        cell.textProperty().bind(cell.itemProperty());
+
+            cell.emptyProperty().addListener((obs, wasEmpty, isNowEmpty) -> {
+                if (isNowEmpty) {
+                    cell.setContextMenu(null);
+                } else {
+                    cell.setContextMenu(coursesMenu);
+                }
+            });
+
+            return cell;
+        });
+
         if (student.getSubjects() == null  || student.getSubjects().contains("")) {
             subjectListView.getItems().add("No Registered Subjects");
         } else {
 
             ArrayList<String> subjects = student.getSubjects();
             ArrayList<String> grades = student.getGrades();
+
+
 
             List<String> subjectList = new ArrayList<>();
 
@@ -196,5 +227,37 @@ public class StdProfileViewCtrl  {
 
 
 
+
+
+    }
+
+    private void openFaculty (String course) {
+
+        try {
+            String[] parts = course.split(":");
+            String[] columns = {"Teacher Name"};
+
+            List<String> facultyName = db.getFilteredValues("Courses", columns, "Subject Code", parts[0]);
+            System.out.println(facultyName);
+
+            columns[0] = "Faculty ID";
+
+            List<String> facultyID = db.getFilteredValues("Faculties", columns, "Name", facultyName.get(0));
+            System.out.println(facultyID);
+            FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("faculty/faculty-profile.fxml"));
+            FacultyProfileController facultycontroller = new FacultyProfileController(facultyID.get(0), access.toLowerCase(), db, contentPane, student.getStudentID());
+
+
+
+            fxmlLoader.setController(facultycontroller);
+            AnchorPane pane = fxmlLoader.load();
+
+            // Set the right-side content to the new pane
+            contentPane.getChildren().setAll(pane);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
