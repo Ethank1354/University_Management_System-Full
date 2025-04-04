@@ -107,18 +107,19 @@ public class FacultyProfileController {
         backImage.setFitWidth(30);
         backButton.setGraphic(backImage);
 
-        profileImage.setImage(new Image(HelloApplication.class.getResourceAsStream("images/BlankProfile.png")));
+
 
         Image profile = null;
         try {
             profile = new Image(HelloApplication.class.getResourceAsStream("images/" + faculty.getProfilePhotoLocation()));
+            profileImage.setImage(profile);
         }catch (Exception e){
-
+            profileImage.setImage(new Image(HelloApplication.class.getResourceAsStream("images/BlankProfile.png")));
         }
 
 
 
-        profileImage.setImage(profile);
+
 
         nameLabel.setText(faculty.getName());
         researchLabel.setText(faculty.getResearchInterest());

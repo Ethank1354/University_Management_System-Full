@@ -10,10 +10,19 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
+import org.apache.commons.io.FileUtils;
 import org.w3c.dom.Text;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -59,8 +68,13 @@ public class addFacultyController {
     private Button cancelButton;
 
     @FXML
+    private Button uploadButton;
+
+    String[] faculty = new String[9];
+
+    @FXML
     private void save(ActionEvent event) {
-        String[] faculty = new String[8];
+
         List<String> IDs = null;
 
         try {
@@ -128,14 +142,12 @@ public class addFacultyController {
                 faculty[5] = officeLocationField.getText();
                 faculty[6] = coursesOfferedField.getText();
                 faculty[7] = passwordField.getText();
+                faculty[8] = facultyIdField.getText();
 
-                String[] photoInfo = new String[2];
-                photoInfo[0] = facultyIdField.getText();
-                photoInfo[1] = "BlankProfile.png";
+
 
                 try {
                     db.addRowToTable("Faculties", faculty);
-                    db.addRowToTable("Photos", photoInfo);
                 } catch (SQLException e) {
                     throw new RuntimeException(e);
                 }
@@ -156,6 +168,38 @@ public class addFacultyController {
         }
 
 
+    }
+
+    @FXML
+    private void upload(){
+        try {
+            FileChooser fileChooser = new FileChooser();
+            fileChooser.setTitle("Choose Profile Photo");
+            File file = fileChooser.showOpenDialog((Stage) uploadButton.getScene().getWindow());
+            System.out.println(file.getName());
+
+            File destination = null;
+
+            URL resourceUrl = HelloApplication.class.getResource("images/");
+            if (resourceUrl != null) {
+                destination = new File(resourceUrl.toURI());
+                if (destination.isDirectory()) {
+                    FileUtils.copyFileToDirectory(file, destination);
+                } else {
+                    System.out.println("Destination is not a directory.");
+                }
+            } else {
+                System.out.println("Resource path is null.");
+            }
+
+            File newFile = new File(destination.getAbsolutePath() + "/" + file.getName() );
+
+            faculty[8] = newFile.getName();
+
+        } catch (IOException | URISyntaxException e) {
+            faculty[8] = "images/BlankProfile.png";
+            throw new RuntimeException(e);
+        }
     }
 
     @FXML

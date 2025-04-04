@@ -7,27 +7,18 @@
 <?import javafx.scene.text.*?>
 <?import javafx.scene.control.cell.PropertyValueFactory?>
 
-<VBox spacing="10" xmlns="http://javafx.com/javafx/17.0.6"
-      xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="engg1420_project.universitymanagementsystem.subject.SubjectDialogController">
-    <children>
-        <Label text="Available Subjects (Read-Only)">
-            <font><Font size="24.0" /></font>
-        </Label>
-        <TableView fx:id="subjectsTable" fixedCellSize="30.0" prefHeight="365.0" prefWidth="600.0">
-            <columns>
-                <TableColumn fx:id="nameColumn" prefWidth="40" text="Subject Name">
-                    <cellValueFactory>
-                        <PropertyValueFactory property="name" />
-                    </cellValueFactory>
-                </TableColumn>
-                <TableColumn fx:id="codeColumn" prefWidth="30" text="Subject Code">
-                    <cellValueFactory>
-                        <PropertyValueFactory property="code" />
-                    </cellValueFactory>
-                </TableColumn>
-                <!-- No "Actions" column -->
-            </columns>
-        </TableView>
-    </children>
+<AnchorPane xmlns="http://javafx.com/javafx/17.0.6"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="engg1420_project.universitymanagementsystem.subject.UserViewSubjectsController">
+<VBox spacing="10">
+
+    <Label text="Available Subjects" style="-fx-font-size: 20;"/>
+
+    <TableView fx:id="subjectsTable">
+        <columns>
+            <TableColumn fx:id="nameColumn" text="Subject Name"/>
+            <TableColumn fx:id="codeColumn" text="Subject Code"/>
+        </columns>
+    </TableView>
 </VBox>
+</AnchorPane>

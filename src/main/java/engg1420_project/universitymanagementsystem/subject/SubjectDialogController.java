@@ -18,6 +18,46 @@ public class SubjectDialogController {
     private Subjects subject;
     private boolean saved = false;
 
+    /*
+    @FXML
+    private void handleSave() {
+        saved = true;
+        ((Stage) nameField.getScene().getWindow()).close();
+    }
+
+    @FXML
+    private void handleCancel() {
+        saved = false;
+        ((Stage) nameField.getScene().getWindow()).close();
+    }
+
+    public String getName() {
+        return nameField.getText().trim();
+    }
+
+    public String getCode() {
+        return codeField.getText().trim();
+    }
+
+    public boolean isSaved() {
+        return saved;
+    }
+
+    public void setSubject(Subjects subject) {
+        this.subject = subject;
+
+        if (subject != null) {
+            // Editing existing subject: populate fields
+            nameField.setText(subject.getName());
+            codeField.setText(subject.getCode());
+        } else {
+            // Creating new subject: clear fields
+            nameField.clear();
+            codeField.clear();
+        }
+    }
+     */
+
     private ObservableList<Subjects> allSubjects;
     private Subjects existingSubject;
 
@@ -49,10 +89,6 @@ public class SubjectDialogController {
         // For new subjects: check all codes
         if (allSubjects == null) {
             return false;
-            /*
-            return allSubjects.stream()
-                    .noneMatch(s -> s.getCode().equalsIgnoreCase(newCode));
-             */
         }
         // For edits: check codes excluding the current subject
         else {
@@ -88,9 +124,6 @@ public class SubjectDialogController {
         return saved;
     }
 
-    public SubjectDialogController() {
-    }
-
     public void setSubject(Subjects subject) {
         this.subject = subject;
 
@@ -110,12 +143,25 @@ public class SubjectDialogController {
         subject.setCode(codeField.getText());
     }
 
+    // Get the name entered in the dialog
+    public String getName() {
+        return nameField.getText().trim(); //trim removes whitespace from user input
+    }
+
+    // Get the code entered in the dialog
+    public String getCode() {
+        return codeField.getText().trim();
+    }
+
+
     public Subjects getSubject() {
         return new Subjects(nameField.getText(), codeField.getText());
     }
 
+    /*
     // Makes sure there is actual input in the two prompts for the subject name and code
     public boolean isInputValid() {
         return !nameField.getText().isEmpty() && !codeField.getText().isEmpty();
     }
+     */
 }

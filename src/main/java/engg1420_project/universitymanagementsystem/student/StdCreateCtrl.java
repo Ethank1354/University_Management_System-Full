@@ -82,7 +82,7 @@ public class StdCreateCtrl {
     public void addStudent(ActionEvent event) throws IOException, SQLException {
         if (exceptionHandling() == 0) {
 
-            //Still need to figure out the subject/courses, student ID & photo
+
             String[] student = new String[15];
 
             student[0] = generateID();
@@ -100,16 +100,11 @@ public class StdCreateCtrl {
             student[8] = null;
             student[13] = null;
 
-            String[] photoInfo = new String[2];
-
-            if (photoName == null) {
-               student[7] = "default.png";
+            if (photoName == null || photoName.equals("")) {
+               student[7] = "default";
             } else {
                 student[7] = photoName;
             }
-
-
-
 
             try {
                 db.addRowToTable("Students", student);
@@ -132,15 +127,15 @@ public class StdCreateCtrl {
             }
         } else {
             if (exceptionHandling() == 1) {
-                labelError.setText("Bro WTF fix yo names stinky face");
+                labelError.setText("Please Re-enter your name");
             } else if (exceptionHandling() == 2) {
-                labelError.setText("Bro WTF fix yo passwords stinky face");
+                labelError.setText("Please Re-enter your password");
             } else if (exceptionHandling() == 3) {
                 labelError.setText("Please Re-enter your email address");
             } else if (exceptionHandling() == 4) {
                 labelError.setText("Please Re-enter your address");
             } else if (exceptionHandling() == 7) {
-                labelError.setText("Please Re-enter your smesmer?");
+                labelError.setText("Please Re-enter your semester?");
             } else if (exceptionHandling() == 5) {
                 labelError.setText("Please Re-enter your phone number");
             } else if (exceptionHandling() == 6) {
@@ -249,16 +244,9 @@ public class StdCreateCtrl {
                 System.out.println("Resource path is null.");
             }
 
-            //System.out.println(destination.getAbsolutePath());
 
             File newFile = new File(destination.getAbsolutePath() + "/" + file.getName() );
 
-            //System.out.println(newFile.getAbsolutePath());
-            /*
-            student.setProfilePhotoLocation(newFile.getName());
-            student.updateProfilePhoto();
-
-             */
 
             FileInputStream imageFile = new FileInputStream(newFile);
 

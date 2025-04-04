@@ -27,17 +27,17 @@ public class ButtonTableCell<S> extends TableCell<S, Void> {
 
         editButton.setOnAction((event) -> {
             S rowData = getTableRow().getItem();
-            if (rowData != null) {
-                // Use the injected controller directly
-                this.controller.handleEditSubject((Subjects) rowData);
-
+            if (rowData != null && rowData instanceof Subjects) {
+                Subjects subject = (Subjects) rowData;
+                controller.handleEditSubject(subject);
             }
         });
 
         deleteButton.setOnAction((event) -> {
             S rowData = getTableRow().getItem();
-            if (rowData != null) {
-                this.controller.handleDeleteSubject((Subjects) rowData);
+            if (rowData != null && rowData instanceof Subjects) {
+                Subjects subject = (Subjects) rowData;
+                controller.handleDeleteSubject(subject);
             }
 
         });
@@ -47,7 +47,7 @@ public class ButtonTableCell<S> extends TableCell<S, Void> {
     @Override
     protected void updateItem(Void item, boolean empty) {
         super.updateItem(item, empty);
-        setGraphic(empty ? null : new HBox((double)5.0F, new Node[]{editButton, deleteButton}));
+        setGraphic(empty ? null : new HBox(5, editButton, deleteButton));
     }
 
     public static <S> Callback<TableColumn<S, Void>, TableCell<S, Void>> forTableColumn(AdminViewSubjectsController controller) {
