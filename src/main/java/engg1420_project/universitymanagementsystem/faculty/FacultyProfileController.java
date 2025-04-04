@@ -3,7 +3,6 @@ package engg1420_project.universitymanagementsystem.faculty;
 import engg1420_project.universitymanagementsystem.projectClasses.DatabaseManager;
 import engg1420_project.universitymanagementsystem.HelloApplication;
 import engg1420_project.universitymanagementsystem.student.StdProfileViewCtrl;
-import engg1420_project.universitymanagementsystem.student.sharedDatabase;
 import javafx.beans.binding.Bindings;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -230,7 +229,7 @@ public class FacultyProfileController {
             try {
                 // Load the FXML and set the controller
                 FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("student/StdViewProfile.fxml"));
-                StdProfileViewCtrl profileController = new StdProfileViewCtrl(db, access, studentID);
+                StdProfileViewCtrl profileController = new StdProfileViewCtrl(db, access.substring(0, 1).toUpperCase() + access.substring(1), studentID);
                 fxmlLoader.setController(profileController);
                 AnchorPane pane = fxmlLoader.load();
 

@@ -245,7 +245,8 @@ public class StdProfileViewCtrl  {
             List<String> facultyID = db.getFilteredValues("Faculties", columns, "Name", facultyName.get(0));
             System.out.println(facultyID);
             FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("faculty/faculty-profile.fxml"));
-            FacultyProfileController facultycontroller = new FacultyProfileController(facultyID.get(0), access.toLowerCase(), db, contentPane, student.getStudentID());
+            System.out.println(access);
+            FacultyProfileController facultycontroller = new FacultyProfileController(facultyID.get(0), access, db, contentPane, student.getStudentID());
 
 
 
