@@ -96,7 +96,7 @@ public class addStudentCourse {
             if (currentCourses.get(i).equals(item)) {
 
             } else {
-                // student.addSubject(item);
+                student.addSubject(item);
             }
         }
         student.updateStudent();

@@ -13,7 +13,7 @@
 <VBox spacing="10">
 
     <Label text="Available Subjects" style="-fx-font-size: 20;"/>
-
+    <TextField fx:id="searchField" promptText="Search by name or code" />
     <TableView fx:id="subjectsTable">
         <columns>
             <TableColumn fx:id="nameColumn" text="Subject Name"/>
