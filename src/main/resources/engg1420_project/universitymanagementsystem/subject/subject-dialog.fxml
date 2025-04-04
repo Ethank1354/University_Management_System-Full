@@ -5,19 +5,27 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx/17.0.6"
-            xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="engg1420_project.universitymanagementsystem.subject.SubjectDialogController">
+<AnchorPane prefHeight="118.0" prefWidth="250.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="engg1420_project.universitymanagementsystem.subject.SubjectDialogController">
     <children>
-        <GridPane hgap="10" vgap="10">
-            <Label text="Subject Name:" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
-            <TextField fx:id="nameField" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
-            <Label text="Subject Code:" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
-            <TextField fx:id="codeField" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
-            <HBox spacing="10" GridPane.columnIndex="1" GridPane.rowIndex="2">
-                <Button text="Save" onAction="#handleSave" />
-                <Button text="Cancel" onAction="#handleCancel" />
+        <GridPane hgap="10" prefHeight="102.0" prefWidth="238.0" vgap="10">
+            <Label text="Subject Name:" GridPane.rowIndex="1" />
+            <TextField fx:id="nameField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <Label text="Subject Code:" GridPane.rowIndex="2" />
+            <TextField fx:id="codeField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <HBox spacing="10" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                <Button onAction="#handleSave" text="Save" />
+                <Button onAction="#handleCancel" text="Cancel" />
             </HBox>
+            <columnConstraints>
+                <ColumnConstraints />
+                <ColumnConstraints />
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints />
+                <RowConstraints />
+                <RowConstraints />
+                <RowConstraints />
+            </rowConstraints>
         </GridPane>
     </children>
 </AnchorPane>

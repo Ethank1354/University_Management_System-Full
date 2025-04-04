@@ -9,20 +9,23 @@
 <?import javafx.util.Callback?>
 <?import engg1420_project.universitymanagementsystem.subject.ButtonTableCell?>
 <?import javafx.scene.layout.HBox?>
+<?import org.controlsfx.property.editor.AbstractObjectField?>
 
-<VBox spacing="10" xmlns="http://javafx.com/javafx/17.0.6"
-      xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="engg1420_project.universitymanagementsystem.subject.AdminViewSubjectsController">
+<AnchorPane xmlns="http://javafx.com/javafx/17.0.6"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="engg1420_project.universitymanagementsystem.subject.AdminViewSubjectsController">
+<VBox spacing="10">
     <children>
         <Label text="Subject Information">
             <font><Font size="24.0" /></font>
         </Label>
-        <Button text="Create New Subject" onAction="#openCreateDialog" />
+        <Button onAction="#openCreateDialog" text="Create New Subject" />
         <TableView fx:id="subjectsTable" fixedCellSize="30.0" prefHeight="365.0" prefWidth="600.0">
             <columns>
-                <TableColumn fx:id="nameColumn" prefWidth="40" text="Subject Name" />
-                <TableColumn fx:id="codeColumn" prefWidth="30" text="Subject Code" />
+                <TableColumn fx:id="nameColumn" prefWidth="188.79999387264252" text="Subject Name" />
+                <TableColumn fx:id="codeColumn" minWidth="0.0" prefWidth="193.4000244140625" text="Subject Code" />
             </columns>
         </TableView>
     </children>
 </VBox>
+</AnchorPane>
