@@ -306,7 +306,7 @@ public class editStudentProfile {
             } else if (access.equals("Student")) {
                 try {
                     String studentInfo = student.getStudentID() + ":" + student.getName();
-                    StdProfileViewCtrl stdProfileViewCtrl = new StdProfileViewCtrl(db, access, studentInfo);
+                    StdProfileViewCtrl stdProfileViewCtrl = new StdProfileViewCtrl(db, access, studentInfo, null);
                     FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("student/stdViewProfile.fxml"));
                     fxmlLoader.setController(stdProfileViewCtrl);
 
@@ -429,7 +429,7 @@ public class editStudentProfile {
     public void exit (ActionEvent event) throws IOException {
         try {
             String studentInfo = student.getStudentID() + ":" + student.getName();
-            StdProfileViewCtrl stdProfileViewCtrl = new StdProfileViewCtrl(db, access, studentInfo);
+            StdProfileViewCtrl stdProfileViewCtrl = new StdProfileViewCtrl(db, access, studentInfo, null);
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("student/StdViewProfile.fxml"));
             fxmlLoader.setController(stdProfileViewCtrl);
             AnchorPane pane = fxmlLoader.load();

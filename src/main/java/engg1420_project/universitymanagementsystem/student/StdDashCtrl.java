@@ -70,7 +70,7 @@ public class StdDashCtrl {
         try {
             // Load the FXML and set the controller
             FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("student/StdViewProfile.fxml"));
-            StdProfileViewCtrl profileController = new StdProfileViewCtrl(db, access, sharedDatabase.getSelectedName());
+            StdProfileViewCtrl profileController = new StdProfileViewCtrl(db, access, sharedDatabase.getSelectedName(), null);
             fxmlLoader.setController(profileController);
             AnchorPane pane = fxmlLoader.load();
 
@@ -145,7 +145,7 @@ public class StdDashCtrl {
             viewProfile.setOnAction(event -> {
                 String item = cell.getItem();
                 try {
-                    StdProfileViewCtrl profileController = new StdProfileViewCtrl(db, access, item);
+                    StdProfileViewCtrl profileController = new StdProfileViewCtrl(db, access, item, null);
 
                     FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("student/StdViewProfile.fxml"));
                     fxmlLoader.setController(profileController);

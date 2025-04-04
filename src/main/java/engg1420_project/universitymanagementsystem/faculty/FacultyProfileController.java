@@ -232,7 +232,7 @@ public class FacultyProfileController {
             try {
                 // Load the FXML and set the controller
                 FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("student/StdViewProfile.fxml"));
-                StdProfileViewCtrl profileController = new StdProfileViewCtrl(db, access.substring(0, 1).toUpperCase() + access.substring(1), studentID);
+                StdProfileViewCtrl profileController = new StdProfileViewCtrl(db, access.substring(0, 1).toUpperCase() + access.substring(1), studentID, null);
                 fxmlLoader.setController(profileController);
                 AnchorPane pane = fxmlLoader.load();
 

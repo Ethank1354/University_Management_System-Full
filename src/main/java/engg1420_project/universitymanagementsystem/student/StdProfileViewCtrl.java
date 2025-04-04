@@ -32,17 +32,19 @@ public class StdProfileViewCtrl  {
     private Student student;
     private String username;
     private String ID;
+    private String facultyID;
 
 
 
 
-    public StdProfileViewCtrl(DatabaseManager db, String access, String studentInfo) throws SQLException {
+    public StdProfileViewCtrl(DatabaseManager db, String access, String studentInfo, String facultyID) throws SQLException {
         this.db = db;
         this.studentInfo = studentInfo;
         String[] parts = studentInfo.split(":");
         this.student = new Student(parts[0], db);
         this.access = access;
         System.out.println(this.access);
+        this.facultyID = facultyID;
     }
 
 
@@ -95,18 +97,41 @@ public class StdProfileViewCtrl  {
 
     @FXML
     public void exit (ActionEvent event) throws IOException {
-        try {
-            StdDashCtrl stdDashCtrl = new StdDashCtrl(db,username, access);
-            FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("student/StdDashboard.fxml"));
-            fxmlLoader.setController(stdDashCtrl);
 
-            AnchorPane pane = fxmlLoader.load();
-            contentPane.getChildren().setAll(pane);
+        if(this.facultyID != null){
+            try{
 
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
+
+                FacultyProfileController profileController = new FacultyProfileController(facultyID, access, db, contentPane, this.studentInfo);
+
+                FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("faculty/faculty-profile.fxml"));
+                fxmlLoader.setController(profileController);
+
+                AnchorPane pane = fxmlLoader.load();
+
+                contentPane.getChildren().clear();
+                contentPane.getChildren().add(pane);
+
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        }else {
+
+            try {
+                StdDashCtrl stdDashCtrl = new StdDashCtrl(db, username, access);
+                FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("student/StdDashboard.fxml"));
+                fxmlLoader.setController(stdDashCtrl);
+
+                AnchorPane pane = fxmlLoader.load();
+                contentPane.getChildren().setAll(pane);
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
         }
     }
 

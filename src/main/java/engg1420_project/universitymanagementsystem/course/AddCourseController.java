@@ -24,6 +24,12 @@ public class AddCourseController {
     @FXML private TextField finalExamDateTimeField;
     @FXML private Button goBackButton;
 
+    private ViewCoursesAdminController parentController; // Reference to the course list controller
+
+    public void setParentController(ViewCoursesAdminController controller) {
+        this.parentController = controller;
+    }
+
     @FXML
     private void handleAddCourse() {
         try {
@@ -36,9 +42,9 @@ public class AddCourseController {
             String finalExamDateTime = finalExamDateTimeField.getText().trim();
 
             // Parse integers
-            double courseCode = Double.parseDouble(courseCodeField.getText().trim()); // Convert courseCode to double
-            String sectionNumber = sectionNumberField.getText().trim(); // sectionNumber is String already
-            double capacity = Double.parseDouble(capacityField.getText().trim()); // Convert capacity to double
+            double courseCode = Double.parseDouble(courseCodeField.getText().trim());
+            String sectionNumber = sectionNumberField.getText().trim();
+            double capacity = Double.parseDouble(capacityField.getText().trim());
 
             // Validate required fields
             if (courseName.isEmpty() || subjectCode.isEmpty() || teacherName.isEmpty() ||
@@ -55,6 +61,15 @@ public class AddCourseController {
             boolean courseAdded = CourseManager.addCourse(newCourse);
             if (courseAdded) {
                 statusLabel.setText("Course added successfully!");
+                // Refresh the course table in the parent controller
+                if (parentController != null) {
+                    parentController.refreshTable();
+                }
+                // Close the Add Course window
+                Stage stage = (Stage) goBackButton.getScene().getWindow();
+                if (stage != null) {
+                    stage.close();
+                }
             } else {
                 statusLabel.setText("Course could not be added. Conflict or duplicate entry.");
             }
@@ -69,12 +84,9 @@ public class AddCourseController {
 
     @FXML
     private void goBack() {
-        // Only close the Add Course view.
         Stage stage = (Stage) goBackButton.getScene().getWindow();
         if (stage != null) {
             stage.close();
         }
     }
 }
-
-
