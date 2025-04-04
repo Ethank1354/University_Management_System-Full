@@ -44,12 +44,12 @@ public class Student extends User {
         this.academicLvl = studentMember.get(5);
         this.semster = studentMember.get(6);
 
-        if (studentMember.get(8) != null) {
+        if (studentMember.get(8) != null || !studentMember.get(8).isEmpty()) {
             String[] subjectlist = studentMember.get(8).split(", ");
             for (int i = 0; i < subjectlist.length; i++) {
                 this.subjects.add(subjectlist[i]);
             }
-            //grades = new String[subjects.size()];
+
             for (int i = 0; i < subjects.size(); i++) {
                 grades.add("50%");
             }
@@ -86,25 +86,7 @@ public class Student extends User {
 
     }
 
-    public Student(String name, String address, String phone, String email, String academicLvl, String semster, String photoName, String thesis, String progress, String password) throws SQLException {
-        this.name = name;
-        this.address = address;
-        this.phoneNumber = phone;
-        this.email = email;
-        this.academicLvl = academicLvl;
-        this.semster = semster;
-        this.thesis = thesis;
-        this.academicProgress = Double.parseDouble(progress.toString());
-        this.photoName = photoName;
-        super.password = password;
 
-        if (academicLvl.equals("Graduate")) {
-            this.tution = 40000.0;
-        } else {
-            this.tution = 50000.0;
-        }
-
-    }
 
 //Getter Methods
     public String getStudentID() {
@@ -152,7 +134,7 @@ public class Student extends User {
 
     public String getSubjectString() {
         String subjectsStr = "";
-        if (subjects != null) {
+        if (subjects != null || !subjects.isEmpty()) {
             for (int i = 0; i < subjects.size(); i++) {
                 subjectsStr += subjects.get(i) + ", ";
             }
@@ -161,8 +143,8 @@ public class Student extends User {
     }
 
     public ArrayList<String> getGrades() {
-        if (grades == null) {
-            return null;
+        if (grades == null || subjects == null || subjects.isEmpty()) {
+            return new ArrayList<>();
         }
         return grades;
     }
@@ -223,8 +205,15 @@ public class Student extends User {
     }
 
     public void addSubject(String subject) {
-        this.subjects.add(subject);
-        this.grades.add("50%");
+        if (subjects.isEmpty()) {
+            this.subjects.addFirst(subject);
+            this.grades.addFirst("50%");
+        } else {
+            this.subjects.add(subject);
+            this.grades.add("50%");
+        }
+
+
     }
 
     public void updateStudent() throws SQLException {

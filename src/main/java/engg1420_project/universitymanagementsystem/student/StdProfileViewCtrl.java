@@ -209,15 +209,11 @@ public class StdProfileViewCtrl  {
             ArrayList<String> subjects = student.getSubjects();
             ArrayList<String> grades = student.getGrades();
 
-
-
             List<String> subjectList = new ArrayList<>();
 
             for (int i = 0; i < subjects.size(); i++) {
                 subjectList.add(subjects.get(i) + ": " + grades.get(i));
             }
-
-
                 subjectListView.getItems().addAll(subjectList);
 
         }

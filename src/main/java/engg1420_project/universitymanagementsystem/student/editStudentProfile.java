@@ -131,9 +131,11 @@ public class editStudentProfile {
         }
 
         //Course Page
-        if (student.getSubjects() != null) {
-            ArrayList<String> subjects = student.getSubjects();
+        if (student.getSubjects() == null  || student.getSubjects().getFirst().isEmpty()) {
+            subjectListView.getItems().add("No Registered Subjects");
+        } else {
 
+            ArrayList<String> subjects = student.getSubjects();
             ArrayList<String> grades = student.getGrades();
 
             List<String> subjectList = new ArrayList<>();
@@ -141,12 +143,8 @@ public class editStudentProfile {
             for (int i = 0; i < subjects.size(); i++) {
                 subjectList.add(subjects.get(i) + ": " + grades.get(i));
             }
+            subjectListView.getItems().addAll(subjectList);
 
-
-                subjectListView.getItems().addAll(subjectList);
-
-        } else {
-            subjectListView.getItems().add("No Registered Subjects");
         }
 
         subjectListView.setCellFactory(lv -> {

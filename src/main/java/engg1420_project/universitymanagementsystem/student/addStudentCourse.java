@@ -98,9 +98,14 @@ public class addStudentCourse {
 
         for (int i = 0; i < currentCourses.size(); i++) {
             if (currentCourses.get(i).equals(item)) {
-
+                break;
             } else {
-                student.addSubject(item);
+                if (currentCourses.get(i).equals("")) {
+                    student.updateSubjects(item, i);
+                } else {
+                    student.addSubject(item);
+                }
+
             }
         }
         student.updateStudent();
