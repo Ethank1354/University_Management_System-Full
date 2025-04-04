@@ -271,12 +271,15 @@ public class DatabaseManager {
         try (PreparedStatement pst = conn.prepareStatement(sql)) {
             // Set the filter value in the query
             pst.setString(1, filterValue);
+            System.out.println("Executing SQL: " + sql + ", with filter value: " + filterValue); // Added logging
 
             // Execute the query and return if any row was affected
             int rowsAffected = pst.executeUpdate();
+            System.out.println("Rows affected: " + rowsAffected); // Added logging
             return rowsAffected > 0; // Return true if a row was deleted
         } catch (SQLException e) {
-            System.out.println("Error deleting row: " + e.getMessage());
+            System.err.println("Error deleting row (SQL: " + sql + ", value: " + filterValue + "): " + e.getMessage()); // More detailed error
+            e.printStackTrace(); // Print the full stack trace for more information
             return false; // Return false if there was an error
         }
     }
@@ -360,6 +363,33 @@ public class DatabaseManager {
         }
 
         return values;
+    }
+    public List<String> getColumnValuesByExactFilter(String tableName, String columnToSelect, String filterColumn, String filterValue) throws SQLException {
+        // Quote table and column names if they contain spaces
+        String quotedTableName = tableName.contains(" ") ? "\"" + tableName + "\"" : tableName;
+        String quotedColumnToSelect = columnToSelect.contains(" ") ? "\"" + columnToSelect + "\"" : columnToSelect;
+        String quotedFilterColumn = filterColumn.contains(" ") ? "\"" + filterColumn + "\"" : filterColumn;
+
+        // SQL query to select values from columnToSelect where filterColumn exactly matches filterValue
+        String sql = "SELECT " + quotedColumnToSelect + " FROM " + quotedTableName + " WHERE " + quotedFilterColumn + " = ?;";
+
+        List<String> resultList = new ArrayList<>();
+
+        try (PreparedStatement pst = conn.prepareStatement(sql)) {
+            // Set the filter value for exact match
+            pst.setString(1, filterValue);
+
+            // Execute the query and process the result set
+            try (ResultSet resultSet = pst.executeQuery()) {
+                while (resultSet.next()) {
+                    resultList.add(resultSet.getString(1)); // Get the value from the specified column
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println("Error retrieving column values: " + e.getMessage());
+        }
+
+        return resultList;
     }
 
     //working

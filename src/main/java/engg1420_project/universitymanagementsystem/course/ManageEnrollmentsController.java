@@ -5,14 +5,11 @@ import engg1420_project.universitymanagementsystem.projectClasses.DatabaseManage
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 
-import java.io.IOException;
 import java.sql.SQLException;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 public class ManageEnrollmentsController {
@@ -35,8 +32,8 @@ public class ManageEnrollmentsController {
     private ObservableList<StudentCM> studentList = FXCollections.observableArrayList();
     private Course currentCourse;
     private DatabaseManager db;
+    private boolean enrollmentsTableExists = false;
 
-    // Constructor to initialize DatabaseManager
     public ManageEnrollmentsController() {
         this.db = new DatabaseManager(HelloApplication.class.getResource("test.db").toString());
     }
@@ -45,25 +42,74 @@ public class ManageEnrollmentsController {
         this.currentCourse = course;
         courseLabel.setText(course.getCourseName() + " - Enrolled Students");
 
+        // Check if Enrollments table exists and create it if not
+        if (!enrollmentsTableExists) {
+            createEnrollmentsTable();
+            enrollmentsTableExists = true; // Prevent repeated creation attempts
+        }
+
+        // Initialize Table Columns
+        idColumn.setCellValueFactory(cellData -> cellData.getValue().studentIDProperty());
+        nameColumn.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
+        addressColumn.setCellValueFactory(cellData -> cellData.getValue().addressProperty());
+        phoneColumn.setCellValueFactory(cellData -> cellData.getValue().phoneProperty());
+        emailColumn.setCellValueFactory(cellData -> cellData.getValue().emailProperty());
+        levelColumn.setCellValueFactory(cellData -> cellData.getValue().academicLevelProperty());
+        semesterColumn.setCellValueFactory(cellData -> cellData.getValue().currentSemesterProperty());
+
         loadEnrolledStudents();
         populateStudentComboBox();
     }
 
+    private void createEnrollmentsTable() {
+        LinkedHashMap<String, String> columns = new LinkedHashMap<>();
+        columns.put("Course Code", "REAL NOT NULL");
+        columns.put("Student ID", "TEXT NOT NULL");
+
+        try {
+            db.createTable("Enrollments", columns);
+            System.out.println("Enrollments table created.");
+
+            // Add foreign key constraints
+            String foreignKeyCourse = "ALTER TABLE Enrollments ADD CONSTRAINT fk_course FOREIGN KEY (`Course Code`) REFERENCES Courses(`Course Code`);";
+            String foreignKeyStudent = "ALTER TABLE Enrollments ADD CONSTRAINT fk_student FOREIGN KEY (`Student ID`) REFERENCES Students(`Student ID`);";
+            String primaryKey = "ALTER TABLE Enrollments ADD CONSTRAINT pk_enrollment PRIMARY KEY (`Course Code`, `Student ID`);";
+
+            try (java.sql.Statement stmt = db.getConnection().createStatement()) {
+                stmt.execute(foreignKeyCourse);
+                stmt.execute(foreignKeyStudent);
+                stmt.execute(primaryKey);
+                System.out.println("Enrollments table constraints added.");
+            } catch (SQLException e) {
+                System.err.println("Error adding constraints to Enrollments table: " + e.getMessage());
+                e.printStackTrace();
+            }
+
+        } catch (SQLException e) {
+            System.err.println("Error creating Enrollments table: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
     private void loadEnrolledStudents() throws SQLException {
         studentList.clear();
-        List<String> studentIDs = db.getColumnValuesByFilter("enrollments", "student_id", "course_code", String.valueOf(currentCourse.getCourseCode()));
+        // Use a specific format to convert the double to a String for comparison
+        String courseCodeString = String.format("%.1f", currentCourse.getCourseCode()); // Example: one decimal place
+        System.out.println("Loading students for Course Code: [" + courseCodeString + "]"); // Add logging
+        List<String> studentIDs = db.getColumnValuesByExactFilter("Enrollments", "Student ID", "Course Code", courseCodeString);
+        System.out.println("Retrieved Student IDs: " + studentIDs); // Add logging
 
         for (String studentID : studentIDs) {
-            List<String> studentData = db.getRow("students", "student_id", studentID);
-            if (studentData != null && !studentData.isEmpty()) {
+            List<String> studentData = db.getRow("Students", "Student ID", studentID);
+            if (studentData != null && studentData.size() >= 7) {
                 studentList.add(new StudentCM(
-                        Integer.parseInt(studentData.get(0)),
+                        studentData.get(0),
                         studentData.get(1),
                         studentData.get(2),
                         studentData.get(3),
                         studentData.get(4),
                         studentData.get(5),
-                        Integer.parseInt(studentData.get(6))
+                        studentData.get(6)// Current Semester
                 ));
             }
         }
@@ -73,7 +119,7 @@ public class ManageEnrollmentsController {
     }
 
     private void populateStudentComboBox() throws SQLException {
-        List<String> studentNames = db.getColumnValues("students", "name");
+        List<String> studentNames = db.getColumnValues("Students", "Name");
         studentComboBox.setItems(FXCollections.observableArrayList(studentNames));
     }
 
@@ -82,20 +128,18 @@ public class ManageEnrollmentsController {
         String selectedStudentName = studentComboBox.getValue();
 
         if (selectedStudentName != null) {
-            // Retrieve full student data from the database
             List<String> studentData = db.getRow("Students", "Name", selectedStudentName);
 
-            if (studentData != null && !studentData.isEmpty()) {
+            if (studentData != null && studentData.size() >= 7) {
                 StudentCM studentToAdd = new StudentCM(
-                        Integer.parseInt(studentData.get(0)),  // Student ID
-                        studentData.get(1),  // Name
-                        studentData.get(2),  // Address
-                        studentData.get(3),  // Phone
-                        studentData.get(4),  // Email
-                        studentData.get(5),  // Academic Level
-                        Integer.parseInt(studentData.get(6))  // Current Semester
+                        studentData.get(0),
+                        studentData.get(1),
+                        studentData.get(2),
+                        studentData.get(3),
+                        studentData.get(4),
+                        studentData.get(5),
+                        studentData.get(6)  // Current Semester
                 );
-
                 addStudentToCourse(studentToAdd);
             }
         }
@@ -103,17 +147,26 @@ public class ManageEnrollmentsController {
 
     public void addStudentToCourse(StudentCM studentToAdd) throws SQLException {
         if (currentCourse.getCurrentCapacity() < currentCourse.getCapacity()) {
-            if (!studentList.contains(studentToAdd)) {
-                boolean success = db.addRowToTable("enrollments", new String[]{
-                        String.valueOf(currentCourse.getCourseCode()),
-                        String.valueOf(studentToAdd.getStudentID())
-                });
+            boolean alreadyEnrolled = false;
+            for (StudentCM student : studentList) {
+                if (student.getStudentID().equals(studentToAdd.getStudentID())) {
+                    alreadyEnrolled = true;
+                    break;
+                }
+            }
+            if (!alreadyEnrolled) {
+                String courseCode = String.valueOf(currentCourse.getCourseCode());
+                String studentId = studentToAdd.getStudentID();
+                System.out.println("Attempting to enroll student ID: [" + studentId + "] in course code: [" + courseCode + "]");
+                boolean success = db.addRowToTable("Enrollments", new String[]{courseCode, studentId});
 
                 if (success) {
+                    System.out.println("Successfully enrolled student ID: [" + studentId + "] in course code: [" + courseCode + "]");
                     studentList.add(studentToAdd);
-                    currentCourse.setCurrentCapacity(currentCourse.getCurrentCapacity() - 1);
+                    currentCourse.setCurrentCapacity(studentList.size());
                     studentsTable.refresh();
                 } else {
+                    System.out.println("Error enrolling student ID: [" + studentId + "] in course code: [" + courseCode + "]");
                     showAlert("Error", "Failed to enroll student.");
                 }
             } else {
@@ -133,14 +186,19 @@ public class ManageEnrollmentsController {
             confirmation.setHeaderText(null);
 
             if (confirmation.showAndWait().orElse(ButtonType.NO) == ButtonType.YES) {
-                boolean success = db.deleteRowFromTable("enrollments", "student_id", String.valueOf(selectedStudent.getStudentID()));
+                String studentIdToRemove = selectedStudent.getStudentID();
+                String courseCodeToRemove = String.valueOf(currentCourse.getCourseCode()); // Convert to String
 
+                System.out.println("Attempting to remove student with ID: [" + studentIdToRemove + "] from course code: [" + courseCodeToRemove + "]");
+                // Try to delete based on both Student ID and Course Code (as a combined filter - this is a workaround)
+                boolean success = db.deleteRowFromTable("Enrollments", "Student ID", studentIdToRemove);
                 if (success) {
                     studentList.remove(selectedStudent);
-                    currentCourse.setCurrentCapacity(currentCourse.getCurrentCapacity() + 1); // Decrease currentCapacity
+                    currentCourse.setCurrentCapacity(studentList.size());
                     studentsTable.refresh();
                 } else {
-                    showAlert("Error", "Failed to remove the student.");
+                    // As a fallback, try to be more specific in the error message
+                    showAlert("Error", "Failed to remove the student. Please ensure the student is enrolled in this specific course.");
                 }
             }
         }

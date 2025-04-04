@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--Mateo -->
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
@@ -21,6 +20,5 @@
             </columns>
         </TableView>
 
-        <Button fx:id="goBackButton" text="Go Back" onAction="#goBack"/>
     </VBox>
 </AnchorPane>

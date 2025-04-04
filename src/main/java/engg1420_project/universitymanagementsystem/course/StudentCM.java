@@ -5,29 +5,29 @@ package engg1420_project.universitymanagementsystem.course;
 import javafx.beans.property.*;
 
 public class StudentCM {
-    private final IntegerProperty studentID;
+    private final StringProperty studentID;
     private final StringProperty name;
     private final StringProperty address;
     private final StringProperty phone;
     private final StringProperty email;
     private final StringProperty academicLevel;
-    private final IntegerProperty currentSemester;
+    private final StringProperty currentSemester; // Changed to StringProperty
 
-    public StudentCM(int studentID, String name, String address, String phone, String email, String academicLevel, int currentSemester) {
-        this.studentID = new SimpleIntegerProperty(studentID);
+    public StudentCM(String studentID, String name, String address, String phone, String email, String academicLevel, String currentSemester) { // Updated constructor
+        this.studentID = new SimpleStringProperty(studentID);
         this.name = new SimpleStringProperty(name);
         this.address = new SimpleStringProperty(address);
         this.phone = new SimpleStringProperty(phone);
         this.email = new SimpleStringProperty(email);
         this.academicLevel = new SimpleStringProperty(academicLevel);
-        this.currentSemester = new SimpleIntegerProperty(currentSemester);
+        this.currentSemester = new SimpleStringProperty(currentSemester); // Initialized as StringProperty
     }
 
-    public int getStudentID() {
+    public String getStudentID() {
         return studentID.get();
     }
 
-    public IntegerProperty studentIDProperty() {
+    public StringProperty studentIDProperty() {
         return studentID;
     }
 
@@ -71,11 +71,9 @@ public class StudentCM {
         return academicLevel;
     }
 
-    public int getCurrentSemester() {
-        return currentSemester.get();
-    }
+    public String getCurrentSemester() { return currentSemester.get(); }
 
-    public IntegerProperty currentSemesterProperty() {
+    public StringProperty currentSemesterProperty() {
         return currentSemester;
     }
 }

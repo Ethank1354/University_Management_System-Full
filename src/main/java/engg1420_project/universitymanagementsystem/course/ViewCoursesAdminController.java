@@ -205,16 +205,16 @@ public class ViewCoursesAdminController {
     }
 
     // Go back to the main dashboard (closes the Course Admin view)
-    @FXML
-    private void goBack() {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/subject/dashboardAdmin.fxml")); // Replace with the correct FXML for your dashboard
-            Parent root = loader.load();
-            contentPane.getChildren().setAll(root);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+//    @FXML
+//    private void goBack() {
+//        try {
+//            FXMLLoader loader = new FXMLLoader(getClass().getResource("/subject/dashboardAdmin.fxml")); // Replace with the correct FXML for your dashboard
+//            Parent root = loader.load();
+//            contentPane.getChildren().setAll(root);
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//    }
 
     private void loadFXML(String fxmlFile) {
         try {

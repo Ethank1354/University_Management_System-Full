@@ -29,7 +29,6 @@
 
         </HBox>
 
-        <Button fx:id="goBackButton" text="Go Back" onAction="#goBack"/>
     </VBox>
 </AnchorPane>
 

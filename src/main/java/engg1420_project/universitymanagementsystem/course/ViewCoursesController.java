@@ -47,7 +47,7 @@ public class ViewCoursesController {
         // Column bindings
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("courseName"));
         codeColumn.setCellValueFactory(new PropertyValueFactory<>("courseCode"));
-        subjectColumn.setCellValueFactory(new PropertyValueFactory<>("subjectName"));
+        subjectColumn.setCellValueFactory(new PropertyValueFactory<>("subjectCode"));
         sectionColumn.setCellValueFactory(new PropertyValueFactory<>("sectionNumber"));
         teacherColumn.setCellValueFactory(new PropertyValueFactory<>("teacherName"));
         capacityColumn.setCellValueFactory(new PropertyValueFactory<>("capacity"));
