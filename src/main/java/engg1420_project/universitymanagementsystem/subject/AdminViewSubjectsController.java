@@ -44,7 +44,7 @@ public class AdminViewSubjectsController {
     private ObservableList<Subjects> sharedSubjectsData = FXCollections.observableArrayList();
     private FilteredList<Subjects> filteredSubjects;
 
-    private DatabaseManager dbManager = new DatabaseManager(HelloApplication.class.getResource("test.db").toString());
+    private DatabaseManager dbManager = new DatabaseManager(HelloApplication.class.getResource("info.db").toString());
 
     @FXML
     public void initialize() {

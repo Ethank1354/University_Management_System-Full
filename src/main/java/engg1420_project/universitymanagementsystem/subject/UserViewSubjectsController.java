@@ -33,7 +33,7 @@ public class UserViewSubjectsController {
 
     public UserViewSubjectsController() {
         // Initialize database connection
-        dbManager = new DatabaseManager(HelloApplication.class.getResource("test.db").toString());
+        dbManager = new DatabaseManager(HelloApplication.class.getResource("info.db").toString());
     }
 
     @FXML

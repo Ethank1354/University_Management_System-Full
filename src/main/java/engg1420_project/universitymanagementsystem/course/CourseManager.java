@@ -18,7 +18,7 @@ import java.util.List;
 
 public class CourseManager {
 
-    private static DatabaseManager db = new DatabaseManager(HelloApplication.class.getResource("test.db").toString());
+    private static DatabaseManager db = new DatabaseManager(HelloApplication.class.getResource("info.db").toString());
 
     public static List<Course> getCourses() throws SQLException {
         List<Course> courses = new ArrayList<>();

@@ -52,7 +52,7 @@ public class LoginController {
     private Parent root;
     public static String loginUser;
     private static String loginEmail;
-    private DatabaseManager db = new DatabaseManager(HelloApplication.class.getResource("new.db").toString());
+    private DatabaseManager db = new DatabaseManager(HelloApplication.class.getResource("info.db").toString());
 
     private String adminID = "admin123";
     private String adminEmail = "admin@uni";
