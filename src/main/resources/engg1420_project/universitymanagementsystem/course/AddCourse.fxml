@@ -3,47 +3,42 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="engg1420_project.universitymanagementsystem.course.AddCourseController"
-            prefHeight="400.0" prefWidth="600.0">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="engg1420_project.universitymanagementsystem.course.AddCourseController">
 
-    <VBox spacing="10" alignment="CENTER">
-        <Label text="Add a Course"/>
+    <Label layoutX="255.0" layoutY="14.0" text="Add a Course" />
+
+    <Label layoutX="182.0" layoutY="76.0" text="Course Code" />
+    <TextField fx:id="courseCodeField" layoutX="280.0" layoutY="72.0" />
+    <TextField fx:id="subjectNameField" layoutX="280.0" layoutY="101.0" />
+
+    <Label layoutX="179.0" layoutY="105.0" text="Subject Name" />
+
+    <Button fx:id="goBackButton" layoutX="325.0" layoutY="324.0" onAction="#goBack" text="Go Back" />
+
+    <Button layoutX="182.0" layoutY="324.0" onAction="#handleAddCourse" text="Add Course" />
+    <TextField fx:id="sectionNumberField" layoutX="280.0" layoutY="130.0" />
+
+    <Label layoutX="173.0" layoutY="134.0" text="Section Number" />
+    <TextField fx:id="capacityField" layoutX="280.0" layoutY="196.0" />
+
+    <Label layoutX="192.0" layoutY="200.0" text="Capacity" />
+
+    <Label layoutX="192.0" layoutY="261.0" text="Location" />
+    <TextField fx:id="locationField" layoutX="280.0" layoutY="257.0" />
+
+    <Label layoutX="158.0" layoutY="290.0" text="Final Exam Date/Time" />
+    <TextField fx:id="finalExamDateTimeField" layoutX="280.0" layoutY="286.0" />
+    <TextField fx:id="lectureTimeField" layoutX="279.0" layoutY="225.0" prefHeight="0.0" prefWidth="150.0" />
+
+    <Label layoutX="182.0" layoutY="229.0" text="Lecture Time" />
+    <TextField fx:id="teacherNameField" layoutX="280.0" layoutY="164.0" />
+
+    <Label layoutX="177.0" layoutY="168.0" text="Teacher Name" />
+    <TextField fx:id="courseNameField" layoutX="280.0" layoutY="41.0" />
 
 
-        <Label text="Course Name"/>
-        <TextField fx:id="courseNameField"/>
+    <Label layoutX="180.0" layoutY="45.0" text="Course Name" />
 
-        <Label text="Course Code"/>
-        <TextField fx:id="courseCodeField"/>
+    <Label fx:id="statusLabel" layoutX="180.0" layoutY="360.0" text="" />
 
-        <Label text="Subject Name"/>
-        <TextField fx:id="subjectNameField"/>
-
-        <Label text="Section Number"/>
-        <TextField fx:id="sectionNumberField"/>
-
-        <Label text="Teacher Name"/>
-        <TextField fx:id="teacherNameField"/>
-
-        <Label text="Capacity"/>
-        <TextField fx:id="capacityField"/>
-
-        <Label text="Lecture Time"/>
-        <TextField fx:id="lectureTimeField"/>
-
-        <Label text="Location"/>
-        <TextField fx:id="locationField"/>
-
-        <Label text="Final Exam Date/Time"/>
-        <TextField fx:id="finalExamDateTimeField"/>
-
-        <Button text="Add Course" onAction="#handleAddCourse"/>
-        <Label fx:id="statusLabel"/>
-
-        <Button fx:id="goBackButton" text="Go Back" onAction="#goBack"/>
-
-    </VBox>
 </AnchorPane>
-

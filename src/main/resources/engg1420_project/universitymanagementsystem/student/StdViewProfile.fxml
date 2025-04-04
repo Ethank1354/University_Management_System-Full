@@ -18,7 +18,7 @@
             <Font size="24.0" />
          </font>
       </Label>
-      <Label fx:id="labelStdID" layoutX="177.0" layoutY="55.0" text="Student ID">
+      <Label fx:id="labelStdID" layoutX="175.0" layoutY="50.0" text="Student ID">
          <font>
             <Font size="14.0" />
          </font>
@@ -38,10 +38,10 @@
       <Separator fx:id="horzLine" layoutX="358.0" layoutY="309.0" prefWidth="200.0" />
       <Separator fx:id="vertLine" layoutX="440.0" layoutY="245.0" orientation="VERTICAL" prefHeight="85.0" />
       <ProgressBar fx:id="barProgramProgress" layoutX="115.0" layoutY="193.0" prefWidth="200.0" progress="0.0" />
-      <Label fx:id="ProgramProgress" layoutX="10.0" layoutY="192.0" text="Program Progress:" />
-      <Label fx:id="labelStdEmail" layoutX="175.0" layoutY="65.0" text="email@email.com" />
+      <Label fx:id="ProgramProgress" layoutX="7.0" layoutY="198.0" text="Program Progress:" />
+      <Label fx:id="labelStdEmail" layoutX="175.0" layoutY="67.0" text="email@email.com" />
       <Label fx:id="labelStdPhone" layoutX="175.0" layoutY="85.0" text="555-5555" />
-      <Label fx:id="labelStdAddress" layoutX="170.0" layoutY="105.0" text="123 Main St." />
+      <Label fx:id="labelStdAddress" layoutX="175.0" layoutY="105.0" text="123 Main St." />
       <Label fx:id="labelSemester" layoutX="344.0" layoutY="55.0" text="Current Semester" />
       <Label fx:id="labelAcmLvl" layoutX="344.0" layoutY="75.0" text="Academic Level" />
       <Label fx:id="labelThesis" layoutX="344.0" layoutY="95.0" text="Thesis Title" />

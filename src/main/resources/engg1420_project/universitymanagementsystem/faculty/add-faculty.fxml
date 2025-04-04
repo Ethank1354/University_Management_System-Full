@@ -44,8 +44,9 @@
 
       <!-- Courses Offered -->
       <HBox alignment="CENTER_LEFT" spacing="10.0">
-         <Label text="Courses Offered:" />
+         <Label text="Courses Offered" />
          <TextField fx:id="coursesOfferedField" />
+         <Label text="(separated by only commas)" />
       </HBox>
 
       <!-- Password -->
@@ -53,6 +54,12 @@
          <Label text="Password:" />
 
          <TextField fx:id="passwordField" />
+      </HBox>
+
+      <HBox alignment="CENTER_LEFT" spacing="10.0">
+         <Label text="Profile Photo" />
+
+         <Button fx:id="uploadButton" onAction="#upload" text="Upload" />
       </HBox>
 
       <!-- Buttons -->

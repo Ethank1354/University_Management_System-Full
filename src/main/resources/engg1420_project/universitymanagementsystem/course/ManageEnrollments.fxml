@@ -1,20 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
 
 <AnchorPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.example.project.AddStudentController">
+            fx:controller="engg1420_project.universitymanagementsystem.course.ManageEnrollmentsController">
     <VBox spacing="10" alignment="CENTER">
+        <Label fx:id="courseLabel" text="Course Name" style="-fx-font-size: 16px;"/>
+
+        <!-- Table to show enrolled students -->
+        <TableView fx:id="studentsTable" prefWidth="600" prefHeight="400">
+            <columns>
+                <TableColumn fx:id="idColumn" text="Student ID" prefWidth="100" />
+                <TableColumn fx:id="nameColumn" text="Name" prefWidth="150" />
+                <TableColumn fx:id="addressColumn" text="Address" prefWidth="150" />
+                <TableColumn fx:id="phoneColumn" text="Phone" prefWidth="100" />
+                <TableColumn fx:id="emailColumn" text="Email" prefWidth="150" />
+                <TableColumn fx:id="levelColumn" text="Academic Level" prefWidth="100" />
+                <TableColumn fx:id="semesterColumn" text="Semester" prefWidth="100" />
+            </columns>
+        </TableView>
+
         <Label fx:id="studentLabel" text="Select a Student to Add" style="-fx-font-size: 16px;"/>
 
         <ComboBox fx:id="studentComboBox" />
 
         <HBox spacing="10">
-            <Button fx:id="addStudentButton" text="Add Student" onAction="#addStudent"/>
+            <Button fx:id="addStudentButton" text="Add Student" onAction="#openAddStudentWindow"/>
+            <Button fx:id="removeStudentButton" text="Remove Student" onAction="#removeStudent"/>
             <Button fx:id="closeButton" text="Close" onAction="#closeWindow"/>
         </HBox>
     </VBox>
 </AnchorPane>
-
 
 

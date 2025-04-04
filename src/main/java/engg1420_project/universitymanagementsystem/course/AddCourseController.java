@@ -1,4 +1,4 @@
-//package com.example.project;
+//Mateo
 package engg1420_project.universitymanagementsystem.course;
 
 import javafx.fxml.FXML;
@@ -7,7 +7,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-import java.util.ArrayList;
+import java.sql.SQLException;
 import java.util.List;
 
 public class AddCourseController {
@@ -24,41 +24,48 @@ public class AddCourseController {
     @FXML private TextField finalExamDateTimeField;
     @FXML private Button goBackButton;
 
-    private List<Course> courseList = new ArrayList<>();
-    // Method to handle the Add Course button click
     @FXML
     private void handleAddCourse() {
-        String courseName = courseNameField.getText();
-        String subjectName = subjectNameField.getText();
-        String teacherName = teacherNameField.getText();
-        String lectureTime = lectureTimeField.getText();
-        String location = locationField.getText();
-        String finalExamDateTime = finalExamDateTimeField.getText();
+        try {
+            // Read input values
+            String courseName = courseNameField.getText().trim();
+            String subjectName = subjectNameField.getText().trim();
+            String teacherName = teacherNameField.getText().trim();
+            String lectureTime = lectureTimeField.getText().trim();
+            String location = locationField.getText().trim();
+            String finalExamDateTime = finalExamDateTimeField.getText().trim();
 
-        // Parse integers
-        int courseCode = Integer.parseInt(courseCodeField.getText());
-        int sectionNumber = Integer.parseInt(sectionNumberField.getText());
-        int capacity = Integer.parseInt(capacityField.getText());
+            // Parse integers
+            int courseCode = Integer.parseInt(courseCodeField.getText().trim());
+            int sectionNumber = Integer.parseInt(sectionNumberField.getText().trim());
+            int capacity = Integer.parseInt(capacityField.getText().trim());
 
-        if (courseName.isEmpty() || subjectName.isEmpty() || teacherName.isEmpty() ||
-                lectureTime.isEmpty() || location.isEmpty() || finalExamDateTime.isEmpty()) {
-            statusLabel.setText("Please fill all fields.");
-            return;
-        }
+            // Validate required fields
+            if (courseName.isEmpty() || subjectName.isEmpty() || teacherName.isEmpty() ||
+                    lectureTime.isEmpty() || location.isEmpty() || finalExamDateTime.isEmpty()) {
+                statusLabel.setText("Please fill all fields.");
+                return;
+            }
 
-        Course newCourse = new Course(courseName, courseCode, subjectName, sectionNumber,
-                teacherName, capacity, lectureTime, location, finalExamDateTime);
+            // Create course object
+            Course newCourse = new Course(courseName, courseCode, subjectName, sectionNumber,
+                    teacherName, capacity, lectureTime, location, finalExamDateTime);
 
-        // Check for conflicts and add the course if no conflict
-        boolean courseAdded = CourseManager.addCourse(newCourse);
-        if (courseAdded) {
-            statusLabel.setText("Course added: " + newCourse);
-        } else {
-            statusLabel.setText("Course could not be added due to a scheduling conflict.");
+            // Add course to database
+            boolean courseAdded = CourseManager.addCourse(newCourse);
+            if (courseAdded) {
+                statusLabel.setText("Course added successfully!");
+            } else {
+                statusLabel.setText("Course could not be added. Conflict or duplicate entry.");
+            }
+
+        } catch (NumberFormatException e) {
+            statusLabel.setText("Invalid input: Course Code, Section, and Capacity must be numbers.");
+        } catch (SQLException e) {
+            statusLabel.setText("Database error. Please try again.");
+            e.printStackTrace();
         }
     }
-
-
 
     @FXML
     private void goBack() {

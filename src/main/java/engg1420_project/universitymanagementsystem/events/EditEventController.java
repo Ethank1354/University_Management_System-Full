@@ -1,52 +1,57 @@
 package engg1420_project.universitymanagementsystem.events;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.stage.FileChooser;
-import java.io.File;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 
 public class EditEventController {
+
     @FXML
-    private TextField eventCodeField;
+    private ComboBox<String> eventComboBox;
+
+    @FXML
+    private TextField eventNameField;
+
     @FXML
     private TextArea descriptionField;
+
     @FXML
     private TextField locationField;
+
     @FXML
-    private DatePicker dateField;
+    private TextField dateField;
+
     @FXML
     private TextField timeField;
+
     @FXML
     private TextField capacityField;
+
     @FXML
     private TextField costField;
+
+    // Method to handle event editing
     @FXML
-    private ImageView headerImageView;
+    public void editEvent(ActionEvent event) {
+        String selectedEvent = eventComboBox.getValue();
+        if (selectedEvent == null || selectedEvent.isEmpty()) {
+            showAlert("Error", "Please select an event to edit!", AlertType.ERROR);
+            return;
+        }
 
-    private File headerImageFile;
-
-    @FXML
-    private void handleEditEvent() {
-        String eventCode = eventCodeField.getText();
-        String description = descriptionField.getText();
-        String location = locationField.getText();
-        String date = dateField.getValue().toString();
-        String time = timeField.getText();
-        int capacity = Integer.parseInt(capacityField.getText());
-        double cost = Double.parseDouble(costField.getText());
-
-        System.out.println("Event Updated: " + eventCode);
+        // Event editing logic can go here (e.g., modify event details)
+        showAlert("Success", "Event Edited Successfully!", AlertType.INFORMATION);
     }
 
-    @FXML
-    private void handleUploadImage() {
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.jpeg"));
-        headerImageFile = fileChooser.showOpenDialog(null);
-        if (headerImageFile != null) {
-            headerImageView.setImage(new Image(headerImageFile.toURI().toString()));
-        }
+    private void showAlert(String title, String message, AlertType alertType) {
+        Alert alert = new Alert(alertType);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
     }
 }

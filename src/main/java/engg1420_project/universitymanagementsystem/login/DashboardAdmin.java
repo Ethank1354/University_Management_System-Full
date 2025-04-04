@@ -1,36 +1,33 @@
 package engg1420_project.universitymanagementsystem.login;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
+import java.io.IOException;
 
 public class DashboardAdmin {
 
     @FXML
-    public AnchorPane contentPane;
-/*
-    public void openDashboardMain(ActionEvent event) throws IOException {
+    private GridPane gridPane;
+
+    @FXML
+    public void initialize() {
+        loadFXMLIntoGridPane("student/StdDashboard.fxml", 0, 1);
+        loadFXMLIntoGridPane("subject/admin-view.fxml", 1, 1);
+        loadFXMLIntoGridPane("faculty/faculty-overview.fxml", 0, 2);
+        loadFXMLIntoGridPane("events/EventManagement.fxml", 1, 2);
+        loadFXMLIntoGridPane("course/AdminView.fxml", 1, 3);
+    }
+
+    private void loadFXMLIntoGridPane(String fxmlPath, int column, int row) {
         try {
-            // Load the AdminView.fxml into the right side of the screen
-            FXMLLoader fxmlLoader;
-            if(LoginController.loginUser.equals("Admin")){
-                fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("dashBoardAdmin.fxml"));
-            }
-            else if(LoginController.loginUser.equals("Faculty")) {
-                fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("dashBoardFaculty.fxml"));
-            }
-            else {
-                fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("dashboardStudentMain.fxml"));
-            }
-            AnchorPane pane = fxmlLoader.load();
-
-
-            // Replace the content of dashboard_main (the right side)
-            contentPane.getChildren().setAll(pane);
-
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
+            AnchorPane pane = loader.load();
+            gridPane.add(pane, column, row);
         } catch (IOException e) {
             e.printStackTrace();
+            System.out.println("Error loading FXML: " + fxmlPath);
         }
-
     }
-   */
 }

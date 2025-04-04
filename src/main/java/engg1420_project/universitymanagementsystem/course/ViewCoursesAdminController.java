@@ -1,6 +1,4 @@
-//package com.example.project;
 package engg1420_project.universitymanagementsystem.course;
-
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -14,6 +12,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import java.io.IOException;
+import java.sql.SQLException;
 
 public class ViewCoursesAdminController {
 
@@ -40,7 +39,7 @@ public class ViewCoursesAdminController {
     private AnchorPane contentPane;
 
     @FXML
-    private void initialize() {
+    private void initialize() throws SQLException {
         // Column bindings
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("courseName"));
         codeColumn.setCellValueFactory(new PropertyValueFactory<>("courseCode"));
@@ -52,8 +51,8 @@ public class ViewCoursesAdminController {
         locationColumn.setCellValueFactory(new PropertyValueFactory<>("location"));
         examColumn.setCellValueFactory(new PropertyValueFactory<>("finalExamDateTime"));
 
-        // Load courses
-        courseList = FXCollections.observableArrayList(CourseManager.getCourses());
+        // Load courses from the CourseManager (already working with the current database interaction)
+        courseList = FXCollections.observableArrayList(CourseManager.getCourses()); // Fetch from the current method
         coursesTable.setItems(courseList);
 
         // Disable buttons initially
@@ -71,17 +70,14 @@ public class ViewCoursesAdminController {
             assignFacultyButton.setDisable(!isSelected);
         });
     }
-    //open Add Course window
+
+
+    // Open Add Course window
     @FXML
     private void openAddCourse() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("course/AddCourse.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("AddCourse.fxml"));
             Parent root = loader.load();
-//            courseList.setAll(CourseManager.getCourses());
-//            coursesTable.refresh();
-//
-//            AnchorPane pane = loader.load();
-//            contentPane.getChildren().setAll(pane);
 
             Stage addCourseStage = new Stage();
             addCourseStage.setScene(new Scene(root));
@@ -90,10 +86,13 @@ public class ViewCoursesAdminController {
             addCourseStage.showAndWait();
 
             // Refresh the course list after adding a new course
-        } catch (IOException e) {
+            courseList.setAll(CourseManager.getCourses()); // Refresh the list from CourseManager
+            coursesTable.refresh();
+        } catch (IOException | SQLException e) {
             e.printStackTrace();
         }
     }
+
 
     // Open Edit Course Window
     @FXML
@@ -102,7 +101,7 @@ public class ViewCoursesAdminController {
         if (selectedCourse == null) return;
 
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("course/EditCourse.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("EditCourse.fxml"));
             Parent root = loader.load();
 
             EditCourseController controller = loader.getController();
@@ -115,15 +114,16 @@ public class ViewCoursesAdminController {
             editStage.showAndWait();
 
             // Refresh table after editing
+            courseList.setAll(CourseManager.getCourses()); // Refresh the list from DB
             coursesTable.refresh();
-        } catch (IOException e) {
+        } catch (IOException | SQLException e) {
             e.printStackTrace();
         }
     }
 
     // Delete Course
     @FXML
-    private void deleteCourse() {
+    private void deleteCourse() throws SQLException {
         Course selectedCourse = coursesTable.getSelectionModel().getSelectedItem();
         if (selectedCourse == null) return;
 
@@ -133,11 +133,12 @@ public class ViewCoursesAdminController {
         confirmation.setHeaderText(null);
 
         if (confirmation.showAndWait().orElse(ButtonType.NO) == ButtonType.YES) {
-            CourseManager.deleteCourse(selectedCourse);
-            courseList.remove(selectedCourse);
+            CourseManager.deleteCourse(selectedCourse); // Delete course from DB using CourseManager
+            courseList.setAll(CourseManager.getCourses()); // Refresh the list from DB
             coursesTable.refresh();
         }
     }
+
 
     // Open Manage Enrollments Window
     @FXML
@@ -146,8 +147,7 @@ public class ViewCoursesAdminController {
         if (selectedCourse == null) return;
 
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/project/course/ManageEnrollments.fxml"));
-
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/project/ManageEnrollments.fxml"));
             Parent root = loader.load();
 
             ManageEnrollmentsController controller = loader.getController();
@@ -160,6 +160,8 @@ public class ViewCoursesAdminController {
             enrollmentsStage.showAndWait();
         } catch (IOException e) {
             e.printStackTrace();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -169,7 +171,7 @@ public class ViewCoursesAdminController {
         if (selectedCourse == null) return;
 
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("course/AssignFaculty.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("AssignFaculty.fxml"));
             Parent root = loader.load();
 
             AssignFacultyController controller = loader.getController();
@@ -198,5 +200,4 @@ public class ViewCoursesAdminController {
         Stage stage = (Stage) goBackButton.getScene().getWindow();
         stage.close();
     }
-
 }
