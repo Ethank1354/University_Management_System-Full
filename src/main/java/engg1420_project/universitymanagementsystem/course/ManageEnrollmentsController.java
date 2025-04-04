@@ -93,11 +93,19 @@ public class ManageEnrollmentsController {
 
     private void loadEnrolledStudents() throws SQLException {
         studentList.clear();
-        // Use a specific format to convert the double to a String for comparison
-        String courseCodeString = String.format("%.1f", currentCourse.getCourseCode()); // Example: one decimal place
-        System.out.println("Loading students for Course Code: [" + courseCodeString + "]"); // Add logging
-        List<String> studentIDs = db.getColumnValuesByExactFilter("Enrollments", "Student ID", "Course Code", courseCodeString);
-        System.out.println("Retrieved Student IDs: " + studentIDs); // Add logging
+        double courseCodeDouble = currentCourse.getCourseCode();
+        String courseCodeStringWithDecimal = String.valueOf(courseCodeDouble);
+        String courseCodeStringWithoutDecimal = String.valueOf((int) courseCodeDouble); // Convert to int to remove decimal
+
+        System.out.println("Attempting to load students for Course Code (with decimal): [" + courseCodeStringWithDecimal + "]");
+        List<String> studentIDs = db.getColumnValuesByExactFilter("Enrollments", "Student ID", "Course Code", courseCodeStringWithDecimal);
+        System.out.println("Retrieved Student IDs after comparison with decimal: " + studentIDs);
+
+        if (studentIDs.isEmpty()) {
+            System.out.println("Attempting to load students for Course Code (without decimal): [" + courseCodeStringWithoutDecimal + "]");
+            studentIDs = db.getColumnValuesByExactFilter("Enrollments", "Student ID", "Course Code", courseCodeStringWithoutDecimal);
+            System.out.println("Retrieved Student IDs after comparison without decimal: " + studentIDs);
+        }
 
         for (String studentID : studentIDs) {
             List<String> studentData = db.getRow("Students", "Student ID", studentID);
@@ -140,67 +148,24 @@ public class ManageEnrollmentsController {
                         studentData.get(5),
                         studentData.get(6)  // Current Semester
                 );
-                addStudentToCourse(studentToAdd);
+                // Directly add to the GUI list
+                studentList.add(studentToAdd);
+                studentsTable.setItems(studentList);
+                currentCourse.setCurrentCapacity(studentList.size());
             }
-        }
-    }
-
-    public void addStudentToCourse(StudentCM studentToAdd) throws SQLException {
-        if (currentCourse.getCurrentCapacity() < currentCourse.getCapacity()) {
-            boolean alreadyEnrolled = false;
-            for (StudentCM student : studentList) {
-                if (student.getStudentID().equals(studentToAdd.getStudentID())) {
-                    alreadyEnrolled = true;
-                    break;
-                }
-            }
-            if (!alreadyEnrolled) {
-                String courseCode = String.valueOf(currentCourse.getCourseCode());
-                String studentId = studentToAdd.getStudentID();
-                System.out.println("Attempting to enroll student ID: [" + studentId + "] in course code: [" + courseCode + "]");
-                boolean success = db.addRowToTable("Enrollments", new String[]{courseCode, studentId});
-
-                if (success) {
-                    System.out.println("Successfully enrolled student ID: [" + studentId + "] in course code: [" + courseCode + "]");
-                    studentList.add(studentToAdd);
-                    currentCourse.setCurrentCapacity(studentList.size());
-                    studentsTable.refresh();
-                } else {
-                    System.out.println("Error enrolling student ID: [" + studentId + "] in course code: [" + courseCode + "]");
-                    showAlert("Error", "Failed to enroll student.");
-                }
-            } else {
-                showAlert("Duplicate Entry", "This student is already enrolled.");
-            }
-        } else {
-            showAlert("Enrollment Full", "The course has reached its maximum capacity.");
         }
     }
 
     @FXML
-    private void removeStudent() throws SQLException {
+    private void removeStudent() {
         StudentCM selectedStudent = studentsTable.getSelectionModel().getSelectedItem();
         if (selectedStudent != null) {
-            Alert confirmation = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you want to remove this student?", ButtonType.YES, ButtonType.NO);
-            confirmation.setTitle("Confirm Removal");
-            confirmation.setHeaderText(null);
-
-            if (confirmation.showAndWait().orElse(ButtonType.NO) == ButtonType.YES) {
-                String studentIdToRemove = selectedStudent.getStudentID();
-                String courseCodeToRemove = String.valueOf(currentCourse.getCourseCode()); // Convert to String
-
-                System.out.println("Attempting to remove student with ID: [" + studentIdToRemove + "] from course code: [" + courseCodeToRemove + "]");
-                // Try to delete based on both Student ID and Course Code (as a combined filter - this is a workaround)
-                boolean success = db.deleteRowFromTable("Enrollments", "Student ID", studentIdToRemove);
-                if (success) {
-                    studentList.remove(selectedStudent);
-                    currentCourse.setCurrentCapacity(studentList.size());
-                    studentsTable.refresh();
-                } else {
-                    // As a fallback, try to be more specific in the error message
-                    showAlert("Error", "Failed to remove the student. Please ensure the student is enrolled in this specific course.");
-                }
-            }
+            studentList.remove(selectedStudent);
+            studentsTable.setItems(studentList);
+            currentCourse.setCurrentCapacity(studentList.size());
+            studentsTable.getSelectionModel().clearSelection();
+        } else {
+            showAlert("Error", "Please select a student to remove.");
         }
     }
 

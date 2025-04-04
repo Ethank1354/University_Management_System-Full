@@ -365,30 +365,26 @@ public class DatabaseManager {
         return values;
     }
     public List<String> getColumnValuesByExactFilter(String tableName, String columnToSelect, String filterColumn, String filterValue) throws SQLException {
-        // Quote table and column names if they contain spaces
         String quotedTableName = tableName.contains(" ") ? "\"" + tableName + "\"" : tableName;
         String quotedColumnToSelect = columnToSelect.contains(" ") ? "\"" + columnToSelect + "\"" : columnToSelect;
         String quotedFilterColumn = filterColumn.contains(" ") ? "\"" + filterColumn + "\"" : filterColumn;
 
-        // SQL query to select values from columnToSelect where filterColumn exactly matches filterValue
         String sql = "SELECT " + quotedColumnToSelect + " FROM " + quotedTableName + " WHERE " + quotedFilterColumn + " = ?;";
+        System.out.println("Executing SQL: " + sql + ", with filter value: " + filterValue); // Added logging
 
         List<String> resultList = new ArrayList<>();
 
         try (PreparedStatement pst = conn.prepareStatement(sql)) {
-            // Set the filter value for exact match
             pst.setString(1, filterValue);
-
-            // Execute the query and process the result set
             try (ResultSet resultSet = pst.executeQuery()) {
                 while (resultSet.next()) {
-                    resultList.add(resultSet.getString(1)); // Get the value from the specified column
+                    resultList.add(resultSet.getString(1));
                 }
             }
         } catch (SQLException e) {
             System.out.println("Error retrieving column values: " + e.getMessage());
         }
-
+        System.out.println("Query Result: " + resultList); // Added logging
         return resultList;
     }
 
