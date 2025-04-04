@@ -170,6 +170,7 @@ public class FacultyProfileController {
             roomLabel.setVisible(false);
             emailLabel.setVisible(false);
             researchLabel.setVisible(false);
+            coursesTab.setDisable(true);
 
             if(this.access.equals("admin")) {
                 degreeLabel.setVisible(false);
@@ -193,7 +194,7 @@ public class FacultyProfileController {
             faculty.setEmail(emailField.getText());
             faculty.setResearchInterest(researchField.getText());
             faculty.setPassword(passwordText.getText());
-            faculty.setName(degreeField.getText());
+            faculty.setDegree(degreeField.getText());
 
             faculty.updateInfo();
 
@@ -201,6 +202,7 @@ public class FacultyProfileController {
             emailLabel.setVisible(true);
             researchLabel.setVisible(true);
             degreeLabel.setVisible(true);
+            coursesTab.setDisable(false);
 
             roomField.setVisible(false);
             emailField.setVisible(false);
@@ -215,7 +217,7 @@ public class FacultyProfileController {
 
     @FXML
     private void goBack(ActionEvent event) {
-        if(this.access.equals("admin")) {
+        if(this.studentID == null) {
             try {
                 FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("faculty/faculty-overview.fxml"));
                 fxmlLoader.setController(new facultyController(db, "admin", superAnchorPane));
@@ -225,7 +227,7 @@ public class FacultyProfileController {
             } catch (SQLException | IOException e) {
                 throw new RuntimeException(e);
             }
-        }else if(this.access.equals("student")) {
+        }else {
             try {
                 // Load the FXML and set the controller
                 FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("student/StdViewProfile.fxml"));

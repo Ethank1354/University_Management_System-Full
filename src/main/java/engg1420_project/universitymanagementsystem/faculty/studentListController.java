@@ -62,8 +62,13 @@ public class studentListController {
         for(int i = 0; i < students.size(); i++){
             values.add(student_ID.get(i) + ":" + students.get(i));
         }
+        if(values.size() > 0){
+            studentsList.getItems().addAll(values);
+        }else{
+            studentsList.getItems().addAll("No students are registered in this course");
+        }
 
-        studentsList.getItems().addAll(values);
+
     }
 
     @FXML
