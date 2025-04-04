@@ -12,15 +12,15 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.*;
+
+import java.io.File;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -44,12 +44,15 @@ public class LoginController {
     @FXML
     private ImageView logo;
 
+    @FXML
+    private Button excelButton;
+
     private Stage stage;
     private Scene scene;
     private Parent root;
     public static String loginUser;
     private static String loginEmail;
-    private DatabaseManager db = new DatabaseManager(HelloApplication.class.getResource("test.db").toString());
+    private DatabaseManager db = new DatabaseManager(HelloApplication.class.getResource("new.db").toString());
 
     private String adminID = "admin123";
     private String adminEmail = "admin@uni";
@@ -369,6 +372,21 @@ public class LoginController {
             loginUser = "None";
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void importFromExcel(ActionEvent event) throws IOException {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Open Excel File");
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Excel File", "*.xls", "*.xlsx"));
+        File file = fileChooser.showOpenDialog((Stage) excelButton.getScene().getWindow());
+        System.out.println(file.getName());
+
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Import from Excel");
+        if (alert.showAndWait().get() == ButtonType.OK) {
+            db.importXlsxToDatabase(file.getAbsolutePath());
         }
     }
 }
