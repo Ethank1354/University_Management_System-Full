@@ -356,7 +356,7 @@ public class LoginController {
             String[] IDColumn = {"Faculty ID"};
             List<String> id = db.getFilteredValues("Faculties", IDColumn, "Email", this.loginEmail);
 //            System.out.println(id);
-            FacultyProfileController facultycontroller = new FacultyProfileController(id.get(0), "faulty", db, contentPane);
+            FacultyProfileController facultycontroller = new FacultyProfileController(id.get(0), "faulty", db, contentPane, null);
 
             fxmlLoader.setController(facultycontroller);
             AnchorPane pane = fxmlLoader.load();
