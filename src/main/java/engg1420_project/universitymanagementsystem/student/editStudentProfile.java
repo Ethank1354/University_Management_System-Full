@@ -303,7 +303,7 @@ public class editStudentProfile {
                 } catch (SQLException e) {
                     throw new RuntimeException(e);
                 }
-            } else if (access.equals("student")) {
+            } else if (access.equals("Student")) {
                 try {
                     String studentInfo = student.getStudentID() + ":" + student.getName();
                     StdProfileViewCtrl stdProfileViewCtrl = new StdProfileViewCtrl(db, access, studentInfo);

@@ -114,7 +114,7 @@ public class StdProfileViewCtrl  {
     @FXML
     public void initialize() {
 
-        if (access.equals("faculty")) {
+        if (access.equals("Faculty")) {
             btnEdit.setVisible(false);
             barProgramProgress.setVisible(false);
             subjectListView.setVisible(false);
@@ -125,7 +125,7 @@ public class StdProfileViewCtrl  {
             AmountPaid.setVisible(false);
             AmountLeft.setVisible(false);
             btnExit.setVisible(false);
-        } else if (access.equals("student")) {
+        } else if (access.equals("Student")) {
             btnEdit.setVisible(true);
             barProgramProgress.setVisible(true);
             subjectListView.setVisible(true);
