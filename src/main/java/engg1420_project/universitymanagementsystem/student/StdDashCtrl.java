@@ -26,8 +26,6 @@ public class StdDashCtrl {
 
 
     //Controller Constructor
-
-
     public StdDashCtrl(DatabaseManager db, String username, String access) throws SQLException {
         this.db = db;
         this.username = username;
@@ -53,6 +51,7 @@ public class StdDashCtrl {
     private AnchorPane contentPane;
 
     //Buttons:
+    //Deletes a student from the list view and the database
     @FXML
     public void deleteStd(ActionEvent event) throws IOException {
         listViewStudent.getItems().remove(sharedDatabase.getSelectedName());
@@ -65,6 +64,7 @@ public class StdDashCtrl {
         }
     }
 
+    //Views  the profile of the highlighted student
     @FXML
     public void viewStd(ActionEvent event) throws IOException {
         try {
@@ -84,8 +84,9 @@ public class StdDashCtrl {
         }
 
 
-    }
 
+    }
+    //Goes to the page to add a new student
     @FXML
     public void addStd(ActionEvent event) throws IOException {
         try {
@@ -106,6 +107,7 @@ public class StdDashCtrl {
 
     @FXML
     public void initialize() throws SQLException {
+        //Makes the delete and add student button
         if (access.equals("Faculty")) {
             btnAddStd.setVisible(false);
             btnDelStd.setVisible(false);
