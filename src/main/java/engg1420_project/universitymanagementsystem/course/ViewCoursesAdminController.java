@@ -51,7 +51,6 @@ public class ViewCoursesAdminController {
         locationColumn.setCellValueFactory(new PropertyValueFactory<>("location"));
         examColumn.setCellValueFactory(new PropertyValueFactory<>("finalExamDateTime"));
 
-
         // Fetch and display courses from the database
         refreshTable();
 
@@ -78,27 +77,25 @@ public class ViewCoursesAdminController {
         coursesTable.refresh();
     }
 
-    // Open Add Course window
+    // Open Add Course within the content pane
     @FXML
     private void openAddCourse() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("AddCourse.fxml"));
             Parent root = loader.load();
 
-            Stage addCourseStage = new Stage();
-            addCourseStage.setScene(new Scene(root));
-            addCourseStage.setTitle("Add Course");
-            addCourseStage.initModality(Modality.APPLICATION_MODAL);
-            addCourseStage.showAndWait();
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.setTitle("Add Course");
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.show();
 
-            // Refresh the course list after adding a new course
-            refreshTable();
-        } catch (IOException | SQLException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    // Open Edit Course Window
+    // Open Edit Course within the content pane
     @FXML
     private void openEditCourse() {
         Course selectedCourse = coursesTable.getSelectionModel().getSelectedItem();
@@ -111,20 +108,18 @@ public class ViewCoursesAdminController {
             EditCourseController controller = loader.getController();
             controller.setCourse(selectedCourse); // Pass course to edit
 
-            Stage editStage = new Stage();
-            editStage.setScene(new Scene(root));
-            editStage.setTitle("Edit Course");
-            editStage.initModality(Modality.APPLICATION_MODAL);
-            editStage.showAndWait();
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.setTitle("Edit Course");
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.show();
 
-            // Refresh table after editing
-            refreshTable();
-        } catch (IOException | SQLException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    // Delete Course
+    // Delete Course (remains the same)
     @FXML
     private void deleteCourse() throws SQLException {
         Course selectedCourse = coursesTable.getSelectionModel().getSelectedItem();
@@ -160,11 +155,7 @@ public class ViewCoursesAdminController {
         }
     }
 
-
-
-
-
-    // Open Manage Enrollments Window
+    // Open Manage Enrollments within the content pane
     @FXML
     private void openManageEnrollments() {
         Course selectedCourse = coursesTable.getSelectionModel().getSelectedItem();
@@ -175,17 +166,16 @@ public class ViewCoursesAdminController {
             Parent root = loader.load();
 
             ManageEnrollmentsController controller = loader.getController();
-            controller.setCourse(selectedCourse); // Pass course to display enrolled students
+            controller.setCourse(selectedCourse); // Pass course
 
-            Stage enrollmentsStage = new Stage();
-            enrollmentsStage.setScene(new Scene(root));
-            enrollmentsStage.setTitle("Manage Enrollments");
-            enrollmentsStage.initModality(Modality.APPLICATION_MODAL);
-            enrollmentsStage.showAndWait();
-        } catch (IOException e) {
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.setTitle("Manage Enrollments");
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.show();
+
+        } catch (IOException | SQLException e) {
             e.printStackTrace();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
         }
     }
 
@@ -206,20 +196,37 @@ public class ViewCoursesAdminController {
             stage.setScene(new Scene(root));
             stage.setTitle("Assign Faculty");
             stage.initModality(Modality.APPLICATION_MODAL);
-            stage.showAndWait();
+            stage.show();
 
-            // Table should already be refreshed from AssignFacultyController
         } catch (IOException e) {
             e.printStackTrace();
         }
         refreshTable();
     }
 
-
-    // Close the window
+    // Go back to the main dashboard (closes the Course Admin view)
     @FXML
     private void goBack() {
-        Stage stage = (Stage) goBackButton.getScene().getWindow();
-        stage.close();
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/subject/dashboardAdmin.fxml")); // Replace with the correct FXML for your dashboard
+            Parent root = loader.load();
+            contentPane.getChildren().setAll(root);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void loadFXML(String fxmlFile) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFile));
+            Parent root = loader.load();
+            contentPane.getChildren().setAll(root);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void setContentPane(AnchorPane contentPane) {
+        this.contentPane = contentPane;
     }
 }

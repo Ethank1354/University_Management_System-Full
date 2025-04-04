@@ -67,11 +67,13 @@ public class AddCourseController {
         }
     }
 
-
     @FXML
     private void goBack() {
+        // Only close the Add Course view.
         Stage stage = (Stage) goBackButton.getScene().getWindow();
-        stage.close();
+        if (stage != null) {
+            stage.close();
+        }
     }
 }
 
