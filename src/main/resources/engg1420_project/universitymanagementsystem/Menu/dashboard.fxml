@@ -2,6 +2,7 @@
 
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 
 <BorderPane prefHeight="800.0" prefWidth="1000" stylesheets="@../dashboard/dashboard-style.css" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="engg1420_project.universitymanagementsystem.login.LoginController">
@@ -51,8 +52,17 @@
             <AnchorPane fx:id="contentPane" prefHeight="200.0" prefWidth="800" BorderPane.alignment="CENTER" />
          </right>
    <top>
-      <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: black;" BorderPane.alignment="CENTER">
+      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: black;" BorderPane.alignment="CENTER">
          <children>
+            <ImageView fx:id="logo" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/GuelphLogo.png" />
+               </image>
+            </ImageView>
+
+            <!-- Spacer to push the button to the right -->
+            <Region HBox.hgrow="ALWAYS" />
+
             <Button fx:id="logout" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#logout" prefHeight="25.0" prefWidth="96.0" text="Logout" />
          </children>
       </HBox>

@@ -15,6 +15,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
@@ -39,6 +41,8 @@ public class LoginController {
     public Pane pane;
     @FXML
     public GridPane gridPane;
+    @FXML
+    private ImageView logo;
 
     private Stage stage;
     private Scene scene;
@@ -68,6 +72,7 @@ public class LoginController {
                     stage.setScene(scene);
                     stage.show();
                 }
+
             } catch (IOException e) {
                 e.printStackTrace();
             }
