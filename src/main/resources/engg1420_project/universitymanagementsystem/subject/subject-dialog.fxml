@@ -5,7 +5,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="118.0" prefWidth="250.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="engg1420_project.universitymanagementsystem.subject.SubjectDialogController">
+<AnchorPane prefHeight="118.0" prefWidth="250.0" xmlns="http://javafx.com/javafx/17.0.6" xmlns:fx="http://javafx.com/fxml/1" fx:controller="engg1420_project.universitymanagementsystem.subject.SubjectDialogController">
     <children>
         <GridPane hgap="10" prefHeight="102.0" prefWidth="238.0" vgap="10">
             <Label text="Subject Name:" GridPane.rowIndex="1" />

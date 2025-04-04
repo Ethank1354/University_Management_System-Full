@@ -15,11 +15,13 @@
             xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="engg1420_project.universitymanagementsystem.subject.AdminViewSubjectsController">
 <VBox spacing="10">
+
     <children>
         <Label text="Subject Information">
             <font><Font size="24.0" /></font>
         </Label>
         <Button onAction="#openCreateDialog" text="Create New Subject" />
+        <TextField fx:id="searchField" promptText="Search by name or code" />
         <TableView fx:id="subjectsTable" fixedCellSize="30.0" prefHeight="365.0" prefWidth="600.0">
             <columns>
                 <TableColumn fx:id="nameColumn" prefWidth="188.79999387264252" text="Subject Name" />
