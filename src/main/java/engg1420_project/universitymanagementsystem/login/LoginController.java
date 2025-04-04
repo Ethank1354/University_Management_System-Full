@@ -375,7 +375,7 @@ public class LoginController {
             FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("student/StdViewProfile.fxml"));
             List<String> row = db.getRow("Students", "Email", loginEmail);
             String studentInfo = row.get(0) + ":" + row.get(1);
-            StdProfileViewCtrl studentController = new StdProfileViewCtrl(db, "Student", studentInfo);
+            StdProfileViewCtrl studentController = new StdProfileViewCtrl(db, "Student", studentInfo, null);
 
             fxmlLoader.setController(studentController);
             AnchorPane pane = fxmlLoader.load();
