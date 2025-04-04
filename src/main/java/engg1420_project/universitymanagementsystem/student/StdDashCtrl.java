@@ -202,15 +202,6 @@ public class StdDashCtrl {
                 }
             });
 
-            //Adding all the options to the click down menu
-            /*
-            if (access.equals("Admin")) {
-                contextMenu.getItems().addAll(viewProfile, deleteItem, editProfile);
-            } else if (access.equals("Faculty")) {
-                contextMenu.getItems().addAll(viewProfile);
-            }
-
-             */
             contextMenu.getItems().addAll(viewProfile, deleteItem, editProfile);
             if (access.equals("Faculty")) {
                 contextMenu.getItems().remove(deleteItem);

@@ -292,19 +292,36 @@ public class editStudentProfile {
             student.setSemster(tfSemester.getText());
             student.updateStudent();
 
+            if (access.equals("Admin")) {
+                try {
+                    StdDashCtrl stdDashCtrl = new StdDashCtrl(db, access);
+                    FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("student/StdDashboard.fxml"));
+                    fxmlLoader.setController(stdDashCtrl);
 
-            try {
-                StdDashCtrl stdDashCtrl = new StdDashCtrl(db, access);
-                FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("student/StdDashboard.fxml"));
-                fxmlLoader.setController(stdDashCtrl);
+                    AnchorPane pane = fxmlLoader.load();
+                    contentPane.getChildren().setAll(pane);
 
-                AnchorPane pane = fxmlLoader.load();
-                contentPane.getChildren().setAll(pane);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+            } else if (access.equals("Student")) {
+                try {
+                    String studentInfo = student.getStudentID() + ":" + student.getName();
+                    StdProfileViewCtrl stdProfileViewCtrl = new StdProfileViewCtrl(db, access, studentInfo);
+                    FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("student/stdViewProfile.fxml"));
+                    fxmlLoader.setController(stdProfileViewCtrl);
 
-            } catch (IOException e) {
-                e.printStackTrace();
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
+                    AnchorPane pane = fxmlLoader.load();
+                    contentPane.getChildren().setAll(pane);
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+
             }
         } else {
             if (exceptionHandling() == 1) {
@@ -337,8 +354,6 @@ public class editStudentProfile {
             labelEditPaid.setVisible(true);
             labelEditOwed.setVisible(true);
             btnUpdateTution.setVisible(true);
-
-
 
         } else {
             tfPaid.setVisible(false);
