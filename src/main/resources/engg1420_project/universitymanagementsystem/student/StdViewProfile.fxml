@@ -7,13 +7,13 @@
 
 <AnchorPane fx:id="contentPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@student_profile_style.css" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Button fx:id="btnExit" layoutX="565.0" mnemonicParsing="false" onAction="#exit" text="Exit" />
+      <Button fx:id="btnExit" layoutX="555.0" layoutY="2.0" mnemonicParsing="false" onAction="#exit" text="Exit" />
       <ImageView fx:id="profilePhoto" fitHeight="150.0" fitWidth="154.0" pickOnBounds="true" preserveRatio="true" x="5.0" y="5.0">
          <image>
             <Image url="@images/BlankProfile.png" />
          </image>
       </ImageView>
-      <Label fx:id="labelStdName" layoutX="175.0" layoutY="25.0" text="Student Name">
+      <Label fx:id="labelStdName" layoutX="175.0" layoutY="20.0" text="Student Name">
          <font>
             <Font size="24.0" />
          </font>

@@ -26,7 +26,6 @@ public class Student extends User {
     private Double academicProgress;
     private String photoName;
     private String profilePhotoLocation;
-    //private String[] subjects;
     private ArrayList<String> subjects = new ArrayList<>();
     private ArrayList<String> grades = new ArrayList<>();
 
@@ -56,6 +55,7 @@ public class Student extends User {
             }
         } else {
             this.subjects = null;
+            this.grades = null;
         }
 
         this.thesis = studentMember.get(9);
@@ -145,7 +145,7 @@ public class Student extends User {
 
     public ArrayList<String> getSubjects() {
         if (subjects == null || subjects.isEmpty()) {
-            return null;
+            return new ArrayList<>();
         }
         return subjects;
     }
@@ -224,7 +224,7 @@ public class Student extends User {
 
     public void addSubject(String subject) {
         this.subjects.add(subject);
-        //this.grades.add("50%");
+        this.grades.add("50%");
     }
 
     public void updateStudent() throws SQLException {

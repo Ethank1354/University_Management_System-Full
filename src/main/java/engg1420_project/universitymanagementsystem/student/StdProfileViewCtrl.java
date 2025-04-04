@@ -29,10 +29,7 @@ public class StdProfileViewCtrl  {
     private DatabaseManager db;
     private String studentInfo;
     private String access;
-    private boolean canEdit;
     private Student student;
-    private Scene previousScene;
-    private boolean previous;
     private String username;
     private String ID;
 
@@ -99,7 +96,7 @@ public class StdProfileViewCtrl  {
     @FXML
     public void exit (ActionEvent event) throws IOException {
         try {
-            StdDashCtrl stdDashCtrl = new StdDashCtrl(db,username);
+            StdDashCtrl stdDashCtrl = new StdDashCtrl(db,username, access);
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("student/StdDashboard.fxml"));
             fxmlLoader.setController(stdDashCtrl);
 
@@ -117,7 +114,7 @@ public class StdProfileViewCtrl  {
     @FXML
     public void initialize() {
 
-        if (access.equals("Faculty")) {
+        if (access.equals("faculty")) {
             btnEdit.setVisible(false);
             barProgramProgress.setVisible(false);
             subjectListView.setVisible(false);
@@ -128,7 +125,7 @@ public class StdProfileViewCtrl  {
             AmountPaid.setVisible(false);
             AmountLeft.setVisible(false);
             btnExit.setVisible(false);
-        } else if (access.equals("Student")) {
+        } else if (access.equals("student")) {
             btnEdit.setVisible(true);
             barProgramProgress.setVisible(true);
             subjectListView.setVisible(true);

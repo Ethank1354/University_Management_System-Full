@@ -276,7 +276,6 @@ public class editStudentProfile {
         if successful it will bring you back to the dashboard
         if it isn't it shows the error found with the exception handling
 
-        NEED TO UPDATE THE DESTNATIONS DEPENDING ON THE ACCESS LEVEL
      */
     @FXML
     void saveChanges(ActionEvent event) throws IOException, SQLException {
@@ -292,9 +291,9 @@ public class editStudentProfile {
             student.setSemster(tfSemester.getText());
             student.updateStudent();
 
-            if (access.equals("Admin")) {
+            if (access.equals("admin")) {
                 try {
-                    StdDashCtrl stdDashCtrl = new StdDashCtrl(db, access);
+                    StdDashCtrl stdDashCtrl = new StdDashCtrl(db, username, access);
                     FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("student/StdDashboard.fxml"));
                     fxmlLoader.setController(stdDashCtrl);
 
@@ -306,7 +305,7 @@ public class editStudentProfile {
                 } catch (SQLException e) {
                     throw new RuntimeException(e);
                 }
-            } else if (access.equals("Student")) {
+            } else if (access.equals("student")) {
                 try {
                     String studentInfo = student.getStudentID() + ":" + student.getName();
                     StdProfileViewCtrl stdProfileViewCtrl = new StdProfileViewCtrl(db, access, studentInfo);

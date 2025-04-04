@@ -32,15 +32,15 @@ import java.util.List;
 public class StdCreateCtrl {
 
     private DatabaseManager db;
-    private Scene previousScene;
     private String username;
+    private String access;
 
 
     private String photoName;
 
-    public StdCreateCtrl(DatabaseManager db, String username) {
+    public StdCreateCtrl(DatabaseManager db, String username, String access) {
         this.db = db;
-
+        this.access = access;
         this.username = username;
     }
 
@@ -114,7 +114,7 @@ public class StdCreateCtrl {
             }
 
             try {
-                StdDashCtrl stdDashCtrl = new StdDashCtrl(db, username);
+                StdDashCtrl stdDashCtrl = new StdDashCtrl(db, username, access);
                 FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("student/StdDashboard.fxml"));
                 fxmlLoader.setController(stdDashCtrl);
                 AnchorPane pane = fxmlLoader.load();
@@ -148,7 +148,7 @@ public class StdCreateCtrl {
     //Exit Button
     public void exit (ActionEvent event) throws IOException {
         try {
-            StdDashCtrl stdDashCtrl = new StdDashCtrl(db,username);
+            StdDashCtrl stdDashCtrl = new StdDashCtrl(db,username, access);
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("student/StdDashboard.fxml"));
             fxmlLoader.setController(stdDashCtrl);
             AnchorPane pane = fxmlLoader.load();
@@ -160,6 +160,7 @@ public class StdCreateCtrl {
             throw new RuntimeException(e);
         }
     }
+
 
     private int doesContain(String string, char c) {
         int count = 0;

@@ -26,10 +26,7 @@ public class StdDashCtrl {
 
 
     //Controller Constructor
-    public StdDashCtrl(DatabaseManager db, String username) throws SQLException {
-        this.db = db;
-        this.username = username;
-    }
+
 
     public StdDashCtrl(DatabaseManager db, String username, String access) throws SQLException {
         this.db = db;
@@ -93,7 +90,7 @@ public class StdDashCtrl {
     public void addStd(ActionEvent event) throws IOException {
         try {
             // Load the FXML and set the controller
-            StdCreateCtrl profileController = new StdCreateCtrl(db, username);
+            StdCreateCtrl profileController = new StdCreateCtrl(db, username, access);
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("student/StdProfileAdd.fxml"));
             fxmlLoader.setController(profileController);
             AnchorPane pane = fxmlLoader.load();

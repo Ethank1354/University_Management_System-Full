@@ -3,11 +3,9 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-
-<AnchorPane fx:id="contentPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" >
+<AnchorPane fx:id="contentPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <ListView fx:id="listViewCourses" layoutY="42.0" prefHeight="358.0" prefWidth="600.0" />
-      <Button fx:id="btnAddCourse" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" text="Add Course" />
-      <Button fx:id="btnExit" layoutX="534.0" layoutY="14.0" mnemonicParsing="false" text="Exit" />
+      <Button fx:id="btnExit" layoutX="534.0" layoutY="14.0" mnemonicParsing="false" onAction="#exit" text="Exit" />
    </children>
 </AnchorPane>
