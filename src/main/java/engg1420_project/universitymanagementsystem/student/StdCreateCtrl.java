@@ -97,15 +97,17 @@ public class StdCreateCtrl {
             student[6] = tfSemester.getText();
 
 
-            //Subjects Registered
+            student[8] = null;
+            student[13] = null;
+
             String[] photoInfo = new String[2];
-            photoInfo[0] = student[0];
+
             if (photoName == null) {
-                photoInfo[1] = "default.png";
+               student[7] = "default.png";
             } else {
-                photoInfo[1] = photoName;
+                student[7] = photoName;
             }
-            student[7] = photoInfo[1];
+
 
 
 

@@ -203,11 +203,15 @@ public class StdDashCtrl {
             });
 
             //Adding all the options to the click down menu
-            if (access.equals("Faculty")) {
+            /*
+            if (access.equals("Admin")) {
                 contextMenu.getItems().addAll(viewProfile, deleteItem, editProfile);
-            } else if (access.equals("Admin")) {
+            } else if (access.equals("Faculty")) {
                 contextMenu.getItems().addAll(viewProfile);
             }
+
+             */
+            contextMenu.getItems().addAll(viewProfile, deleteItem, editProfile);
 
 
             cell.textProperty().bind(cell.itemProperty());
@@ -221,7 +225,7 @@ public class StdDashCtrl {
             });
 
             return cell;
-            });
+        });
     }
 }
 
