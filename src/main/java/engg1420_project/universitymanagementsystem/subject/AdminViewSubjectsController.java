@@ -5,6 +5,7 @@ package engg1420_project.universitymanagementsystem.subject;
 import java.io.IOException;
 import java.sql.SQLException;
 
+import engg1420_project.universitymanagementsystem.HelloApplication;
 import engg1420_project.universitymanagementsystem.projectClasses.DatabaseManager;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -35,7 +36,7 @@ public class AdminViewSubjectsController {
     private ObservableList<Subjects> subjectsData = FXCollections.observableArrayList();
 
     public AdminViewSubjectsController() {
-        dbManager = new DatabaseManager("test.db");
+        dbManager = new DatabaseManager(HelloApplication.class.getResource("test.db").toString());
     }
 
     @FXML
@@ -61,8 +62,8 @@ public class AdminViewSubjectsController {
         subjectsData.clear();
 
             // Get all subjects from the "subjects" table
-            List<String> names = dbManager.getColumnValues("Subjects", "name");
-            List<String> codes = dbManager.getColumnValues("Subjects", "code");
+            List<String> names = dbManager.getColumnValues("Subjects", "Subject Name");
+            List<String> codes = dbManager.getColumnValues("Subjects", "Subject Code");
 
             // Add subjects to the ObservableList
             for (int i = 0; i < names.size(); i++) {
@@ -101,7 +102,7 @@ public class AdminViewSubjectsController {
 
                 // Update the database
                 List<String> newValues = Arrays.asList(newName, newCode);
-                dbManager.updateRowInTable("Subjects", "code", subject.getCode(), newValues);
+                dbManager.updateRowInTable("Subjects", "Subject Code", subject.getCode(), newValues);
 
                 // Refresh the TableView
                 loadSubjectsFromDatabase();
@@ -166,7 +167,7 @@ public class AdminViewSubjectsController {
     @FXML
     public void handleDeleteSubject(Subjects subject) {
         try {
-            boolean success = dbManager.deleteRowFromTable("Subjects", "code", subject.getCode());
+            boolean success = dbManager.deleteRowFromTable("Subjects", "Subject Code", subject.getCode());
             if (success) {
                 loadSubjectsFromDatabase(); // Refresh TableView
             }

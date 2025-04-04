@@ -2,6 +2,7 @@
 //package com.example.project1;
 package engg1420_project.universitymanagementsystem.subject;
 
+import engg1420_project.universitymanagementsystem.HelloApplication;
 import engg1420_project.universitymanagementsystem.projectClasses.DatabaseManager;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -26,7 +27,7 @@ public class UserViewSubjectsController {
 
     public UserViewSubjectsController() {
         // Initialize database connection
-        dbManager = new DatabaseManager("test.db");
+        dbManager = new DatabaseManager(HelloApplication.class.getResource("test.db").toString());
     }
 
     @FXML
