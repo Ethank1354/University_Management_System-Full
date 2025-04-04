@@ -20,7 +20,7 @@
                 <!-- Profile photo (placeholder) -->
                 <ImageView fx:id="profileImage" fitHeight="100.0" fitWidth="100.0" preserveRatio="true">
                <image>
-                  <Image url="@images/profile.jpg" />
+                  <Image url="@../images/BlankProfile.png" />
                </image>
                 </ImageView>
             <VBox prefHeight="77.0" prefWidth="325.0">
