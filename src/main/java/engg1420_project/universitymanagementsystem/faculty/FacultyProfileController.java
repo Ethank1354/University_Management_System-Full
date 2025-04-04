@@ -215,7 +215,7 @@ public class FacultyProfileController {
 
     @FXML
     private void goBack(ActionEvent event) {
-        if(this.access.equals("admin")) {
+        if(this.studentID == null) {
             try {
                 FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("faculty/faculty-overview.fxml"));
                 fxmlLoader.setController(new facultyController(db, "admin", superAnchorPane));
@@ -225,7 +225,7 @@ public class FacultyProfileController {
             } catch (SQLException | IOException e) {
                 throw new RuntimeException(e);
             }
-        }else if(this.access.equals("student")) {
+        }else {
             try {
                 // Load the FXML and set the controller
                 FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("student/StdViewProfile.fxml"));
