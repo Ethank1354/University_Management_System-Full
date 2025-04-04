@@ -301,7 +301,11 @@ public class Student extends User {
     }
 
     public void setProfilePhotoLocation(String profilePhotoLocation) {
-        this.profilePhotoLocation = profilePhotoLocation;
+        if (profilePhotoLocation.contains(".png")) {
+            this.profilePhotoLocation = profilePhotoLocation.substring(0, profilePhotoLocation.indexOf(".png"));
+        } else {
+            this.profilePhotoLocation = profilePhotoLocation ;
+        }
     }
 
 

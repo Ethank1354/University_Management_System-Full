@@ -96,7 +96,7 @@ public class editStudentProfile {
 
         Image profile = null;
         try {
-            profile = new Image(HelloApplication.class.getResourceAsStream("images/" + student.getPhotoLocation()));
+            profile = new Image(HelloApplication.class.getResourceAsStream("images/" + student.getPhotoLocation() + ".png"));
         }catch (Exception e){
             imgViewProfile.setImage(new Image(HelloApplication.class.getResourceAsStream("images/default.png")));
 

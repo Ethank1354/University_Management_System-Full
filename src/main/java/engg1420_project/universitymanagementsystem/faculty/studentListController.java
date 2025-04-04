@@ -73,7 +73,7 @@ public class studentListController {
             Stage currentStage = (Stage) studentsList.getScene().getWindow();
             Scene previousScene = currentStage.getScene(); // Save current scene
 
-            FacultyProfileController profileController = new FacultyProfileController(this.previousFacultyID, access, db, superAnchorPane);
+            FacultyProfileController profileController = new FacultyProfileController(this.previousFacultyID, access, db, superAnchorPane, null);
 
             FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("faculty/faculty-profile.fxml"));
             fxmlLoader.setController(profileController);
