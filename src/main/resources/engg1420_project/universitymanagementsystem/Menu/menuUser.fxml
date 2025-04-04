@@ -4,7 +4,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane prefHeight="800.0" prefWidth="1000" stylesheets="@dashboard/dashboard-style.css" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="engg1420_project.universitymanagementsystem.login.LoginController">
+<BorderPane prefHeight="800.0" prefWidth="1000" stylesheets="@../dashboard/dashboard-style.css" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="engg1420_project.universitymanagementsystem.login.LoginController">
     <left>
         <VBox alignment="CENTER_LEFT" focusTraversable="true" prefHeight="300.0" prefWidth="180.0" style="-fx-background-color: black;" BorderPane.alignment="CENTER">
             <Label prefHeight="17.0" prefWidth="96.0" text="Menu">
@@ -41,6 +41,10 @@
         <AnchorPane fx:id="contentPane" prefHeight="200.0" prefWidth="800" BorderPane.alignment="CENTER" />
     </right>
    <top>
-      <Button fx:id="logout" mnemonicParsing="false" onAction="#logout" text="Logout" BorderPane.alignment="BOTTOM_RIGHT" />
+      <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: black;" BorderPane.alignment="CENTER">
+         <children>
+            <Button fx:id="logout" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#logout" text="Logout" />
+         </children>
+      </HBox>
    </top>
 </BorderPane>

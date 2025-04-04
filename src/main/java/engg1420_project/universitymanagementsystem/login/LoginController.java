@@ -56,13 +56,13 @@ public class LoginController {
         if (checkLogin()) {
             try {
                 if (loginUser.equals("Admin")) {
-                    Parent dashboardFX = FXMLLoader.load(Objects.requireNonNull(HelloApplication.class.getResource("dashboard.fxml")));
+                    Parent dashboardFX = FXMLLoader.load(Objects.requireNonNull(HelloApplication.class.getResource("menu/dashboard.fxml")));
                     stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                     scene = new Scene(dashboardFX);
                     stage.setScene(scene);
                     stage.show();
                 } else if (loginUser.equals("Student") || loginUser.equals("Faculty")) {
-                    Parent dashboardFX = FXMLLoader.load(Objects.requireNonNull(HelloApplication.class.getResource("menuUser.fxml")));
+                    Parent dashboardFX = FXMLLoader.load(Objects.requireNonNull(HelloApplication.class.getResource("menu/menuUser.fxml")));
                     stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                     scene = new Scene(dashboardFX);
                     stage.setScene(scene);
@@ -107,10 +107,10 @@ public class LoginController {
         }
         facultyRow.add("error");
         studentRow.add("error");
-        System.out.println(email.getText() + " email without to string");
-        System.out.println(email.getText().toString() + " email with to string");
-        System.out.println(facultyRow.get(0));
-        System.out.println(studentRow);
+//        System.out.println(email.getText() + " email without to string");
+//        System.out.println(email.getText().toString() + " email with to string");
+//        System.out.println(facultyRow.get(0));
+//        System.out.println(studentRow);
         if(id.getText().toString().equals(facultyRow.get(0))){
             this.loginEmail = email.getText().toString();
             //System.out.println(loginID + "loginid should be set here");
@@ -130,7 +130,7 @@ public class LoginController {
     }
 
     @FXML
-    void openDashboardMain(ActionEvent event) throws IOException {
+    void openDashboardMain() throws IOException {
         try {
             // Load the AdminView.fxml into the right side of the screen
             if (loginUser.equals("Admin")) {
@@ -202,7 +202,7 @@ public class LoginController {
     }
 
     @FXML
-    void openCourses(ActionEvent event) throws IOException {
+    void openCourses() throws IOException {
         try {
             // Load the AdminView.fxml into the right side of the screen
             if (loginUser.equals("Admin")) {
@@ -229,7 +229,7 @@ public class LoginController {
     }
 
     @FXML
-    void openEvents(ActionEvent event) throws IOException {
+    void openEvents() throws IOException {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("events/EventManagement.fxml"));
 
@@ -244,7 +244,7 @@ public class LoginController {
     }
 
     @FXML
-    void openSubjects(ActionEvent event) throws IOException {
+    void openSubjects() throws IOException {
         try {
             // Load the AdminView.fxml into the right side of the screen
             FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("subject/admin-view-subjects.fxml"));
@@ -310,7 +310,7 @@ public class LoginController {
 
 
     @FXML
-    void openGridPane(ActionEvent event) throws IOException {
+    void openGridPane() throws IOException {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("events/EventManagement.fxml"));
             AnchorPane pane = fxmlLoader.load();
@@ -352,7 +352,6 @@ public class LoginController {
             e.printStackTrace();
         }
     }
-
 
     @FXML
     void logout(ActionEvent event){
