@@ -32,7 +32,7 @@ public class LoginController {
     @FXML
     public TextField email, id;
     @FXML
-    public Button student_management, event_management, subject_management, faculty_management, course_management, main, dashboard, login, logout;
+    public Button student_management, event_management, subject_management, faculty_management, profile_management, course_management, main, dashboard, login, logout;
     @FXML
     public AnchorPane contentPane, eventPane, facultyPane, coursePane, subjectPane, studentPane;
     @FXML
@@ -84,29 +84,6 @@ public class LoginController {
         stage.show();
     }
 
-//    public boolean checkLogin() throws SQLException {
-//
-//        String[] col = {"Password"};
-//
-////        int facultySize = db.getTableHeaders("Faculties").size();  //Captures length of a faculty row in database
-////        int studentSize = db.getTableHeaders("Students").size();  //Captures length of a student row in database
-//        if (db.getFilteredValues("Faculties", col, "Email", email.getText().toString()).get(0).equals(id.getText().toString())){
-//            loginUser = "Faculty";
-//            loginID = id.getText();
-//            return true;
-//        }
-//        else if (db.getFilteredValues("Students", col, "Email", email.getText().toString()).get(0).equals(id.getText().toString())){
-//            loginUser = "Student";
-//            loginID = id.getText();
-//            return true;
-//        }
-//        else if (email.getText().toString().equals(adminEmail) && id.getText().toString().equals(adminID)) {
-//            loginUser = "Admin";
-//            return true;
-//        }
-//        else{
-//            return false;
-//        }
     public boolean checkLogin(){
         String[] column = {"Password"};
         // String[] filterColumn = {"Email"};
@@ -157,19 +134,19 @@ public class LoginController {
         try {
             // Load the AdminView.fxml into the right side of the screen
             if (loginUser.equals("Admin")) {
-                FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("dashboardAdmin.fxml"));
+                FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("dashboard/dashboardAdmin.fxml"));
                 AnchorPane pane = fxmlLoader.load();
                 // Replace the content of contentPane (the right side)
                 contentPane.getChildren().setAll(pane);
 
             } else if (loginUser.equals("Faculty")) {
-                FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("DashboardFaculty.fxml"));
+                FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("dashboard/DashboardFaculty.fxml"));
                 AnchorPane pane = fxmlLoader.load();
                 // Replace the content of contentPane (the right side)
                 contentPane.getChildren().setAll(pane);
 
             } else {
-                FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("DashboardStudent.fxml"));
+                FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("dashboard/DashboardStudent.fxml"));
                 AnchorPane pane = fxmlLoader.load();
                 // Replace the content of contentPane (the right side)
                 contentPane.getChildren().setAll(pane);
@@ -180,22 +157,6 @@ public class LoginController {
         }
     }
 
-    /*@FXML
-    void openFaculty(ActionEvent event) throws IOException {
-        try {
-            facultyController facultycontroller = new facultyController();
-            FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("faculty-overview.fxml"));
-            fxmlLoader.setController(facultycontroller);
-            Parent root = fxmlLoader.load();
-
-            Stage newStage = new Stage();
-            newStage.setScene(new Scene(root, 600, 400));
-            newStage.setTitle("Faculty Overview");
-            newStage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }*/
     @FXML
     void openFaculty() throws IOException {
         try {
@@ -208,27 +169,18 @@ public class LoginController {
 
                 // Set the right-side content to the new pane
                 contentPane.getChildren().setAll(pane);
-            } else {
-                if (loginUser.equals("Faculty")) {
-                    FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("faculty/faculty-profile.fxml"));
-                    facultyController facultycontroller = new facultyController(db, "admin", contentPane);
-                    fxmlLoader.setController(facultycontroller);
-                    AnchorPane pane = fxmlLoader.load();
-                } else if (loginUser.equals("Student")) {
-
-                } else {
-
-                }
+            } else if (loginUser.equals("Faculty")) {
+                FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("faculty/faculty-profile.fxml"));
+                facultyController facultycontroller = new facultyController(db, "admin", contentPane);
+                fxmlLoader.setController(facultycontroller);
+                AnchorPane pane = fxmlLoader.load();
+//                } else if (loginUser.equals("Student")) {
+//                }
             }
-
-
-        } catch (IOException e) {
-            e.printStackTrace();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
-
     @FXML
     void openStudents() throws IOException {
         try {
@@ -249,21 +201,6 @@ public class LoginController {
         }
     }
 
-    //    @FXML
-//    void openCourses(ActionEvent event) throws IOException {
-//        try {
-//            FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("AdminView.fxml"));
-//
-//            Parent root = fxmlLoader.load();
-//
-//            Stage newStage = new Stage();
-//            newStage.setScene(new Scene(root, 600, 400));
-//            newStage.setTitle("Student Dashboard");
-//            newStage.show();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//    }
     @FXML
     void openCourses(ActionEvent event) throws IOException {
         try {
@@ -401,34 +338,6 @@ public class LoginController {
         }
     }
 
-/*
-    // This method will be automatically called when the page loads
-    @FXML
-    public void initialize() {
-        loadFXMLToGridPane("student/StdDashboard.fxml", 0, 0);  // Top-left
-        loadFXMLToGridPane("subject/admin-view.fxml", 0, 1);  // Top-right
-        loadFXMLToGridPane("faculty/faculty-overview.fxml", 1, 0);  // Bottom-left
-        loadFXMLToGridPane("events/EventManagement.fxml", 1, 1);   // Bottom-right
-        loadFXMLToGridPane("course/AdminView.fxml", 2, 0);         // Lower-left
-    }
-
-    // Helper method to load an FXML file into the specified cell of the GridPane
-    private void loadFXMLToGridPane(String fxmlFile, int row, int col) {
-        try {
-            // Load the FXML file
-            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFile));
-            AnchorPane root = loader.load();
-
-            // Add the loaded FXML to the specified cell in the GridPa
-            gridPane.add(root, col, row);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-*/
-
-
     @FXML
     private void recentEvents() {
         try {
@@ -448,7 +357,7 @@ public class LoginController {
     @FXML
     void logout(ActionEvent event){
         try {
-            Parent loginScreen = FXMLLoader.load(Objects.requireNonNull(HelloApplication.class.getResource("login.fxml")));
+            Parent loginScreen = FXMLLoader.load(Objects.requireNonNull(HelloApplication.class.getResource("login/login.fxml")));
             stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             scene = new Scene(loginScreen);
             stage.setScene(scene);
@@ -458,5 +367,4 @@ public class LoginController {
             e.printStackTrace();
         }
     }
-
 }

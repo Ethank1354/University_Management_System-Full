@@ -15,7 +15,7 @@ import java.util.Objects;
 public class Main extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        Parent loginFX = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("login.fxml")));
+        Parent loginFX = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("login/login.fxml")));
         stage = new Stage();
         Scene scene = new Scene(loginFX, 320, 240);
         stage.setTitle("University Management System!");
