@@ -3,7 +3,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="engg1420_project.universitymanagementsystem.login.LoginController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" stylesheets="@dashboard-style.css" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="engg1420_project.universitymanagementsystem.login.LoginController">
     <children>
         <GridPane prefHeight="392.0" prefWidth="600.0">
             <columnConstraints>
@@ -17,19 +17,19 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             </rowConstraints>
             <children>
-                <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
+                <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="0" GridPane.rowIndex="1">
                     <children>
-                        <TextField text="My Students" />
+                        <TextField text="Other Students" />
                     </children>
                 </AnchorPane>
-                <AnchorPane layoutX="10.0" layoutY="108.0" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="2">
+                <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="2">
                     <children>
-                        <TextField text="My Courses" />
+                        <TextField text="Manage Courses" />
                     </children>
                 </AnchorPane>
-                <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="3">
+                <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="0" GridPane.rowIndex="3">
                     <children>
-                        <TextField text="Faculty" />
+                        <TextField text="My Faculty" />
                     </children>
                 </AnchorPane>
                 <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
@@ -39,12 +39,12 @@
                 </AnchorPane>
                 <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                     <children>
-                        <TextField text="Relevant Events" />
+                        <TextField text="Upcoming Events" />
                     </children>
                 </AnchorPane>
                 <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
                     <children>
-                        <TextField text="Relevant Activities" />
+                        <TextField text="Upcoming Activities" />
                     </children>
                 </AnchorPane>
 

@@ -1,6 +1,5 @@
 package engg1420_project.universitymanagementsystem;
 
-import engg1420_project.universitymanagementsystem.projectClasses.DatabaseManager;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.*;
@@ -14,16 +13,13 @@ import java.io.IOException;
 import java.util.Objects;
 
 public class Main extends Application {
-
-    DatabaseManager dbm;
     @Override
     public void start(Stage stage) throws IOException {
-        Parent loginFX = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("login.fxml")));
+        Parent loginFX = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("login/login.fxml")));
         stage = new Stage();
         Scene scene = new Scene(loginFX, 320, 240);
-
-
         stage.setTitle("University Management System!");
+
         stage.setScene(scene);
         stage.show();
 
