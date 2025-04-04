@@ -139,26 +139,31 @@ public class CourseManager {
 
     private static boolean checkForLectureTimeConflict(Course newCourse) throws SQLException {
         List<String> existingCourses = db.getFilteredValues("Courses",
-                new String[]{"Lecture Time", "Location"},
+                new String[]{"Course Name", "Lecture Time", "Location"}, // Include Course Name
                 "Course Code",
                 "%"
         );
 
         for (String courseRow : existingCourses) {
             String[] courseData = courseRow.split(",");
-            if (courseData.length < 9) {
+            if (courseData.length < 3) { // Adjusted for 3 columns
                 continue;
             }
 
-            String existingCourseTime = courseData[6];
-            String existingRoom = courseData[7];
+            String existingCourseName = courseData[0]; // Course Name
+            String existingCourseTime = courseData[1]; // Lecture Time
+            String existingRoom = courseData[2];       // Location
 
-            if (doTimesOverlap(existingCourseTime, newCourse.getLectureTime()) &&
-                    existingRoom.equals(newCourse.getLocation())) {
-                return true;
+            // 1. Different Course Names
+            if (!existingCourseName.equals(newCourse.getCourseName())) {
+                // 2. Overlapping Lecture Times OR Same Room
+                if (doTimesOverlap(existingCourseTime, newCourse.getLectureTime()) ||
+                        existingRoom.equals(newCourse.getLocation())) {
+                    return true; // Conflict found
+                }
             }
         }
-        return false;
+        return false; // No conflict found
     }
 
     private static boolean doTimesOverlap(String time1, String time2) {
