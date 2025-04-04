@@ -34,8 +34,6 @@ public class StdCreateCtrl {
     private DatabaseManager db;
     private String username;
     private String access;
-
-
     private String photoName;
 
     public StdCreateCtrl(DatabaseManager db, String username, String access) {
@@ -63,6 +61,7 @@ public class StdCreateCtrl {
     @FXML
     private ImageView imgViewProfile;
 
+    //Generates a student ID based on the largest student id currently exisiting
     public String generateID() throws SQLException {
         int largestID = 0;
         List<String> id = db.getColumnValues("Students", "Student ID");
@@ -78,6 +77,7 @@ public class StdCreateCtrl {
 
 
     //Save Changes Button
+    //Tries to update the students details.
     @FXML
     public void addStudent(ActionEvent event) throws IOException, SQLException {
         if (exceptionHandling() == 0) {
@@ -161,7 +161,7 @@ public class StdCreateCtrl {
         }
     }
 
-
+    //Small function that searches for a character within a string
     private int doesContain(String string, char c) {
         int count = 0;
         for (int i = 0; i < string.length(); i++) {
@@ -222,6 +222,8 @@ public class StdCreateCtrl {
         return 0;
     }
 
+
+    //Uploading an image function
     @FXML
     private void chooseImage(ActionEvent event) {
         try {
@@ -267,8 +269,6 @@ public class StdCreateCtrl {
 
 
     }
-
-
 
     @FXML
     public void initialize() {
