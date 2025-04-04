@@ -170,6 +170,7 @@ public class FacultyProfileController {
             roomLabel.setVisible(false);
             emailLabel.setVisible(false);
             researchLabel.setVisible(false);
+            coursesTab.setDisable(true);
 
             if(this.access.equals("admin")) {
                 degreeLabel.setVisible(false);
@@ -193,7 +194,7 @@ public class FacultyProfileController {
             faculty.setEmail(emailField.getText());
             faculty.setResearchInterest(researchField.getText());
             faculty.setPassword(passwordText.getText());
-            faculty.setName(degreeField.getText());
+            faculty.setDegree(degreeField.getText());
 
             faculty.updateInfo();
 
@@ -201,6 +202,7 @@ public class FacultyProfileController {
             emailLabel.setVisible(true);
             researchLabel.setVisible(true);
             degreeLabel.setVisible(true);
+            coursesTab.setDisable(false);
 
             roomField.setVisible(false);
             emailField.setVisible(false);
