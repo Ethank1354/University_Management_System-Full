@@ -94,11 +94,17 @@ public class addStudentCourse {
     }
 
     private void addCourse(String item) throws SQLException {
-        ArrayList<String> currentCourses = student.getSubjects();
+        ArrayList<String> currentCourses;
+        if (student.getSubjects() == null || student.getSubjects().isEmpty()) {
+            currentCourses = new ArrayList<>();
+        } else {
+             currentCourses = student.getSubjects();
+        }
+
 
         for (int i = 0; i < currentCourses.size(); i++) {
             if (currentCourses.get(i).equals(item)) {
-
+                break;
             } else {
                 student.addSubject(item);
             }
