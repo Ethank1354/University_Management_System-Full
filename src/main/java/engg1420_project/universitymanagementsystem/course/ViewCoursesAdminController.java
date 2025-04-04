@@ -84,6 +84,9 @@ public class ViewCoursesAdminController {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("AddCourse.fxml"));
             Parent root = loader.load();
 
+            AddCourseController controller = loader.getController();
+            controller.setParentController(this); // Pass the current controller instance
+
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
             stage.setTitle("Add Course");
