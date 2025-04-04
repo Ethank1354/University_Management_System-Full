@@ -308,15 +308,15 @@ public class editStudentProfile {
             }
         } else {
             if (exceptionHandling() == 1) {
-                labelError.setText("Bro WTF fix yo names stinky face");
+                labelError.setText("Please Re-enter your name");
             } else if (exceptionHandling() == 2) {
-                labelError.setText("Bro WTF fix yo passwords stinky face");
+                labelError.setText("Please Re-enter your password");
             } else if (exceptionHandling() == 3) {
                 labelError.setText("Please Re-enter your email address");
             } else if (exceptionHandling() == 4) {
                 labelError.setText("Please Re-enter your address");
             } else if (exceptionHandling() == 7) {
-                labelError.setText("Please Re-enter your smesmer?");
+                labelError.setText("Please Re-enter your semester?");
             } else if (exceptionHandling() == 5) {
                 labelError.setText("Please Re-enter your phone number");
             } else if (exceptionHandling() == 6) {

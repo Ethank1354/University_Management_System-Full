@@ -51,11 +51,11 @@ public class Student extends User {
                 this.subjects.add(subjectlist[i]);
             }
             //grades = new String[subjects.size()];
-
-
             for (int i = 0; i < subjects.size(); i++) {
                 grades.add("50%");
             }
+        } else {
+            this.subjects = null;
         }
 
         this.thesis = studentMember.get(9);
@@ -78,8 +78,6 @@ public class Student extends User {
         } else {
             tutionPaid = Double.parseDouble(studentMember.get(12));
         }
-
-        //Handle Profile Photo
 
         this.profilePhotoLocation = studentMember.get(7);
 
@@ -146,7 +144,7 @@ public class Student extends User {
     }
 
     public ArrayList<String> getSubjects() {
-        if (subjects == null) {
+        if (subjects == null || subjects.isEmpty()) {
             return null;
         }
         return subjects;
@@ -183,12 +181,7 @@ public class Student extends User {
         return profilePhotoLocation;
     }
 
-    /*
-    public String getPhotoName() {
-        return photoName;
-    }
 
-     */
 
     //Setter Methods
 
@@ -224,13 +217,14 @@ public class Student extends User {
         for (int i = 0; i < subjects.size(); i++) {
             if (subjects.get(i).equals(subjectName)) {
                 subjects.remove(i);
+                grades.remove(i);
             }
         }
     }
 
     public void addSubject(String subject) {
         this.subjects.add(subject);
-        this.grades.add("50%");
+        //this.grades.add("50%");
     }
 
     public void updateStudent() throws SQLException {

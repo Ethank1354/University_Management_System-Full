@@ -212,6 +212,11 @@ public class StdDashCtrl {
 
              */
             contextMenu.getItems().addAll(viewProfile, deleteItem, editProfile);
+            if (access.equals("Faculty")) {
+                contextMenu.getItems().remove(deleteItem);
+                contextMenu.getItems().remove(editProfile);
+
+            }
 
 
             cell.textProperty().bind(cell.itemProperty());
