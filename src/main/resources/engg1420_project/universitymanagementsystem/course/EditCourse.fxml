@@ -3,7 +3,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="engg1420_project.universitymanagementsystem.course.EditCourseController">
+<AnchorPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" stylesheets="@course~profile~style.css" fx:controller="engg1420_project.universitymanagementsystem.course.EditCourseController">
     <VBox spacing="10" alignment="CENTER">
         <Label text="Edit Course" />
 

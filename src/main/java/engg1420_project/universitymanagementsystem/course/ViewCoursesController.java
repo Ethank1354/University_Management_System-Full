@@ -38,8 +38,6 @@ public class ViewCoursesController {
     private TableColumn<Course, String> examColumn;
 
     @FXML
-    private Button viewEnrollmentsButton;
-    @FXML
     private Button goBackButton;
 
     private ObservableList<Course> courseList;
@@ -61,10 +59,6 @@ public class ViewCoursesController {
         courseList = FXCollections.observableArrayList(CourseManager.getCourses());
         coursesTable.setItems(courseList);
 
-        coursesTable.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
-            boolean isSelected = newSelection != null;
-            viewEnrollmentsButton.setDisable(!isSelected);
-        });
     }
 
 
@@ -74,7 +68,7 @@ public class ViewCoursesController {
         if (selectedCourse == null) return;
 
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("course/ManageEnrollments.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("course/ViewEnrollments.fxml"));
             Parent root = loader.load();
             Stage enrollmentsStage = new Stage();
             enrollmentsStage.setScene(new Scene(root));

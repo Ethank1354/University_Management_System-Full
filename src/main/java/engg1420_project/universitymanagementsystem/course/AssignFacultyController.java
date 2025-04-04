@@ -8,6 +8,7 @@ import javafx.stage.Stage;
 import javafx.collections.FXCollections;
 
 import java.sql.SQLException;
+import java.util.Collections;
 import java.util.List;
 
 public class AssignFacultyController {
@@ -35,7 +36,7 @@ public class AssignFacultyController {
     }
 
     private void populateTeacherComboBox() throws SQLException {
-        List<String> teacherList = db.getColumnValues("faculty", "name");  // Use instance method
+        List<String> teacherList = db.getColumnValues("Faculties", "Name");  // Correct table name
         teacherComboBox.setItems(FXCollections.observableArrayList(teacherList));
     }
 
@@ -44,25 +45,44 @@ public class AssignFacultyController {
         String selectedTeacher = teacherComboBox.getValue();
 
         if (selectedTeacher != null && selectedCourse != null) {
-            boolean success = db.updateRowInTable( // Use `db` instance instead of static call
-                    "courses",
-                    "course_code",
-                    String.valueOf(selectedCourse.getCourseCode()),
-                    List.of(selectedTeacher)
+
+            List<String> columnHeaders = db.getTableHeaders("Courses");
+            List<String> matchingRow = db.getFilteredValues(
+                    "Courses",
+                    columnHeaders.toArray(new String[0]), // Get all columns
+                    "Course Code",
+                    String.valueOf(selectedCourse.getCourseCode())
             );
 
-            if (success) {
-                selectedCourse.setTeacherName(selectedTeacher);
-                System.out.println("Assigned " + selectedTeacher + " to " + selectedCourse.getCourseName());
+            if (!matchingRow.isEmpty()) {
+                int sectionIndex = columnHeaders.indexOf("Section Number");
+                int teacherIndex = columnHeaders.indexOf("Teacher Name");
 
-                if (parentController != null) {
-                    parentController.refreshTable();
+                // Check if section number matches
+                if (matchingRow.get(sectionIndex).equals(String.valueOf(selectedCourse.getSectionNumber()))) {
+                    matchingRow.set(teacherIndex, selectedTeacher);
+
+                    // Update the row using Course Code as the filter
+                    boolean success = db.updateRowInTable("Courses", "Course Code", String.valueOf(selectedCourse.getCourseCode()), matchingRow);
+
+                    if (success) {
+                        selectedCourse.setTeacherName(selectedTeacher);
+                        System.out.println("Assigned " + selectedTeacher + " to " + selectedCourse.getCourseName());
+
+                        if (parentController != null) {
+                            parentController.refreshTable();
+                        }
+
+                        showConfirmationPopup();
+                        closeDialog();
+                    } else {
+                        showAlert("Assignment Failed", "Could not assign faculty to the course.");
+                    }
+                } else {
+                    showAlert("Course Not Found", "No matching course section found.");
                 }
-
-                showConfirmationPopup();
-                closeDialog();
             } else {
-                showAlert("Assignment Failed", "Could not assign faculty to the course.");
+                showAlert("Course Not Found", "No matching course section found.");
             }
         } else {
             showAlert("Invalid Selection", "Please select a faculty member to assign.");
@@ -96,6 +116,8 @@ public class AssignFacultyController {
         alert.showAndWait();
     }
 }
+
+
 
 
 

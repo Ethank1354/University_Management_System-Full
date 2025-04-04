@@ -22,7 +22,7 @@ public class StudentViewController {
 
     private void openViewCourses(String fxmlFile, String title) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/project/" + fxmlFile));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("ViewCourses.fxml"));
             Parent root = loader.load();
             Stage stage = new Stage();
             stage.setTitle(title);
@@ -40,7 +40,7 @@ public class StudentViewController {
 
     private void openViewEnrollments(String fxmlFile, String title) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/project/" + fxmlFile));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("ViewEnrollments.fxml"));
             Parent root = loader.load();
             Stage stage = new Stage();
             stage.setTitle(title);

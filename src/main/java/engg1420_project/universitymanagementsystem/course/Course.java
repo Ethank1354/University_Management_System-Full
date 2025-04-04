@@ -5,25 +5,26 @@ import java.util.List;
 
 public class Course {
     private String courseName;
-    private int courseCode;
-    private String subjectName;
-    private int sectionNumber;
-    private String teacherName; // Changed from instructor to teacherName
-    private int maxCapacity; // Renamed from capacity
-    private int currentCapacity; // Tracks the number of enrolled students
+    private double courseCode; // Using double for course code
+    private String subjectCode;
+    private String sectionNumber; // Using String to store "Section X"
+    private String teacherName;
+    private double capacity; // Using double for capacity
+    private int currentCapacity;
     private String lectureTime;
     private String location;
     private String finalExamDateTime;
     private List<StudentCM> enrolledStudents = new ArrayList<>();
 
-    public Course(String courseName, int courseCode, String subjectName, int sectionNumber,
-                  String teacherName, int maxCapacity, String lectureTime, String location, String examTime) {
+    public Course(double courseCode, String courseName, String subjectCode, String sectionNumber,
+                  String teacherName, double capacity, String lectureTime, String location, String finalExamDateTime) {
+
         this.courseName = courseName;
         this.courseCode = courseCode;
-        this.subjectName = subjectName;
+        this.subjectCode = subjectCode;
         this.sectionNumber = sectionNumber;
         this.teacherName = teacherName;
-        this.maxCapacity = maxCapacity;
+        this.capacity = capacity;
         this.currentCapacity = 0; // Initially, no students are enrolled
         this.lectureTime = lectureTime;
         this.location = location;
@@ -32,11 +33,11 @@ public class Course {
 
     // Getters
     public String getCourseName() { return courseName; }
-    public int getCourseCode() { return courseCode; }
-    public String getSubjectName() { return subjectName; }
-    public int getSectionNumber() { return sectionNumber; }
+    public double getCourseCode() { return courseCode; }
+    public String getSubjectCode() { return subjectCode; }
+    public String getSectionNumber() { return sectionNumber; }
     public String getTeacherName() { return teacherName; }
-    public int getMaxCapacity() { return maxCapacity; }
+    public double getCapacity() { return capacity; }
     public int getCurrentCapacity() { return currentCapacity; }
     public String getLectureTime() { return lectureTime; }
     public String getLocation() { return location; }
@@ -45,11 +46,11 @@ public class Course {
 
     // Setters
     public void setCourseName(String courseName) { this.courseName = courseName; }
-    public void setCourseCode(int courseCode) { this.courseCode = courseCode; }
-    public void setSubjectName(String subjectName) { this.subjectName = subjectName; }
-    public void setSectionNumber(int sectionNumber) { this.sectionNumber = sectionNumber; }
+    public void setCourseCode(double courseCode) { this.courseCode = courseCode; }
+    public void setSubjectCode(String subjectCode) { this.subjectCode = subjectCode; }
+    public void setSectionNumber(String sectionNumber) { this.sectionNumber = sectionNumber; }
     public void setTeacherName(String teacherName) { this.teacherName = teacherName; }
-    public void setMaxCapacity(int maxCapacity) { this.maxCapacity = maxCapacity; }
+    public void setCapacity(double capacity) { this.capacity = capacity; }
     public void setLectureTime(String lectureTime) { this.lectureTime = lectureTime; }
     public void setLocation(String location) { this.location = location; }
     public void setFinalExamDateTime(String finalExamDateTime) { this.finalExamDateTime = finalExamDateTime; }
@@ -57,8 +58,9 @@ public class Course {
 
     @Override
     public String toString() {
-        return subjectName + " " + courseCode;
+        return subjectCode + " " + courseName;
     }
 }
+
 
 

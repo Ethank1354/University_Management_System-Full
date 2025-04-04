@@ -15,7 +15,7 @@ public class AddCourseController {
     @FXML public Label statusLabel;
     @FXML private TextField courseNameField;
     @FXML private TextField courseCodeField;
-    @FXML private TextField subjectNameField;
+    @FXML private TextField subjectCodeField;
     @FXML private TextField sectionNumberField;
     @FXML private TextField teacherNameField;
     @FXML private TextField capacityField;
@@ -27,31 +27,31 @@ public class AddCourseController {
     @FXML
     private void handleAddCourse() {
         try {
-            // Read input values
+            // Read input values from the UI fields
             String courseName = courseNameField.getText().trim();
-            String subjectName = subjectNameField.getText().trim();
+            String subjectCode = subjectCodeField.getText().trim();
             String teacherName = teacherNameField.getText().trim();
             String lectureTime = lectureTimeField.getText().trim();
             String location = locationField.getText().trim();
             String finalExamDateTime = finalExamDateTimeField.getText().trim();
 
             // Parse integers
-            int courseCode = Integer.parseInt(courseCodeField.getText().trim());
-            int sectionNumber = Integer.parseInt(sectionNumberField.getText().trim());
-            int capacity = Integer.parseInt(capacityField.getText().trim());
+            double courseCode = Double.parseDouble(courseCodeField.getText().trim()); // Convert courseCode to double
+            String sectionNumber = sectionNumberField.getText().trim(); // sectionNumber is String already
+            double capacity = Double.parseDouble(capacityField.getText().trim()); // Convert capacity to double
 
             // Validate required fields
-            if (courseName.isEmpty() || subjectName.isEmpty() || teacherName.isEmpty() ||
+            if (courseName.isEmpty() || subjectCode.isEmpty() || teacherName.isEmpty() ||
                     lectureTime.isEmpty() || location.isEmpty() || finalExamDateTime.isEmpty()) {
                 statusLabel.setText("Please fill all fields.");
                 return;
             }
 
-            // Create course object
-            Course newCourse = new Course(courseName, courseCode, subjectName, sectionNumber,
+            // Create a new Course object
+            Course newCourse = new Course(courseCode, courseName, subjectCode, sectionNumber,
                     teacherName, capacity, lectureTime, location, finalExamDateTime);
 
-            // Add course to database
+            // Add the course to the database using CourseManager
             boolean courseAdded = CourseManager.addCourse(newCourse);
             if (courseAdded) {
                 statusLabel.setText("Course added successfully!");
@@ -69,7 +69,12 @@ public class AddCourseController {
 
     @FXML
     private void goBack() {
+        // Only close the Add Course view.
         Stage stage = (Stage) goBackButton.getScene().getWindow();
-        stage.close();
+        if (stage != null) {
+            stage.close();
+        }
     }
 }
+
+
