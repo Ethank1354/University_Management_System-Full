@@ -69,7 +69,7 @@ public class editStudentProfile {
     @FXML TextField tfPaid, tfTotal;
 
     @FXML
-    private Button btnEditTution, btnUpdateTution;
+    private Button btnEditTution, btnUpdateTution, btnAddCourse;
 
 
     //Course Page
@@ -78,17 +78,19 @@ public class editStudentProfile {
 
     public void initialize() {
         if (access.equals("Student")) {
-            btnSave.setVisible(false);
             tfProgress.setVisible(false);
             tfSemester.setVisible(false);
             tfThesis.setVisible(false);
             chBoxLevel.setVisible(false);
+            btnEditTution.setVisible(false);
+            btnAddCourse.setVisible(false);
         } else if (access.equals("Admin")) {
-            btnSave.setVisible(true);
             tfProgress.setVisible(true);
             tfSemester.setVisible(true);
             tfThesis.setVisible(true);
             chBoxLevel.setVisible(true);
+            btnEditTution.setVisible(true);
+            btnAddCourse.setVisible(true);
 
         }
 
@@ -414,10 +416,10 @@ public class editStudentProfile {
     @FXML
     public void exit (ActionEvent event) throws IOException {
         try {
-            StdDashCtrl stdDashCtrl = new StdDashCtrl(db,username);
-            FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("student/StdDashboard.fxml"));
-            fxmlLoader.setController(stdDashCtrl);
-
+            String studentInfo = student.getStudentID() + ":" + student.getName();
+            StdProfileViewCtrl stdProfileViewCtrl = new StdProfileViewCtrl(db, access, studentInfo);
+            FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("student/StdViewProfile.fxml"));
+            fxmlLoader.setController(stdProfileViewCtrl);
             AnchorPane pane = fxmlLoader.load();
             contentPane.getChildren().setAll(pane);
 
