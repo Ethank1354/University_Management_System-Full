@@ -102,8 +102,13 @@ public class CourseManager {
 
     // Method to delete a course from the database
     public static boolean deleteCourse(Course selectedCourse) {
-        try (Connection conn = db.getConnection();
-             PreparedStatement stmt = conn.prepareStatement("DELETE FROM Courses WHERE \"Course Code\" = ? AND \"Section Number\" = ?")) {
+        Connection conn = db.getConnection(); // Get connection from DatabaseManager
+        if (conn == null) {
+            System.out.println("Error: Could not get database connection");
+            return false;
+        }
+
+        try (PreparedStatement stmt = conn.prepareStatement("DELETE FROM Courses WHERE \"Course Code\" = ? AND \"Section Number\" = ?")) {
 
             String courseCodeStr = String.valueOf(selectedCourse.getCourseCode());
             String sectionNumber = String.valueOf(selectedCourse.getSectionNumber());
@@ -138,35 +143,47 @@ public class CourseManager {
     }
 
     private static boolean checkForLectureTimeConflict(Course newCourse) throws SQLException {
+        System.out.println("Checking for lecture time conflict for: " + newCourse.getCourseName() +
+                ", Time: " + newCourse.getLectureTime() + ", Location: " + newCourse.getLocation());
+
         List<String> existingCourses = db.getFilteredValues("Courses",
-                new String[]{"Course Name", "Lecture Time", "Location"}, // Include Course Name
+                new String[]{"Course Name", "Lecture Time", "Location"},
                 "Course Code",
                 "%"
         );
 
         for (String courseRow : existingCourses) {
             String[] courseData = courseRow.split(",");
-            if (courseData.length < 3) { // Adjusted for 3 columns
+            if (courseData.length < 3) {
                 continue;
             }
 
-            String existingCourseName = courseData[0]; // Course Name
-            String existingCourseTime = courseData[1]; // Lecture Time
-            String existingRoom = courseData[2];       // Location
+            String existingCourseName = courseData[0];
+            String existingCourseTime = courseData[1].trim(); // Trim whitespace
+            String existingRoom = courseData[2].trim(); // Trim whitespace
 
-            // 1. Different Course Names
+            System.out.println("Existing course: " + existingCourseName +
+                    ", Time (DB): " + existingCourseTime + ", Location (DB): " + existingRoom);
+
             if (!existingCourseName.equals(newCourse.getCourseName())) {
-                // 2. Overlapping Lecture Times OR Same Room
-                if (doTimesOverlap(existingCourseTime, newCourse.getLectureTime()) ||
-                        existingRoom.equals(newCourse.getLocation())) {
-                    return true; // Conflict found
+                boolean timesOverlap = doTimesOverlap(existingCourseTime, newCourse.getLectureTime());
+                boolean roomsMatch = existingRoom.equals(newCourse.getLocation());
+
+                System.out.println("Times overlap: " + timesOverlap + ", Rooms match: " + roomsMatch);
+
+                if (timesOverlap || roomsMatch) {
+                    System.out.println("Conflict detected!");
+                    return true;
                 }
             }
         }
-        return false; // No conflict found
+        System.out.println("No conflict detected.");
+        return false;
     }
 
     private static boolean doTimesOverlap(String time1, String time2) {
+        System.out.println("Checking time overlap: Time1=" + time1 + ", Time2=" + time2);
+
         String[] parts1 = time1.split(" ", 2);
         String[] parts2 = time2.split(" ", 2);
 
@@ -180,7 +197,9 @@ public class CourseManager {
         String timeRange1 = parts1[1];
         String timeRange2 = parts2[1];
 
+        System.out.println("Days1: " + days1 + ", Days2: " + days2);
         if (!doDaysOverlap(days1, days2)) {
+            System.out.println("Days do not overlap.");
             return false;
         }
 
@@ -191,28 +210,39 @@ public class CourseManager {
             return false;
         }
 
-        return range1[0] < range2[1] && range1[1] > range2[0];
+        System.out.println("Range1: [" + range1[0] + ", " + range1[1] + "], Range2: [" + range2[0] + ", " + range2[1] + "]");
+
+        boolean overlap = range1[0] < range2[1] && range1[1] > range2[0];
+        System.out.println("Time overlap result: " + overlap);
+        return overlap;
     }
 
     private static boolean doDaysOverlap(String days1, String days2) {
+        System.out.println("Checking day overlap: Days1=" + days1 + ", Days2=" + days2);
+
         String[] daysArray1 = days1.split("/");
         String[] daysArray2 = days2.split("/");
 
         for (String day1 : daysArray1) {
             for (String day2 : daysArray2) {
-                if (day1.equals(day2)) {
+                if (day1.equalsIgnoreCase(day2)) { // Case-insensitive comparison
+                    System.out.println("Days overlap: " + day1);
                     return true;
                 }
             }
         }
+        System.out.println("Days do not overlap.");
         return false;
     }
 
     private static int[] extractTimeRange(String timeRange) {
+        System.out.println("Extracting time range: " + timeRange);
+
         try {
             String[] times = timeRange.split("-");
             int startTime = convTo24Hrs(times[0]);
             int endTime = convTo24Hrs(times[1]);
+            System.out.println("Extracted time range: [" + startTime + ", " + endTime + "]");
             return new int[]{startTime, endTime};
         } catch (Exception e) {
             System.out.println("Invalid Time Format: " + timeRange);
@@ -221,22 +251,37 @@ public class CourseManager {
     }
 
     private static int convTo24Hrs(String time) {
+        System.out.println("Converting to 24-hour format: " + time);
+
         boolean isPM = time.toUpperCase().contains("PM");
         time = time.replaceAll("[APM]", "").trim();
 
         String[] parts = time.split(":");
-        int hours = Integer.parseInt(parts[0]);
-        int minutes = Integer.parseInt(parts[1]);
-
-        if (isPM && hours != 12) {
-            hours += 12;
-        }
-        if (!isPM && hours == 12) {
-            hours = 0;
+        if (parts.length != 2) { // Added check for invalid format
+            System.out.println("Invalid time format (missing colon): " + time);
+            return -1; // Indicate error
         }
 
-        return hours * 60 + minutes;
+        try {
+            int hours = Integer.parseInt(parts[0]);
+            int minutes = Integer.parseInt(parts[1]);
+
+            if (isPM && hours != 12) {
+                hours += 12;
+            }
+            if (!isPM && hours == 12) {
+                hours = 0;
+            }
+
+            int result = hours * 60 + minutes;
+            System.out.println("Converted time: " + result);
+            return result;
+        } catch(NumberFormatException e) {
+            System.out.println("Invalid number format in time: " + time);
+            return -1;
+        }
     }
+
 }
 
 
