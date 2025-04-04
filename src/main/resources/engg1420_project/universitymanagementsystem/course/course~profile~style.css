@@ -119,7 +119,11 @@
     -fx-border-width: 0 1px 0 0; /* Right border */
     -fx-border-style: solid;
 }
-
+.table-view .column-header .label {
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-text-fill: black;
+}
 .table-view .table-cell {
     -fx-border-color: red gold; /* Match table border */
     -fx-border-width: 0 1px 0 0; /* Right border */

@@ -17,7 +17,7 @@
                 <TableColumn fx:id="capacityColumn" text="Capacity"/>
                 <TableColumn fx:id="timeColumn" text="Lecture Time"/>
                 <TableColumn fx:id="locationColumn" text="Location"/>
-                <TableColumn fx:id="examColumn" text="Final Exam"/>
+                <TableColumn fx:id="examColumn" text="Final Exam Date/Time"/>
             </columns>
         </TableView>
 

@@ -55,6 +55,7 @@ public class EditCourseController {
 
     @FXML
     private void saveChanges() {
+        System.out.println("saveChanges() called.");
         Alert confirmation = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you want to save changes?", ButtonType.YES, ButtonType.NO);
         confirmation.setTitle("Confirm Save");
         confirmation.setHeaderText(null);
@@ -143,15 +144,12 @@ public class EditCourseController {
     }
 
     // Helper method to execute a custom update query
-    private boolean executeCustomUpdate(String tableName, String whereClause, List<String> newValues, List<String> columnNames)
-            throws SQLException {
+    private boolean executeCustomUpdate(String tableName, String whereClause, List<String> newValues, List<String> columnNames) throws SQLException {
         String quotedTableName = tableName.contains(" ") ? "\"" + tableName + "\"" : tableName;
-
-        // Build SET clause
         StringBuilder setClause = new StringBuilder();
+
         for (int i = 0; i < columnNames.size(); i++) {
-            String quotedColumn = columnNames.get(i).contains(" ") ?
-                    "\"" + columnNames.get(i) + "\"" : columnNames.get(i);
+            String quotedColumn = columnNames.get(i).contains(" ") ? "\"" + columnNames.get(i) + "\"" : columnNames.get(i);
             setClause.append(quotedColumn).append(" = ?");
             if (i < columnNames.size() - 1) {
                 setClause.append(", ");
@@ -161,10 +159,13 @@ public class EditCourseController {
         String sql = "UPDATE " + quotedTableName + " SET " + setClause + " WHERE " + whereClause;
         System.out.println("Executing SQL: " + sql);
 
-        try (Connection conn = db.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
+        Connection conn = db.getConnection(); // Get connection from DatabaseManager
+        if (conn == null) {
+            System.out.println("Error: Could not get database connection");
+            return false;
+        }
 
-            // Set all the parameters for the update
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
             for (int i = 0; i < newValues.size(); i++) {
                 stmt.setString(i + 1, newValues.get(i));
             }
