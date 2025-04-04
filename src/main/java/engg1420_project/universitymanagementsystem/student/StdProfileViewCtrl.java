@@ -33,13 +33,8 @@ public class StdProfileViewCtrl  {
     private String username;
     private String ID;
 
-    public StdProfileViewCtrl(String studentInfo, String access, DatabaseManager db, String username) throws SQLException {
-        this.db = db;
-        this.studentInfo = studentInfo;
-        String[] parts = studentInfo.split(":");
-        this.student = new Student(parts[0], db);
-        this.username = username;
-    }
+
+
 
     public StdProfileViewCtrl(DatabaseManager db, String access, String studentInfo) throws SQLException {
         this.db = db;
@@ -49,13 +44,7 @@ public class StdProfileViewCtrl  {
         this.access = access;
     }
 
-    /*
-    public StdProfileViewCtrl(DatabaseManager db, String access, String ID) {
-        this.db = db;
-        this.access = access;
-        this.ID = ID;
-    }
-     */
+
 
 
     @FXML
@@ -134,6 +123,19 @@ public class StdProfileViewCtrl  {
             TotalAmount.setVisible(false);
             AmountPaid.setVisible(false);
             AmountLeft.setVisible(false);
+            btnExit.setVisible(false);
+        } else if (access.equals("Student")) {
+            btnEdit.setVisible(true);
+            barProgramProgress.setVisible(true);
+            subjectListView.setVisible(true);
+            horzLine.setVisible(true);
+            vertLine.setVisible(true);
+            TutionInfo.setVisible(true);
+            TotalAmount.setVisible(true);
+            AmountPaid.setVisible(true);
+            AmountLeft.setVisible(true);
+            btnExit.setVisible(false);
+
         } else {
             btnEdit.setVisible(true);
             barProgramProgress.setVisible(true);
@@ -144,11 +146,13 @@ public class StdProfileViewCtrl  {
             TotalAmount.setVisible(true);
             AmountPaid.setVisible(true);
             AmountLeft.setVisible(true);
+            btnExit.setVisible(true);
+
         }
 
         Image profile = null;
         try {
-            profile = new Image(HelloApplication.class.getResourceAsStream("images/" + student.getPhotoLocation()));
+            profile = new Image(HelloApplication.class.getResourceAsStream("images/" + student.getPhotoLocation() + ".png"));
         }catch (Exception e){
             profilePhoto.setImage(new Image(HelloApplication.class.getResourceAsStream("images/default.png")));
 
