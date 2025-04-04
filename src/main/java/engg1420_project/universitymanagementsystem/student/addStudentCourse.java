@@ -104,6 +104,21 @@ public class addStudentCourse {
             }
         }
         student.updateStudent();
+
+        try {
+            String cellItem = student.getStudentID() + ":" + student.getName();
+            editStudentProfile editStudentProfile = new editStudentProfile(db, cellItem, access, username);
+            FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("student/studentProfileEdit.fxml"));
+            fxmlLoader.setController(editStudentProfile);
+
+            AnchorPane pane = fxmlLoader.load();
+            contentPane.getChildren().setAll(pane);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @FXML
@@ -123,5 +138,7 @@ public class addStudentCourse {
             throw new RuntimeException(e);
         }
     }
+
+
 
 }
