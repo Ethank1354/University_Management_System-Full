@@ -253,7 +253,7 @@ public class LoginController {
             // Load the FXML and set the controller
             FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("student/StdDashboard.fxml"));
 
-            StdDashCtrl controller = new StdDashCtrl(db, loginUser);
+            StdDashCtrl controller = new StdDashCtrl(db, loginUser, "admin");
             fxmlLoader.setController(controller);
             AnchorPane pane = fxmlLoader.load();
 

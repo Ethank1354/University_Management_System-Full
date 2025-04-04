@@ -238,26 +238,21 @@ public class StdProfileViewCtrl  {
             String[] columns = {"Teacher Name"};
 
             List<String> facultyName = db.getFilteredValues("Courses", columns, "Subject Code", parts[0]);
-            System.out.println(facultyName);
-
             columns[0] = "Faculty ID";
-
             List<String> facultyID = db.getFilteredValues("Faculties", columns, "Name", facultyName.get(0));
-            System.out.println(facultyID);
             FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("faculty/faculty-profile.fxml"));
-            FacultyProfileController facultycontroller = new FacultyProfileController(facultyID.get(0), access.toLowerCase(), db, contentPane, student.getStudentID());
-
-
-
+            FacultyProfileController facultycontroller = new FacultyProfileController(facultyID.get(0), access, db, contentPane, student.getStudentID());
             fxmlLoader.setController(facultycontroller);
             AnchorPane pane = fxmlLoader.load();
 
             // Set the right-side content to the new pane
             contentPane.getChildren().setAll(pane);
         } catch (IOException e) {
-            e.printStackTrace();
-        } catch (SQLException e) {
             throw new RuntimeException(e);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }catch (IndexOutOfBoundsException e){
+            System.out.println("There is no faculty associated with this course");
         }
     }
 }
